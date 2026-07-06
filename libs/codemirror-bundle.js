@@ -24694,8 +24694,11 @@ function rust() {
 }
 export {
   EditorView,
+  HighlightStyle,
   basicSetup,
   keymap,
   oneDark,
-  rust
+  rust,
+  syntaxHighlighting,
+  tags
 };

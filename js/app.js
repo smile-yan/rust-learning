@@ -1,5 +1,5 @@
 import { createApp, ref, computed, onMounted, watch } from "vue";
-import { EditorView, basicSetup, rust, oneDark, keymap } from "../libs/codemirror-bundle.js";
+import { EditorView, basicSetup, rust, oneDark, keymap, syntaxHighlighting, HighlightStyle, tags } from "../libs/codemirror-bundle.js?v=3";
 
 const { marked } = window;
 
@@ -98,10 +98,28 @@ createApp({
         }
       });
 
+      const lightHighlight = HighlightStyle.define([
+        { tag: tags.keyword, color: "#d73a49" },
+        { tag: tags.controlKeyword, color: "#d73a49" },
+        { tag: tags.typeName, color: "#6f42c1" },
+        { tag: tags.className, color: "#6f42c1" },
+        { tag: tags.tagName, color: "#22863a" },
+        { tag: tags.name, color: "#24292e" },
+        { tag: tags.variableName, color: "#24292e" },
+        { tag: tags.string, color: "#032f62" },
+        { tag: tags.comment, color: "#6a737d", fontStyle: "italic" },
+        { tag: tags.number, color: "#005cc5" },
+        { tag: tags.operator, color: "#d73a49" },
+        { tag: tags.punctuation, color: "#24292e" },
+        { tag: tags.function(tags.variableName), color: "#6f42c1" },
+        { tag: tags.propertyName, color: "#005cc5" }
+      ]);
+
       const extensions = [
         basicSetup,
         rust(),
         themeExtension,
+        isDark ? oneDark : syntaxHighlighting(lightHighlight, { fallback: true }),
         keymap.of([
           {
             key: "Ctrl-Enter",
@@ -119,9 +137,6 @@ createApp({
           }
         ])
       ];
-      if (isDark) {
-        extensions.push(oneDark);
-      }
       editor = new EditorView({
         doc,
         extensions,
