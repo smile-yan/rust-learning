@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rust 学习之旅</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="h-screen flex flex-col overflow-hidden">
+  <header class="h-14 border-b flex items-center px-4 justify-between flex-shrink-0">
+    <div class="flex items-center gap-3">
+      <svg class="w-7 h-7 text-orange-500" viewBox="0 0 32 32" fill="currentColor">
+        <path d="M16 2C8.268 2 2 8.268 2 16s6.268 14 14 14 14-6.268 14-14S23.732 2 16 2zm0 4a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm-6 8a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm12 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm-9.5 8h7a1 1 0 0 1 0 2h-7a1 1 0 0 1 0-2z"/>
+      </svg>
+      <div>
+        <h1 class="font-bold text-lg leading-tight">Rust 学习之旅</h1>
+        <p class="text-xs opacity-70">理论与实践结合的交互式教程</p>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <button id="theme-toggle" class="p-2 rounded-md border transition-colors" aria-label="切换主题" title="切换主题">
+        <svg id="theme-icon-sun" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+        </svg>
+        <svg id="theme-icon-moon" class="w-5 h-5 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+        </svg>
+      </button>
+
+      <button id="menu-toggle" class="md:hidden p-2 rounded transition-colors" aria-label="切换菜单">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <div class="flex-1 flex overflow-hidden">
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-20 w-72 border-r flex-shrink-0 overflow-y-auto pt-14 md:pt-0 md:static transform -translate-x-full md:translate-x-0 transition-transform duration-200">
+      <nav id="chapter-list" class="p-3"></nav>
+    </aside>
+
+    <div id="sidebar-overlay" class="fixed inset-0 z-10 hidden md:hidden"></div>
+
+    <main class="flex-1 flex flex-col md:flex-row overflow-hidden min-w-0">
+      <section id="theory" class="flex-1 overflow-y-auto p-6 border-b md:border-b-0 md:border-r">
+        <div class="max-w-3xl mx-auto">
+          <div id="theory-content"></div>
+          <div id="chapter-hint" class="mt-6 p-4 rounded-lg text-sm hidden"></div>
+        </div>
+      </section>
+
+      <section class="flex-1 flex flex-col min-h-[50vh]">
+        <div class="h-11 border-b flex items-center px-4 justify-between flex-shrink-0">
+          <div class="flex items-center gap-2 text-sm">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+            </svg>
+            <span>实践代码</span>
+          </div>
+          <button id="run-btn" class="flex items-center gap-1.5 px-4 py-1.5 text-white text-sm font-medium rounded transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            运行
+          </button>
+        </div>
+        <div id="editor" class="flex-1 min-h-0"></div>
+        <div class="h-56 border-t flex flex-col flex-shrink-0">
+          <div class="h-8 px-4 flex items-center justify-between text-xs border-b">
+            <span>输出面板</span>
+            <button id="clear-output" class="transition-colors">清空</button>
+          </div>
+          <pre id="output" class="flex-1 p-4 overflow-auto text-sm font-mono">点击「运行」按钮查看输出结果</pre>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

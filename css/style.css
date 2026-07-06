@@ -1,0 +1,435 @@
+/* 基础样式 */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+/* 主题变量 */
+:root {
+  --sidebar-width: 18rem;
+
+  /* 浅色主题（默认） */
+  --bg-body: #f8fafc;
+  --bg-header: #ffffff;
+  --bg-sidebar: #ffffff;
+  --bg-theory: #f8fafc;
+  --bg-editor: #0f172a;
+  --bg-output: #f1f5f9;
+  --bg-output-header: #e2e8f0;
+  --text-primary: #1e293b;
+  --text-secondary: #64748b;
+  --text-muted: #94a3b8;
+  --border-color: #e2e8f0;
+  --accent: #ea580c;
+  --accent-hover: #c2410c;
+  --accent-active: #9a3412;
+
+  /* 理论区 Markdown */
+  --theory-text: #334155;
+  --theory-heading: #0f172a;
+  --theory-h1-border: #cbd5e1;
+  --theory-code-bg: #e2e8f0;
+  --theory-code-text: #92400e;
+  --theory-pre-bg: #0f172a;
+  --theory-pre-border: #334155;
+  --theory-pre-text: #e2e8f0;
+  --theory-link: #2563eb;
+  --theory-strong: #0f172a;
+  --hint-bg: #dbeafe;
+  --hint-border: #93c5fd;
+  --hint-text: #1e3a8a;
+
+  /* 按钮 */
+  --chapter-btn-text: #475569;
+  --chapter-btn-hover-bg: #f1f5f9;
+  --chapter-btn-active-bg: #e2e8f0;
+  --chapter-btn-active-text: #0f172a;
+  --chapter-num-bg: #e2e8f0;
+  --chapter-num-text: #64748b;
+
+  /* 输出面板 */
+  --output-empty: #94a3b8;
+  --output-success: #15803d;
+  --output-error: #dc2626;
+
+  /* 滚动条 */
+  --scrollbar-track: #e2e8f0;
+  --scrollbar-thumb: #94a3b8;
+  --scrollbar-thumb-hover: #64748b;
+}
+
+[data-theme="dark"] {
+  --bg-body: #111827;
+  --bg-header: #1f2937;
+  --bg-sidebar: #1f2937;
+  --bg-theory: #111827;
+  --bg-editor: #111827;
+  --bg-output: #020617;
+  --bg-output-header: #1f2937;
+  --text-primary: #f9fafb;
+  --text-secondary: #d1d5db;
+  --text-muted: #9ca3af;
+  --border-color: #374151;
+  --accent: #ea580c;
+  --accent-hover: #f97316;
+  --accent-active: #c2410c;
+
+  --theory-text: #d1d5db;
+  --theory-heading: #f9fafb;
+  --theory-h1-border: #374151;
+  --theory-code-bg: #374151;
+  --theory-code-text: #fbbf24;
+  --theory-pre-bg: #111827;
+  --theory-pre-border: #374151;
+  --theory-pre-text: #e5e7eb;
+  --theory-link: #60a5fa;
+  --theory-strong: #f9fafb;
+  --hint-bg: rgba(30, 64, 175, 0.3);
+  --hint-border: rgba(29, 78, 216, 0.5);
+  --hint-text: #dbeafe;
+
+  --chapter-btn-text: #d1d5db;
+  --chapter-btn-hover-bg: #374151;
+  --chapter-btn-active-bg: #374151;
+  --chapter-btn-active-text: #ffffff;
+  --chapter-num-bg: #374151;
+  --chapter-num-text: #9ca3af;
+
+  --output-empty: #9ca3af;
+  --output-success: #4ade80;
+  --output-error: #f87171;
+
+  --scrollbar-track: #1f2937;
+  --scrollbar-thumb: #4b5563;
+  --scrollbar-thumb-hover: #6b7280;
+}
+
+/* 应用主题变量 */
+body {
+  background: var(--bg-body);
+  color: var(--text-primary);
+}
+
+header {
+  background: var(--bg-header);
+  border-color: var(--border-color) !important;
+}
+
+#sidebar {
+  width: var(--sidebar-width);
+  background: var(--bg-sidebar);
+  border-color: var(--border-color) !important;
+}
+
+#theory {
+  background: var(--bg-theory);
+  border-color: var(--border-color) !important;
+}
+
+#editor {
+  background: var(--bg-editor);
+}
+
+#editor .cm-editor,
+#editor .cm-scroller,
+#editor .cm-gutters {
+  background: var(--bg-editor) !important;
+}
+
+[data-theme="light"] #editor .cm-editor,
+[data-theme="light"] #editor .cm-scroller,
+[data-theme="light"] #editor .cm-gutters,
+[data-theme="light"] #editor .cm-content {
+  background: #ffffff !important;
+}
+
+section:has(> #editor) {
+  background: var(--bg-editor);
+}
+
+[data-theme="light"] section:has(> #editor) {
+  background: #ffffff;
+}
+
+[data-theme="light"] section:has(> #editor) > div:first-child,
+[data-theme="light"] section:has(> #editor) > div:last-child {
+  background: #f8fafc;
+}
+
+[data-theme="light"] section:has(> #editor) > div:last-child #output {
+  background: #f8fafc;
+}
+
+section:has(> #editor) > div:first-child,
+section:has(> #editor) > div:last-child {
+  background: var(--bg-output-header);
+  border-color: var(--border-color) !important;
+}
+
+#output {
+  background: var(--bg-output);
+  color: var(--text-secondary);
+}
+
+/* 滚动条 */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--scrollbar-track);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-thumb);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scrollbar-thumb-hover);
+}
+
+/* 主题切换按钮 */
+#theme-toggle {
+  background: var(--bg-theory);
+  border-color: var(--border-color) !important;
+  color: var(--text-primary);
+}
+
+#theme-toggle:hover {
+  background: var(--chapter-btn-hover-bg);
+}
+
+#menu-toggle {
+  color: var(--text-secondary);
+}
+
+#menu-toggle:hover {
+  background: var(--chapter-btn-hover-bg);
+  color: var(--text-primary);
+}
+
+/* 理论区域 Markdown 样式 */
+#theory-content {
+  color: var(--theory-text);
+  line-height: 1.75;
+}
+
+#theory-content h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  color: var(--theory-heading);
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--theory-h1-border);
+}
+
+#theory-content h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--theory-heading);
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+}
+
+#theory-content h3 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--theory-heading);
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+#theory-content p {
+  margin-bottom: 1rem;
+}
+
+#theory-content ul,
+#theory-content ol {
+  margin-bottom: 1rem;
+  padding-left: 1.5rem;
+}
+
+#theory-content li {
+  margin-bottom: 0.35rem;
+}
+
+#theory-content code {
+  background: var(--theory-code-bg);
+  color: var(--theory-code-text);
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.25rem;
+  font-family: "JetBrains Mono", "Fira Code", Consolas, monospace;
+  font-size: 0.9em;
+}
+
+#theory-content pre {
+  background: var(--theory-pre-bg);
+  border: 1px solid var(--theory-pre-border);
+  border-radius: 0.5rem;
+  padding: 1rem;
+  overflow-x: auto;
+  margin-bottom: 1rem;
+}
+
+#theory-content pre code {
+  background: transparent;
+  color: var(--theory-pre-text);
+  padding: 0;
+  font-size: 0.875rem;
+}
+
+#theory-content strong {
+  color: var(--theory-strong);
+}
+
+#theory-content a {
+  color: var(--theory-link);
+  text-decoration: none;
+}
+
+#theory-content a:hover {
+  text-decoration: underline;
+}
+
+/* 提示框 */
+#chapter-hint {
+  background: var(--hint-bg);
+  border-color: var(--hint-border) !important;
+  color: var(--hint-text);
+}
+
+/* 输出面板 */
+#output {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+#output:empty::before {
+  content: "点击「运行」按钮查看输出结果";
+  color: var(--output-empty);
+}
+
+/* CodeMirror 主题微调 */
+.cm-editor {
+  height: 100%;
+}
+
+.cm-focused {
+  outline: none;
+}
+
+:root {
+  --sidebar-width: 18rem;
+}
+
+/* 模块标题 sticky */
+#chapter-list > div > h3 {
+  position: sticky;
+  top: 0;
+  background: var(--bg-sidebar);
+  z-index: 1;
+  border-radius: 0.375rem;
+}
+
+/* 章节按钮 */
+.chapter-btn {
+  color: var(--chapter-btn-text);
+}
+
+.chapter-btn:hover {
+  background: var(--chapter-btn-hover-bg);
+  color: var(--text-primary);
+}
+
+.chapter-btn.active {
+  background: var(--chapter-btn-active-bg);
+  color: var(--chapter-btn-active-text);
+}
+
+.chapter-btn span:first-child {
+  background: var(--chapter-num-bg) !important;
+  color: var(--chapter-num-text) !important;
+}
+
+.chapter-btn.active span:first-child {
+  background: var(--accent) !important;
+  color: #fff !important;
+}
+
+/* 运行按钮 */
+#run-btn {
+  background: var(--accent);
+}
+
+#run-btn:hover {
+  background: var(--accent-hover);
+}
+
+#run-btn:active {
+  background: var(--accent-active);
+}
+
+/* 清空按钮 */
+#clear-output {
+  color: var(--text-muted);
+}
+
+#clear-output:hover {
+  color: var(--text-primary);
+}
+
+/* 实践代码区标题 */
+section:has(> #editor) > div:first-child {
+  color: var(--text-secondary);
+}
+
+/* 输出面板标题 */
+section:has(> #editor) > div:last-child > div:first-child {
+  color: var(--text-muted);
+  background: var(--bg-output-header);
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  #theory {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+  }
+}
+
+/* 动画 */
+@keyframes pulse-orange {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.running #run-btn {
+  animation: pulse-orange 1.5s infinite;
+}
+
+/* 输出颜色 */
+.text-green-400 {
+  color: var(--output-success) !important;
+}
+
+.text-red-400 {
+  color: var(--output-error) !important;
+}
+
+.text-gray-200,
+.text-gray-400 {
+  color: var(--text-secondary) !important;
+}

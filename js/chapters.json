@@ -1,0 +1,149 @@
+[
+  {
+    "name": "基础入门",
+    "chapters": [
+      {
+        "title": "Hello World",
+        "theory": "\n# Hello World\n\nRust 程序的入口是 **`main`** 函数，使用 **`println!`** 宏在控制台输出内容。\n\n## 关键概念\n\n- **函数**：使用 `fn` 关键字定义。\n- **宏**：以 `!` 结尾，如 `println!`，在编译期生成代码。\n- **语句**：以分号 `;` 结尾。\n\n## 格式化输出\n\n`println!(\"值是: {}\", value)` 中的 `{}` 是占位符，会被后面的值替换。Rust 宏会自动在编译时检查参数数量和类型。\n",
+        "code": "fn main() {\n    println!(\"Hello, world!\");\n    println!(\"你好，Rust 学习之旅！\");\n\n    let name = \"Rust\";\n    println!(\"欢迎学习 {}\", name);\n\n    let (x, y) = (42, 3.14);\n    println!(\"坐标: x = {}, y = {}\", x, y);\n}",
+        "hint": "尝试修改 name 的值，或在 println! 中新增一个变量。"
+      },
+      {
+        "title": "变量与可变性",
+        "theory": "\n# 变量与可变性\n\nRust 中的变量默认是**不可变**的。如果需要修改，必须使用 `mut` 关键字。\n\n## 关键概念\n\n- `let x = 5;`：不可变变量，不能再次赋值。\n- `let mut y = 10;`：可变变量，可以修改。\n- `const MAX: u32 = 100;`：常量，必须标注类型，且始终不可变。\n\n## 隐藏（Shadowing）\n\n可以使用相同的名字声明新变量，新变量会**隐藏**旧变量，这允许我们在不改变可变性的前提下改变类型。\n",
+        "code": "fn main() {\n    let x = 5;\n    println!(\"x = {}\", x);\n    // x = 6; // 取消注释会报错，因为 x 不可变\n\n    let mut y = 10;\n    println!(\"修改前 y = {}\", y);\n    y = 20;\n    println!(\"修改后 y = {}\", y);\n\n    const MAX_POINTS: u32 = 100_000;\n    println!(\"常量 MAX_POINTS = {}\", MAX_POINTS);\n\n    let spaces = \"   \";\n    let spaces = spaces.len();\n    println!(\"隐藏后的 spaces = {}\", spaces);\n\n    let guess: u32 = \"42\".parse().expect(\"不是数字\");\n    println!(\"解析结果: {}\", guess);\n}",
+        "hint": "注意不可变变量与可变变量的区别，以及 const 必须标注类型。"
+      },
+      {
+        "title": "数据类型",
+        "theory": "\n# 数据类型\n\nRust 是**静态类型**语言，编译时必须知道所有变量的类型。\n\n## 标量类型\n\n- 整数：`i32`、`u32`、`i64` 等\n- 浮点数：`f32`、`f64`\n- 布尔：`bool`\n- 字符：`char`，支持 Unicode\n\n## 复合类型\n\n- **元组 tuple**：`(i32, f64, &str)`\n- **数组 array**：`[i32; 3]`，长度固定\n\n## 类型推断\n\nRust 编译器通常可以推断出变量类型，但在 `.parse()` 等歧义场景需要显式标注。\n",
+        "code": "fn main() {\n    let a: i32 = 42;\n    let b: f64 = 3.14;\n    let c: bool = true;\n    let d: char = '中';\n\n    let arr: [i32; 3] = [1, 2, 3];\n    let tup: (i32, f64, &str) = (500, 6.4, \"hello\");\n\n    println!(\"整数: {}, 浮点数: {}, 布尔值: {}, 字符: {}\", a, b, c, d);\n    println!(\"数组第二个元素: {}\", arr[1]);\n    println!(\"元组: {:?}\", tup);\n    println!(\"元组第一个元素: {}\", tup.0);\n\n    // 数组切片\n    let slice = &arr[1..];\n    println!(\"切片: {:?}\", slice);\n}",
+        "hint": "数组索引从 0 开始；使用 {:?} 可以打印调试格式。"
+      },
+      {
+        "title": "函数",
+        "theory": "\n# 函数\n\n函数使用 `fn` 声明，函数名使用**蛇形命名法**（`snake_case`）。\n\n## 参数与返回值\n\n- 参数必须声明类型：`fn add(a: i32, b: i32)`\n- 返回值类型写在箭头后：`-> i32`\n- 最后一个表达式的值就是返回值，**不能加分号**\n\n## 语句与表达式\n\nRust 中花括号可以创建一个代码块，代码块最后一个表达式即为返回值。\n",
+        "code": "fn main() {\n    greet(\"Rust\");\n\n    let sum = add(5, 3);\n    println!(\"5 + 3 = {}\", sum);\n\n    let y = {\n        let x = 3;\n        x + 1  // 没有分号，这是返回值\n    };\n    println!(\"y = {}\", y);\n\n    let value = with_side_effect();\n    println!(\"返回值: {}\", value);\n}\n\nfn greet(name: &str) {\n    println!(\"你好, {}!\", name);\n}\n\nfn add(a: i32, b: i32) -> i32 {\n    a + b\n}\n\nfn with_side_effect() -> i32 {\n    println!(\"函数被调用了\");\n    42\n}",
+        "hint": "尝试把 x + 1 后面加上分号，看看会报什么错误。"
+      },
+      {
+        "title": "控制流",
+        "theory": "\n# 控制流\n\nRust 提供多种控制程序执行流程的结构。\n\n## 分支\n\n- `if / else`：条件不需要括号\n- `if let`：简化针对单一模式的分支\n\n## 循环\n\n- `loop`：无限循环，用 `break` 退出，可携带返回值\n- `while`：条件循环\n- `for`：遍历范围或集合，是最安全和常用的循环方式\n",
+        "code": "fn main() {\n    let number = 7;\n    if number % 2 == 0 {\n        println!(\"偶数\");\n    } else {\n        println!(\"奇数\");\n    }\n\n    let mut count = 0;\n    let result = loop {\n        count += 1;\n        if count >= 3 {\n            break count * 2;\n        }\n    };\n    println!(\"loop 结果: {}\", result);\n\n    let mut n = 3;\n    while n > 0 {\n        println!(\"while: {}\", n);\n        n -= 1;\n    }\n\n    for i in 1..4 {\n        println!(\"for: {}\", i);\n    }\n\n    let arr = [10, 20, 30];\n    for (idx, val) in arr.iter().enumerate() {\n        println!(\"arr[{}] = {}\", idx, val);\n    }\n}",
+        "hint": "1..4 是左闭右开区间，包含 1、2、3。"
+      },
+      {
+        "title": "所有权",
+        "theory": "\n# 所有权\n\n所有权是 Rust 最核心的特性，用于内存管理而无需垃圾回收器。\n\n## 三条规则\n\n1. 每个值都有一个所有者。\n2. 同时只能有一个所有者。\n3. 所有者离开作用域，值被丢弃。\n\n## 借用\n\n- `&T`：不可变引用\n- `&mut T`：可变引用\n- 同一作用域内，只能有一个可变引用或多个不可变引用\n\n## 切片\n\n切片是对集合中一段连续元素的引用，不拥有数据。\n",
+        "code": "fn main() {\n    let s1 = String::from(\"hello\");\n    let len = calculate_length(&s1);\n    println!(\"'{}' 的长度是 {}。\", s1, len);\n\n    let mut s2 = String::from(\"hello\");\n    change(&mut s2);\n    println!(\"修改后: {}\", s2);\n\n    let s3 = s1.clone();\n    println!(\"s1 = {}, s3 = {}\", s1, s3);\n\n    let text = String::from(\"hello world\");\n    let first = &text[..5];\n    let second = &text[6..];\n    println!(\"{} | {}\", first, second);\n}\n\nfn calculate_length(s: &String) -> usize {\n    s.len()\n}\n\nfn change(s: &mut String) {\n    s.push_str(\", world\");\n}",
+        "hint": "如果不使用 clone()，String 会被移动，之后不能再使用 s1。"
+      },
+      {
+        "title": "结构体",
+        "theory": "\n# 结构体\n\n结构体（`struct`）用于创建自定义数据类型。\n\n## 定义与实例化\n\n`rust\nstruct User {\n    username: String,\n    email: String,\n}\n`\n\n## 方法\n\n使用 `impl` 块为结构体定义方法，第一个参数通常是 `&self`。\n\n## 关联函数\n\n不带 `self` 的函数常用于构造函数。\n",
+        "code": "#[derive(Debug)]\nstruct Rectangle {\n    width: u32,\n    height: u32,\n}\n\nimpl Rectangle {\n    fn square(size: u32) -> Self {\n        Self { width: size, height: size }\n    }\n\n    fn area(&self) -> u32 {\n        self.width * self.height\n    }\n\n    fn can_hold(&self, other: &Rectangle) -> bool {\n        self.width > other.width && self.height > other.height\n    }\n}\n\nfn main() {\n    let rect1 = Rectangle { width: 30, height: 50 };\n    println!(\"矩形: {:?}\", rect1);\n    println!(\"矩形面积: {}\", rect1.area());\n\n    let rect2 = Rectangle { width: 10, height: 40 };\n    println!(\"rect1 能容纳 rect2? {}\", rect1.can_hold(&rect2));\n\n    let sq = Rectangle::square(20);\n    println!(\"正方形面积: {}\", sq.area());\n}",
+        "hint": "#[derive(Debug)] 让我们可以用 {:?} 打印结构体。"
+      },
+      {
+        "title": "枚举与模式匹配",
+        "theory": "\n# 枚举与模式匹配\n\n枚举（`enum`）允许定义一组可能的值。\n\n## Option 枚举\n\nRust 没有空值，使用 `Option<T>` 表示值可能存在或不存在：\n\n- `Some(T)`\n- `None`\n\n## match\n\n`match` 用于模式匹配，必须处理所有可能的情况。`if let` 和 `while let` 是 `match` 的简写形式。\n",
+        "code": "enum Message {\n    Quit,\n    Move { x: i32, y: i32 },\n    Write(String),\n}\n\nfn main() {\n    let msg = Message::Move { x: 10, y: 20 };\n\n    match msg {\n        Message::Quit => println!(\"退出\"),\n        Message::Move { x, y } => println!(\"移动到 ({}, {})\", x, y),\n        Message::Write(text) => println!(\"写入: {}\", text),\n    }\n\n    let some_number = Some(5);\n    if let Some(n) = some_number {\n        println!(\"值是: {}\", n);\n    }\n\n    let absent: Option<i32> = None;\n    println!(\"absent: {:?}\", absent);\n\n    // 处理 Option 的常用模式\n    let val = Some(7);\n    match val {\n        Some(n) if n > 5 => println!(\"大于 5: {}\", n),\n        Some(_) => println!(\"不大于 5\"),\n        None => println!(\"没有值\"),\n    }\n}",
+        "hint": "match 的分支必须穷举所有变体。"
+      },
+      {
+        "title": "错误处理",
+        "theory": "\n# 错误处理\n\nRust 使用 `Result<T, E>` 枚举处理可恢复错误：\n\n- `Ok(T)`：操作成功\n- `Err(E)`：操作失败\n\n## 常用方法\n\n- `unwrap()`：成功返回值，失败则 panic\n- `expect()`：类似 unwrap，可自定义错误信息\n- `?` 操作符：将错误向上传播\n\n错误处理是 Rust 构建可靠系统的基石。\n",
+        "code": "fn main() {\n    match divide(10, 2) {\n        Ok(n) => println!(\"10 / 2 = {}\", n),\n        Err(e) => println!(\"错误: {}\", e),\n    }\n\n    match divide(10, 0) {\n        Ok(n) => println!(\"10 / 0 = {}\", n),\n        Err(e) => println!(\"错误: {}\", e),\n    }\n\n    let safe = divide(10, 0).unwrap_or(0);\n    println!(\"unwrap_or 结果: {}\", safe);\n\n    match safe_divide(10, 0) {\n        Ok(n) => println!(\"传播后结果: {}\", n),\n        Err(e) => println!(\"传播错误: {}\", e),\n    }\n}\n\nfn divide(a: i32, b: i32) -> Result<i32, String> {\n    if b == 0 {\n        Err(String::from(\"除数不能为零\"))\n    } else {\n        Ok(a / b)\n    }\n}\n\nfn safe_divide(a: i32, b: i32) -> Result<i32, String> {\n    let r = divide(a, b)?;\n    Ok(r * 2)\n}",
+        "hint": "unwrap() 在 Err 时会导致程序崩溃，实际代码中建议用 match 或 ?。"
+      },
+      {
+        "title": "集合",
+        "theory": "\n# 集合\n\nRust 标准库提供了几个常用集合类型。\n\n## Vec\n\n动态数组，可以增长和收缩。\n\n## String\n\n可增长的 UTF-8 字符串。\n\n## HashMap\n\n键值对集合，需要引入 `std::collections::HashMap`。\n\n集合常与迭代器方法 `map`、`filter`、`collect` 一起使用。\n",
+        "code": "use std::collections::HashMap;\n\nfn main() {\n    let mut v = vec![1, 2, 3];\n    v.push(4);\n    println!(\"Vec: {:?}\", v);\n\n    let doubled: Vec<i32> = v.iter().map(|x| x * 2).collect();\n    println!(\"翻倍: {:?}\", doubled);\n\n    let evens: Vec<&i32> = v.iter().filter(|x| *x % 2 == 0).collect();\n    println!(\"偶数: {:?}\", evens);\n\n    let mut s = String::from(\"hello\");\n    s.push_str(\", world\");\n    println!(\"String: {}\", s);\n\n    let mut scores = HashMap::new();\n    scores.insert(\"Alice\", 95);\n    scores.insert(\"Bob\", 87);\n\n    for (name, score) in &scores {\n        println!(\"{}: {}\", name, score);\n    }\n\n    match scores.get(\"Alice\") {\n        Some(score) => println!(\"Alice 的分数: {}\", score),\n        None => println!(\"未找到\"),\n    }\n}",
+        "hint": "HashMap 的键值对遍历顺序不保证固定。"
+      }
+    ]
+  },
+  {
+    "name": "中等应用",
+    "chapters": [
+      {
+        "title": "泛型",
+        "theory": "\n# 泛型\n\n泛型允许我们编写适用于多种类型的代码，而无需重复实现。\n\n## 泛型函数\n\n`fn largest<T: PartialOrd>(list: &[T]) -> T`\n\n## 泛型结构体与枚举\n\n`Point<T>`、`Option<T>`、`Result<T, E>` 都是泛型的典型例子。\n\n## 特征约束\n\n使用 `where` 子句或 `T: Trait` 语法限制泛型参数必须实现某些 trait。\n",
+        "code": "fn largest<T: PartialOrd>(list: &[T]) -> &T {\n    let mut max = &list[0];\n    for item in list {\n        if item > max {\n            max = item;\n        }\n    }\n    max\n}\n\n#[derive(Debug)]\nstruct Point<T> {\n    x: T,\n    y: T,\n}\n\nimpl<T> Point<T> {\n    fn x(&self) -> &T {\n        &self.x\n    }\n}\n\nfn main() {\n    let numbers = vec![34, 50, 25, 100, 65];\n    println!(\"最大值是 {}\", largest(&numbers));\n\n    let chars = vec!['y', 'm', 'a', 'q'];\n    println!(\"最大字符是 {}\", largest(&chars));\n\n    let p = Point { x: 5, y: 10 };\n    println!(\"p.x = {}\", p.x());\n    println!(\"点: {:?}\", p);\n}",
+        "hint": "泛型代码在编译时会单态化为具体类型，不会带来运行时开销。"
+      },
+      {
+        "title": "Trait",
+        "theory": "\n# Trait\n\nTrait 定义了共享的行为，类似于其他语言中的接口。\n\n## 定义与实现\n\n`rust\ntrait Summary {\n    fn summarize(&self) -> String;\n}\n`\n\n## Trait Bound\n\n限制泛型必须实现某个 trait，确保可以调用其方法。\n\n## 默认实现\n\nTrait 方法可以提供默认实现，实现者可以选择覆盖。\n",
+        "code": "pub trait Summary {\n    fn summarize(&self) -> String {\n        String::from(\"(阅读更多...)\")\n    }\n}\n\npub struct NewsArticle {\n    pub headline: String,\n    pub location: String,\n}\n\nimpl Summary for NewsArticle {\n    fn summarize(&self) -> String {\n        format!(\"{} - {}\", self.headline, self.location)\n    }\n}\n\npub struct Tweet {\n    pub username: String,\n    pub content: String,\n}\n\nimpl Summary for Tweet {\n    fn summarize(&self) -> String {\n        format!(\"{}: {}\", self.username, self.content)\n    }\n}\n\nfn notify(item: &impl Summary) {\n    println!(\"突发新闻! {}\", item.summarize());\n}\n\nfn main() {\n    let article = NewsArticle {\n        headline: String::from(\"Rust 1.80 发布\"),\n        location: String::from(\"全球\"),\n    };\n    notify(&article);\n\n    let tweet = Tweet {\n        username: String::from(\"rustlang\"),\n        content: String::from(\"Rust 越来越好用了！\"),\n    };\n    notify(&tweet);\n}",
+        "hint": "\\u0026impl Summary 是 Trait Bound 的简写形式。"
+      },
+      {
+        "title": "生命周期",
+        "theory": "\n# 生命周期\n\n生命周期确保引用在其指向的值有效期间始终有效。\n\n## 语法\n\n`&'a str` 表示引用至少存活 `'a` 这段时间。\n\n## 函数签名\n\n`fn longest<'a>(x: &'a str, y: &'a str) -> &'a str`\n\n## 省略规则\n\n编译器可以自动推断某些简单情况的生命周期。\n",
+        "code": "fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {\n    if x.len() > y.len() {\n        x\n    } else {\n        y\n    }\n}\n\nfn main() {\n    let string1 = String::from(\"abcd\");\n    let string2 = \"xyz\";\n\n    let result = longest(string1.as_str(), string2);\n    println!(\"更长的字符串是: {}\", result);\n\n    let result2;\n    {\n        let s = String::from(\"efghijk\");\n        result2 = longest(string1.as_str(), s.as_str());\n        println!(\"内部作用域: {}\", result2);\n    }\n    // println!(\"{}\" , result2); // 取消注释会报错：s 已经离开作用域\n}",
+        "hint": "result2 的生命周期不能超过 s 的生命周期。"
+      },
+      {
+        "title": "闭包与迭代器",
+        "theory": "\n# 闭包与迭代器\n\n闭包是可以捕获环境的匿名函数。迭代器提供了一种惰性处理集合元素的方式。\n\n## 闭包\n\n`let add_one = |x| x + 1;`\n\n## 迭代器适配器\n\n- `map`：转换元素\n- `filter`：过滤元素\n- `collect`：收集为集合\n- `fold`：累积计算\n\n## 惰性求值\n\n迭代器方法在调用 `collect` 等消费方法之前不会执行。\n",
+        "code": "fn main() {\n    let add_one = |x| x + 1;\n    println!(\"5 + 1 = {}\", add_one(5));\n\n    let v = vec![1, 2, 3, 4, 5];\n\n    let sum_of_squares: i32 = v\n        .iter()\n        .map(|x| x * x)\n        .filter(|x| *x > 5)\n        .sum();\n    println!(\"大于 5 的平方和: {}\", sum_of_squares);\n\n    let words = vec![\"hello\", \"rust\", \"world\"];\n    let upper: Vec<String> = words\n        .iter()\n        .map(|w| w.to_uppercase())\n        .collect();\n    println!(\"{:?}\", upper);\n\n    let max = v.iter().fold(0, |acc, x| if *x > acc { *x } else { acc });\n    println!(\"最大值: {}\", max);\n}",
+        "hint": "闭包可以根据使用情况自动推断参数和返回类型。"
+      },
+      {
+        "title": "智能指针",
+        "theory": "\n# 智能指针\n\n智能指针是具有额外能力的结构体，通常实现了 `Deref` 和 `Drop` trait。\n\n## Box<T>\n\n在堆上分配数据。\n\n## Rc<T>\n\n引用计数，允许多个所有者共享数据。\n\n## RefCell<T>\n\n运行时借用检查，配合 `Rc<RefCell<T>>` 可以实现可变共享状态。\n",
+        "code": "use std::rc::Rc;\nuse std::cell::RefCell;\n\nfn main() {\n    let b = Box::new(5);\n    println!(\"b = {}\", b);\n\n    let shared = Rc::new(RefCell::new(vec![1, 2, 3]));\n    let shared2 = Rc::clone(&shared);\n\n    shared.borrow_mut().push(4);\n    shared2.borrow_mut().push(5);\n\n    println!(\"共享数据: {:?}\", shared.borrow());\n    println!(\"引用计数: {}\", Rc::strong_count(&shared));\n}",
+        "hint": "Rc 用于不可变共享，RefCell 提供内部可变性。"
+      },
+      {
+        "title": "并发基础",
+        "theory": "\n# 并发基础\n\nRust 的所有权和类型系统使得并发编程既安全又高效。\n\n## 线程\n\n使用 `std::thread::spawn` 创建新线程。\n\n## 消息传递\n\n`mpsc`（multi-producer, single-consumer）通道用于线程间通信。\n\n## 共享状态\n\n`Mutex<T>` 提供互斥访问，常与 `Arc<T>` 配合使用。\n",
+        "code": "use std::sync::{mpsc, Arc, Mutex};\nuse std::thread;\nuse std::time::Duration;\n\nfn main() {\n    let (tx, rx) = mpsc::channel();\n\n    thread::spawn(move || {\n        let vals = vec![\"hi\", \"from\", \"the\", \"thread\"];\n        for val in vals {\n            tx.send(val).unwrap();\n            thread::sleep(Duration::from_millis(100));\n        }\n    });\n\n    for received in rx {\n        println!(\"收到: {}\", received);\n    }\n\n    let counter = Arc::new(Mutex::new(0));\n    let mut handles = vec![];\n\n    for _ in 0..5 {\n        let counter = Arc::clone(&counter);\n        let handle = thread::spawn(move || {\n            let mut num = counter.lock().unwrap();\n            *num += 1;\n        });\n        handles.push(handle);\n    }\n\n    for handle in handles {\n        handle.join().unwrap();\n    }\n\n    println!(\"计数器结果: {}\", *counter.lock().unwrap());\n}",
+        "hint": "Arc 是线程安全的 Rc，Mutex 提供锁保护的内部可变性。"
+      }
+    ]
+  },
+  {
+    "name": "高级应用",
+    "chapters": [
+      {
+        "title": " unsafe Rust",
+        "theory": "\n# unsafe Rust\n\nRust 提供 `unsafe` 关键字，允许绕过编译器的安全检查。\n\n## 能力\n\n- 解引用裸指针\n- 调用 unsafe 函数\n- 访问或修改可变静态变量\n- 实现 unsafe trait\n\n## 原则\n\n`unsafe` 并不意味着代码一定危险，而是将保证安全性的责任从编译器转移到了程序员。\n",
+        "code": "fn main() {\n    let mut num = 5;\n\n    let r1 = &num as *const i32;\n    let r2 = &mut num as *mut i32;\n\n    unsafe {\n        println!(\"r1 指向: {}\", *r1);\n        *r2 += 1;\n        println!(\"r2 指向: {}\", *r2);\n    }\n\n    let address = 0x012345usize;\n    let _r = address as *const i32;\n\n    // 不要解引用任意地址，这里仅作演示\n    println!(\"unsafe 代码块结束\");\n}\n\nunsafe fn dangerous() {\n    println!(\"调用 unsafe 函数\");\n}",
+        "hint": "unsafe 块应尽可能小，避免在块内进行过多操作。"
+      },
+      {
+        "title": "宏编程",
+        "theory": "\n# 宏编程\n\nRust 宏分为声明宏和过程宏。\n\n## 声明宏\n\n使用 `macro_rules!` 定义，基于模式匹配展开代码。\n\n## 过程宏\n\n包括自定义 `derive`、属性宏和函数式宏，需要在单独 crate 中实现。\n\n## 用途\n\n减少重复代码、创建领域特定语言（DSL）。\n",
+        "code": "macro_rules! say_hello {\n    () => {\n        println!(\"Hello!\");\n    };\n}\n\nmacro_rules! create_function {\n    ($func_name:ident) => {\n        fn $func_name() {\n            println!(\"调用了 {:?}\", stringify!($func_name));\n        }\n    };\n}\n\nmacro_rules! print_result {\n    ($expression:expr) => {\n        println!(\"{:?} = {:?}\", stringify!($expression), $expression);\n    };\n}\n\ncreate_function!(foo);\ncreate_function!(bar);\n\nfn main() {\n    say_hello!();\n    foo();\n    bar();\n    print_result!(1u32 + 1);\n    print_result!({\n        let x = 2u32;\n        x * x\n    });\n}",
+        "hint": "声明宏在调用处展开，注意避免命名冲突。"
+      },
+      {
+        "title": "异步编程",
+        "theory": "\n# 异步编程\n\nRust 使用 `async/await` 语法编写异步代码。\n\n## Future\n\n`async fn` 返回一个实现了 `Future` 的值，需要 executor 来驱动执行。\n\n## tokio\n\ntokio 是 Rust 生态中最流行的异步运行时，提供任务调度、网络 I/O 等能力。\n\n## await\n\n`.await` 会挂起当前任务，等待 Future 完成，同时让出线程给其他任务。\n",
+        "code": "use tokio::time::{sleep, Duration};\n\nasync fn say_hello(name: &str, delay: u64) {\n    sleep(Duration::from_millis(delay)).await;\n    println!(\"你好, {}!\", name);\n}\n\n#[tokio::main]\nasync fn main() {\n    let task1 = say_hello(\"Alice\", 100);\n    let task2 = say_hello(\"Bob\", 50);\n\n    // futures::join 可以在 Playground 使用 futures crate\n    // 这里使用顺序 await 演示基本语法\n    task1.await;\n    task2.await;\n\n    println!(\"所有任务完成\");\n}",
+        "hint": "在 Playground 运行时需要选择正确的 crate 依赖，tokio 通常是可用的。"
+      },
+      {
+        "title": "Web 开发基础",
+        "theory": "\n# Web 开发基础\n\nRust 生态中有多个优秀的 Web 框架，如 Axum、Actix-web 和 Rocket。\n\n## Axum\n\n基于 tokio 和 hyper，与 Tower 生态紧密集成。\n\n## 路由与 Handler\n\n路由将 URL 模式映射到处理函数，Handler 处理请求并返回响应。\n\n## 运行 HTTP 服务\n\n使用异步运行时启动服务并监听端口。\n\n> 注意：在浏览器 Playground 中无法直接启动 HTTP 服务，这里仅展示服务端代码结构。\n",
+        "code": "use hyper::{Request, Response};\nuse hyper::body::Incoming;\n\nasync fn hello(_req: Request<Incoming>) -> Response<String> {\n    Response::new(\"Hello, Rust Web!\".to_string())\n}\n\nfn route(path: &str) -> &str {\n    match path {\n        \"/\" => \"首页\",\n        \"/users\" => \"用户列表\",\n        _ => \"404\",\n    }\n}\n\n#[tokio::main]\nasync fn main() {\n    // Playground 无法真正启动 HTTP 服务监听端口，\n    // 这里演示 handler 定义与路由逻辑可以编译通过。\n    println!(\"Hyper handler 定义成功\");\n\n    println!(\"访问 /: {}\", route(\"/\"));\n    println!(\"访问 /users: {}\", route(\"/users\"));\n    println!(\"访问 /unknown: {}\", route(\"/unknown\"));\n}",
+        "hint": "Playground 无法暴露网络端口，此示例仅用于展示 hyper 框架 API 和验证编译。"
+      },
+      {
+        "title": "数据库与序列化",
+        "theory": "\n# 数据库与序列化\n\nRust 中常用的序列化库是 `serde`，数据库访问常用 `sqlx` 或 ORM。\n\n## serde\n\n`#[derive(Serialize, Deserialize)]` 自动生成 JSON 等格式的转换代码。\n\n## sqlx\n\n编译时检查 SQL 查询的类型安全数据库库。\n\n> 注意：Playground 无法连接真实数据库，这里仅展示数据结构定义和序列化。\n",
+        "code": "use serde::{Deserialize, Serialize};\n\n#[derive(Debug, Serialize, Deserialize)]\nstruct User {\n    id: u64,\n    name: String,\n    email: String,\n}\n\nfn main() {\n    let user = User {\n        id: 1,\n        name: \"Alice\".to_string(),\n        email: \"alice@example.com\".to_string(),\n    };\n\n    let json = serde_json::to_string_pretty(&user).unwrap();\n    println!(\"序列化结果:\");\n    println!(\"{}\", json);\n\n    let parsed: User = serde_json::from_str(&json).unwrap();\n    println!(\"反序列化结果: {:?}\", parsed);\n\n    // 模拟 SQLx 查询结果映射\n    let rows = vec![\n        User { id: 1, name: \"Alice\".to_string(), email: \"alice@example.com\".to_string() },\n        User { id: 2, name: \"Bob\".to_string(), email: \"bob@example.com\".to_string() },\n    ];\n\n    println!(\"\\n用户列表:\");\n    for u in &rows {\n        println!(\"{} - {} - {}\", u.id, u.name, u.email);\n    }\n}",
+        "hint": "serde_json 是 Rust 生态中处理 JSON 的标准选择。"
+      },
+      {
+        "title": "项目工程化",
+        "theory": "\n# 项目工程化\n\nRust 提供了完善的工程化工具链。\n\n## Cargo\n\n- `cargo new`：创建项目\n- `cargo build`：编译\n- `cargo test`：运行测试\n- `cargo clippy`：代码检查\n- `cargo fmt`：自动格式化\n\n## 模块系统\n\n`mod`、`use`、`pub` 组织代码结构；`crate`、`super`、`self` 控制可见性。\n\n## 测试\n\n单元测试、集成测试和文档测试共同保证代码质量。\n",
+        "code": "pub fn add(a: i32, b: i32) -> i32 {\n    a + b\n}\n\npub fn divide(a: i32, b: i32) -> Result<i32, &'static str> {\n    if b == 0 {\n        Err(\"除数不能为零\")\n    } else {\n        Ok(a / b)\n    }\n}\n\nfn main() {\n    println!(\"2 + 3 = {}\", add(2, 3));\n    println!(\"10 / 2 = {:?}\", divide(10, 2));\n    println!(\"10 / 0 = {:?}\", divide(10, 0));\n\n    // 文档测试风格的示例\n    // /// ```\n    // /// assert_eq!(rust_projects::add(2, 2), 4);\n    // /// ```\n    let placeholder = \"这行不会执行文档测试，仅作示意\";\n    println!(\"{}\", placeholder);\n}\n\n#[cfg(test)]\nmod tests {\n    use super::*;\n\n    #[test]\n    fn test_add() {\n        assert_eq!(add(2, 3), 5);\n    }\n\n    #[test]\n    fn test_divide_ok() {\n        assert_eq!(divide(10, 2).unwrap(), 5);\n    }\n\n    #[test]\n    fn test_divide_by_zero() {\n        assert!(divide(10, 0).is_err());\n    }\n}",
+        "hint": "在 Playground 中运行会自动执行测试（tests: true），当前设置 tests: false 只运行 main。"
+      }
+    ]
+  }
+]
