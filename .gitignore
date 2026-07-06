@@ -1,0 +1,19 @@
+# Backend build artifacts
+backend/target/
+backend/Cargo.lock
+
+# Node.js
+node_modules/
+package-lock.json
+package.json
+
+# Tailwind build helpers
+tailwind-input.css
+tailwind.config.js
+codemirror-entry.js
+
+# OS
+.DS_Store
+
+# Logs
+*.log

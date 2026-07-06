@@ -11,6 +11,10 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
+[v-cloak] {
+  display: none;
+}
+
 /* 主题变量 */
 :root {
   --sidebar-width: 18rem;
