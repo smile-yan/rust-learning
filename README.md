@@ -1,28 +1,21 @@
 # Rust 学习之旅
 
-一个前后端分离的 Rust 交互式学习网站，前端使用 **Vue 3** 管理状态，后端使用 **Rust + Axum + Docker** 本地编译执行 Rust 代码，无需访问外网 CDN 或 Rust Playground。
+一个前后端分离的 Rust 交互式学习网站。前端使用 **Vue 3** 管理状态，后端使用 **Rust + Axum + Docker** 在本地编译执行 Rust 代码，无需访问外网 CDN 或 Rust Playground。
 
-![Rust 学习之旅](https://img.shields.io/badge/Vue-3-4FC08D?logo=vue.js&logoColor=white)
+![Vue](https://img.shields.io/badge/Vue-3-4FC08D?logo=vue.js&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
 ## 特性
 
-- 📚 **三大模块，22 个章节**：
-  - **基础入门**：Hello World、变量与可变性、数据类型、函数、控制流、所有权、结构体、枚举与模式匹配、错误处理、集合
-  - **中等应用**：泛型、Trait、生命周期、闭包与迭代器、智能指针、并发基础
-  - **高级应用**：unsafe Rust、宏编程、异步编程、Web 开发基础、数据库与序列化、项目工程化
-- 📝 **在线编辑器**：基于 CodeMirror 6，支持 Rust 语法高亮与主题切换
+- 📚 **三大模块，22 个章节**：基础入门、中等应用、高级应用
+- 📝 **在线编辑器**：基于 CodeMirror 6，支持 Rust 语法高亮、行号、括号匹配、自动补全
 - ▶️ **一键运行**：后端通过 Docker 容器本地编译执行 Rust 代码
 - 🌙 **深色/浅色主题**：自动跟随系统偏好，支持手动切换并持久化
 - 📱 **响应式布局**：适配桌面端与移动端，左侧边栏按模块分组
 - ⌨️ **快捷键支持**：`Ctrl/Cmd + Enter` 快速运行代码
 - 🔒 **Docker 沙箱隔离**：每次运行独立的 Docker 容器，限制网络、权限、内存与 CPU
 - 🚀 **无外部 CDN 依赖**：Vue、CodeMirror、Tailwind CSS、Marked.js 全部本地化
-- ⚡ **Vue 3 驱动**：使用 Vue 3 Composition API 管理响应式状态与模板渲染
-
-## 在线体验
-
-启动后端服务后，直接在浏览器中打开对应地址即可使用。
+- ⚡ **Vue 3 Composition API**：响应式状态管理与模板渲染
 
 ## 快速开始
 
@@ -35,7 +28,7 @@
 ### 2. 构建后端
 
 ```bash
-cd /Users/yanshili/me/projects/rust-projects/backend
+cd backend
 cargo build --release
 ```
 
@@ -43,8 +36,10 @@ cargo build --release
 
 ```bash
 # 默认监听 0.0.0.0:3000，并托管前端静态文件
-STATIC_DIR=/Users/yanshili/me/projects/rust-projects ./target/release/rust-learning-backend
+STATIC_DIR=/path/to/project ./target/release/rust-learning-backend
 ```
+
+> 请将 `/path/to/project` 替换为项目根目录的绝对路径。默认 `STATIC_DIR=../`，因此也可以在前端项目根目录运行 `./backend/target/release/rust-learning-backend`。
 
 环境变量：
 
@@ -63,7 +58,7 @@ STATIC_DIR=/Users/yanshili/me/projects/rust-projects ./target/release/rust-learn
 http://localhost:3000
 ```
 
-后端会同时提供：
+后端同时提供：
 
 - 前端静态资源：`GET /`
 - Rust 编译执行 API：`POST /evaluate.json`
@@ -79,7 +74,7 @@ http://localhost:3000
 │   ├── chapters.json         # 章节数据（JSON 格式）
 │   └── app.js                # Vue 3 应用逻辑，调用本地 /evaluate.json
 ├── libs/
-│   ├── codemirror-bundle.js  # 本地构建的 CodeMirror 6 bundle
+│   ├── codemirror-bundle.js  # 本地 esbuild 打包的 CodeMirror 6 bundle
 │   ├── tailwindcss.js        # 本地缓存的 Tailwind CSS Play CDN
 │   ├── vue.esm-browser.prod.js  # Vue 3 生产构建
 │   └── marked.min.js         # Marked.js 本地副本
@@ -88,9 +83,7 @@ http://localhost:3000
 │   └── src/
 │       └── main.rs
 ├── codemirror-entry.js       # CodeMirror 打包入口（构建用）
-├── tailwind-input.css        # Tailwind 打包输入（构建用）
-├── tailwind.config.js        # Tailwind 配置（构建用）
-├── package.json              # 仅用于安装构建依赖
+├── package.json              # 仅用于安装 CodeMirror 构建依赖
 └── README.md
 ```
 
@@ -105,45 +98,30 @@ http://localhost:3000
 | [Axum](https://github.com/tokio-rs/axum) | 后端 Cargo 依赖 | Web 服务与静态文件托管 |
 | [Docker](https://www.docker.com/) | 系统依赖 | Rust 代码沙箱编译运行 |
 
-## 依赖来源说明
+## 本地构建依赖
 
-为了支持完全离线和无外网访问的部署环境，所有前端依赖均已本地化：
+如果你需要重新生成 `libs/codemirror-bundle.js`：
 
-- **Vue 3**：`libs/vue.esm-browser.prod.js`，通过 import map 映射为 `vue`
-- **Tailwind CSS**：`libs/tailwindcss.js`，本地缓存的 Play CDN 构建，已移除生产环境警告
-- **CodeMirror 6**：`libs/codemirror-bundle.js`，本地 esbuild 打包产物
-- **Marked.js**：`libs/marked.min.js`，本地副本
+```bash
+# 1. 安装打包依赖（仅首次）
+npm install
 
-Rust 代码执行不再依赖 `https://play.rust-lang.org/evaluate.json`，而是由后端通过 Docker 容器在本地编译运行。
-
-README 徽章仍使用 `https://img.shields.io`，但仅文档展示，不影响功能。
-
-## 章节数据结构
-
-`js/chapters.json` 是一个 JSON 文件，包含模块数组，每个模块包含若干章节：
-
-```json
-[
-  {
-    "name": "模块名称",
-    "chapters": [
-      {
-        "title": "章节标题",
-        "theory": "# Markdown 理论内容",
-        "code": "fn main() {\n    println!(\"示例代码\");\n}",
-        "hint": "可选的练习提示"
-      }
-    ]
-  }
-]
+# 2. 执行打包
+npm run build:codemirror
 ```
 
-字段说明：
+`codemirror-entry.js` 导出了前端需要的 CodeMirror 模块：
 
-- `title`：章节标题，显示在左侧目录中
-- `theory`：Markdown 格式的理论讲解内容
-- `code`：默认加载到编辑器中的 Rust 示例代码
-- `hint`：可选的提示信息，以提示框形式展示在理论区底部
+```js
+export { EditorView, keymap } from "@codemirror/view";
+export { basicSetup } from "codemirror";
+export { oneDark } from "@codemirror/theme-one-dark";
+export { rust } from "@codemirror/lang-rust";
+export { syntaxHighlighting, HighlightStyle } from "@codemirror/language";
+export { tags } from "@lezer/highlight";
+```
+
+打包后的 bundle 包含完整的 CodeMirror 6 运行时、Rust 语言支持、oneDark 主题，以及自定义高亮所需的 `syntaxHighlighting`、`HighlightStyle`、`tags`。
 
 ## 运行原理
 
@@ -184,119 +162,14 @@ README 徽章仍使用 `https://img.shields.io`，但仅文档展示，不影响
 
 后端使用 `tokio::sync::Semaphore` 控制最大并发编译任务数，默认 `4`。超过并发上限的请求返回 `429 Too Many Requests`。
 
-## 可用的外部 crate
-
-由于代码在本地 Docker 容器中使用 `cargo build` 编译，标准库的 crate 可直接使用。如果需要额外 crate（如 `tokio`、`serde`、`hyper` 等），需要修改后端生成的 `Cargo.toml` 模板，添加对应依赖。
-
-当前 `Cargo.toml` 模板位于 `backend/src/main.rs` 的 `EvaluateRequest` 处理函数中，默认只包含 `edition` 配置。你可以根据教学需要扩展默认依赖，或在前端请求中增加 `dependencies` 字段并让后端动态写入。
-
-## 添加新依赖
-
-### 前端依赖
-
-如需引入新的前端库，请将 JS/CSS 文件下载到 `libs/` 目录，然后在 `index.html` 或 `js/app.js` 中引用本地路径。
-
-### 后端 Rust 依赖
-
-编辑 `backend/src/main.rs` 中生成 `Cargo.toml` 的代码，在模板里加入需要的 crate。例如：
-
-```toml
-[dependencies]
-tokio = { version = "1", features = ["full"] }
-serde = { version = "1", features = ["derive"] }
-serde_json = "1"
-```
-
-重新构建后端：
-
-```bash
-cd backend
-cargo build --release
-```
-
-涉及本地构建产物的前端依赖（CodeMirror、Tailwind CSS）如需更新，请参考下方「本地构建依赖」章节。
-
-## 本地构建依赖
-
-如果你需要重新生成前端本地依赖文件：
-
-### 重新构建 CodeMirror bundle
-
-```bash
-# 1. 安装打包依赖（仅首次）
-npm install --no-save esbuild codemirror @codemirror/lang-rust @codemirror/theme-one-dark @codemirror/view
-
-# 2. 执行打包
-npx esbuild codemirror-entry.js --bundle --format=esm --platform=browser --target=es2022 --minify --outfile=libs/codemirror-bundle.js
-```
-
-`codemirror-entry.js` 内容如下：
-
-```js
-export { EditorView, basicSetup } from "codemirror";
-export { rust } from "@codemirror/lang-rust";
-export { oneDark } from "@codemirror/theme-one-dark";
-export { keymap } from "@codemirror/view";
-```
-
-### 重新生成 Tailwind CSS 本地文件
-
-直接下载官方 Play CDN 并替换 `libs/tailwindcss.js`，然后移除文件中的 `console.warn("cdn.tailwindcss.com should not be used in production...")` 提示：
-
-```bash
-curl -L https://cdn.tailwindcss.com/3.4.10 -o libs/tailwindcss.js
-```
-
-### 重新下载 Vue 3 和 Marked.js
-
-```bash
-curl -L https://unpkg.com/vue@3.4.21/dist/vue.esm-browser.prod.js -o libs/vue.esm-browser.prod.js
-curl -L https://cdn.jsdelivr.net/npm/marked@13.0.2/marked.min.js -o libs/marked.min.js
-```
-
-> 上述下载命令需要外网。如果你的构建环境无外网，请在可访问外网的机器上下载后复制到 `libs/` 目录。
-
-## 部署方式
-
-### 推荐部署方式
-
-由于后端需要 Docker 和 Rust 编译环境，推荐在具备 Docker 的服务器上部署：
-
-1. 安装 Rust、Docker
-2. 拉取 Rust Docker 镜像：`docker pull rust:1.79-slim`
-3. 构建后端：`cd backend && cargo build --release`
-4. 启动后端：`STATIC_DIR=/path/to/project ./target/release/rust-learning-backend`
-5. 使用 Nginx / Caddy 反向代理到后端端口
-
-### 前端静态文件部署
-
-如果只需要部署前端而不需要单独运行后端，也可以将前端文件部署到任意静态托管服务（GitHub Pages、Vercel、Netlify 等），然后将 API 地址指向独立部署的后端。此时需要修改 `js/app.js` 中的 `/evaluate.json` 为完整后端地址。
-
-### Docker Compose 部署（可选）
-
-可以进一步将后端服务本身也容器化，与 Docker socket 挂载配合使用。
-
 ## 注意事项
 
 - 后端服务需要 Docker 守护进程正常运行，并能够拉取/运行 `rust:1.79-slim` 镜像。
 - 首次运行某个 Rust 代码时，`cargo build` 需要下载依赖，可能会比较慢。建议提前准备包含常用 crate 的自定义镜像，或在镜像中预编译依赖。
 - 示例代码均已控制在数秒内完成；过长或无限循环会被 Docker 超时机制终止。
 - 移动端浏览器中，侧边栏可通过顶部菜单按钮展开/收起。
-- 部分高级章节（如 Web 服务）受沙箱环境限制无法真正监听端口，示例仅用于展示 API 和验证编译。
 - 主题设置会保存在浏览器 `localStorage` 中，刷新页面后仍然生效。
-- Docker 容器每次运行都会重新创建临时目录，不会保留任何文件或状态。
-
-## 未来计划
-
-- [ ] 增加章节进度记忆功能
-- [ ] 支持代码本地自动保存与恢复
-- [ ] 增加更多高级章节（如 FFI、WASM、嵌入式等）
-- [ ] 提供 PWA 离线访问能力
-- [ ] 增加章节练习与答案验证
-
-## 贡献
-
-欢迎提交 Issue 或 Pull Request 来完善课程内容或修复问题。请保持章节数据 `chapters.json` 格式一致，并在修改后通过本地服务器验证效果。
+- 修改 `codemirror-bundle.js` 后，建议同步更新 `js/app.js` 和 `index.html` 中的版本参数（`?v=N`），避免浏览器缓存旧 bundle。
 
 ## 许可证
 
