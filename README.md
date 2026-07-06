@@ -17,31 +17,148 @@
 - 🚀 **无外部 CDN 依赖**：Vue、CodeMirror、Tailwind CSS、Marked.js 全部本地化
 - ⚡ **Vue 3 Composition API**：响应式状态管理与模板渲染
 
-## 快速开始
+## 前后端分离架构
 
-### 1. 环境要求
+本项目采用**前后端分离**架构：
+
+- **前端**：纯静态 HTML + Vue 3 + CodeMirror 6，不依赖构建工具（如 Vite/Webpack），直接由浏览器加载运行。
+- **后端**：Rust + Axum 提供 HTTP 服务，主要暴露 `POST /evaluate.json` 接口用于编译运行 Rust 代码，同时可作为静态文件服务器托管前端。
+- **通信**：前端通过 `fetch` 向后端 `/evaluate.json` 发送代码，后端在 Docker 容器中编译运行后返回结果。
+
+### 接口约定
+
+前端期望后端提供：
+
+| 方法 | 路径 | 说明 |
+|------|------|------|
+| `GET` | `/` | 返回 `index.html` |
+| `GET` | `/js/*`、`/css/*`、`/libs/*` 等 | 返回静态资源 |
+| `POST` | `/evaluate.json` | 接收 Rust 代码，返回运行结果 |
+
+`/evaluate.json` 请求体示例：
+
+```json
+{
+  "version": "stable",
+  "edition": "2021",
+  "crateType": "bin",
+  "mode": "debug",
+  "tests": false,
+  "optimize": "0",
+  "code": "fn main() { println!(\"Hello\"); }"
+}
+```
+
+`/evaluate.json` 响应体示例：
+
+```json
+{
+  "result": "Hello\n",
+  "error": ""
+}
+```
+
+## 环境要求
 
 - [Rust](https://www.rust-lang.org/)（用于构建后端）
 - [Docker](https://www.docker.com/)（用于沙箱编译运行 Rust 代码）
+- [Node.js](https://nodejs.org/)（仅当需要重新打包 CodeMirror bundle 时）
 - 已预装 Rust 镜像：`rust:1.79-slim`（首次运行会自动拉取）
 
-### 2. 构建后端
+## 快速开始（前后端一体）
+
+最简单的运行方式是让后端同时托管前端静态文件：
+
+```bash
+# 1. 构建后端
+cd backend
+cargo build --release
+
+# 2. 在前端项目根目录启动后端（STATIC_DIR 默认为 ../，即项目根目录）
+cd ..
+./backend/target/release/rust-learning-backend
+```
+
+打开浏览器访问：
+
+```
+http://localhost:3000
+```
+
+后端默认监听 `0.0.0.0:3000`，同时提供前端资源和 `/evaluate.json` 接口。
+
+## 前后端分离部署
+
+如果你希望前端和后端分别部署（例如前端用 Nginx，后端单独运行），按以下步骤操作。
+
+### 1. 前端部署
+
+前端是纯静态资源，可直接部署到任意静态文件服务器。
+
+#### 方式一：Nginx
+
+将项目根目录（包含 `index.html`、`css/`、`js/`、`libs/`）复制到 Nginx 的站点目录，例如 `/var/www/rust-learning`：
+
+```nginx
+server {
+    listen 80;
+    server_name rust-learning.example.com;
+    root /var/www/rust-learning;
+    index index.html;
+
+    location / {
+        try_files $uri $uri/ /index.html;
+    }
+
+    location /evaluate.json {
+        proxy_pass http://localhost:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+    }
+}
+```
+
+#### 方式二：Python 临时服务器（开发测试）
+
+```bash
+# 在项目根目录运行
+python3 -m http.server 8080
+```
+
+然后访问 `http://localhost:8080`。
+
+#### 方式三：任意静态托管
+
+GitHub Pages、Vercel、Netlify、对象存储 CDN 等均可直接部署。
+
+### 2. 后端部署
 
 ```bash
 cd backend
 cargo build --release
+
+# 启动后端，不托管前端静态文件或托管到另一个目录
+PORT=3000 ./target/release/rust-learning-backend
 ```
 
-### 3. 启动后端服务
+如果后端不托管前端，确保前端能通过同源或 CORS 访问到 `/evaluate.json`。后端已默认开启 `CorsLayer::permissive()`，允许跨域请求。
 
-```bash
-# 默认监听 0.0.0.0:3000，并托管前端静态文件
-STATIC_DIR=/path/to/project ./target/release/rust-learning-backend
+### 3. 配置前端 API 地址
+
+默认情况下，前端代码中调用的是同源的 `/evaluate.json`：
+
+```js
+const res = await fetch("/evaluate.json", { ... });
 ```
 
-> 请将 `/path/to/project` 替换为项目根目录的绝对路径。默认 `STATIC_DIR=../`，因此也可以在前端项目根目录运行 `./backend/target/release/rust-learning-backend`。
+如果后端部署在不同域名或端口，修改 `js/app.js` 中的请求地址：
 
-环境变量：
+```js
+const res = await fetch("http://localhost:3000/evaluate.json", { ... });
+```
+
+## 环境变量
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
@@ -52,16 +169,63 @@ STATIC_DIR=/path/to/project ./target/release/rust-learning-backend
 | `MEMORY_LIMIT_MB` | `256` | Docker 容器内存限制 |
 | `DOCKER_IMAGE` | `rust:1.79-slim` | 编译运行使用的 Docker 镜像 |
 
-### 4. 打开前端
+## 本地构建与打包
 
+### 构建后端
+
+```bash
+cd backend
+cargo build --release
 ```
-http://localhost:3000
+
+产物位于 `backend/target/release/rust-learning-backend`。
+
+### 重新打包 CodeMirror bundle
+
+如果你修改了 `codemirror-entry.js` 或需要更新 CodeMirror 版本：
+
+```bash
+# 项目根目录
+npm install
+npm run build:codemirror
 ```
 
-后端同时提供：
+生成的 `libs/codemirror-bundle.js` 已包含完整的 CodeMirror 6 运行时、Rust 语言支持、oneDark 主题，以及自定义高亮所需的 `syntaxHighlighting`、`HighlightStyle`、`tags`。
 
-- 前端静态资源：`GET /`
-- Rust 编译执行 API：`POST /evaluate.json`
+`codemirror-entry.js` 内容如下：
+
+```js
+export { EditorView, keymap } from "@codemirror/view";
+export { basicSetup } from "codemirror";
+export { oneDark } from "@codemirror/theme-one-dark";
+export { rust } from "@codemirror/lang-rust";
+export { syntaxHighlighting, HighlightStyle } from "@codemirror/language";
+export { tags } from "@lezer/highlight";
+```
+
+### 前端是否需要打包？
+
+**不需要**。本项目前端不依赖 Vite、Webpack 等构建工具，浏览器直接加载 `index.html` 中的原生 ES Module。部署时只需将静态文件上传即可。
+
+### 完整的生产部署示例
+
+假设项目根目录为 `/opt/rust-learning`：
+
+```bash
+# 1. 构建后端
+cd /opt/rust-learning/backend
+cargo build --release
+
+# 2. 可选：重新打包前端依赖
+cd /opt/rust-learning
+npm install
+npm run build:codemirror
+
+# 3. 启动后端（托管前端）
+STATIC_DIR=/opt/rust-learning /opt/rust-learning/backend/target/release/rust-learning-backend
+```
+
+或使用 systemd 服务管理后端进程。
 
 ## 项目结构
 
@@ -98,46 +262,9 @@ http://localhost:3000
 | [Axum](https://github.com/tokio-rs/axum) | 后端 Cargo 依赖 | Web 服务与静态文件托管 |
 | [Docker](https://www.docker.com/) | 系统依赖 | Rust 代码沙箱编译运行 |
 
-## 本地构建依赖
-
-如果你需要重新生成 `libs/codemirror-bundle.js`：
-
-```bash
-# 1. 安装打包依赖（仅首次）
-npm install
-
-# 2. 执行打包
-npm run build:codemirror
-```
-
-`codemirror-entry.js` 导出了前端需要的 CodeMirror 模块：
-
-```js
-export { EditorView, keymap } from "@codemirror/view";
-export { basicSetup } from "codemirror";
-export { oneDark } from "@codemirror/theme-one-dark";
-export { rust } from "@codemirror/lang-rust";
-export { syntaxHighlighting, HighlightStyle } from "@codemirror/language";
-export { tags } from "@lezer/highlight";
-```
-
-打包后的 bundle 包含完整的 CodeMirror 6 运行时、Rust 语言支持、oneDark 主题，以及自定义高亮所需的 `syntaxHighlighting`、`HighlightStyle`、`tags`。
-
 ## 运行原理
 
-点击「运行」后，前端会将编辑器中的代码通过 `fetch` POST 到同源的 `/evaluate.json`：
-
-```json
-{
-  "version": "stable",
-  "edition": "2021",
-  "crateType": "bin",
-  "mode": "debug",
-  "tests": false,
-  "optimize": "0",
-  "code": "fn main() { ... }"
-}
-```
+点击「运行」后，前端会将编辑器中的代码通过 `fetch` POST 到 `/evaluate.json`。
 
 后端接收到请求后：
 
