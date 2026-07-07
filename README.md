@@ -176,11 +176,49 @@ PORT=3000 ./target/release/rust-learning-backend
 const res = await fetch("/evaluate.json", { ... });
 ```
 
-如果后端部署在不同域名或端口，修改 `js/app.js` 中的请求地址：
+如果后端部署在不同域名或端口，需要修改 `js/app.js` 中的请求地址。
+
+#### 步骤
+
+1. 打开 `js/app.js`。
+2. 找到 `runCode` 函数中的 `fetch` 调用：
 
 ```js
-const res = await fetch("http://localhost:3000/evaluate.json", { ... });
+const res = await fetch("/evaluate.json", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({ ... }),
+  signal: controller.signal
+});
 ```
+
+3. 将 `/evaluate.json` 替换为完整后端地址，例如：
+
+```js
+const res = await fetch("http://localhost:3000/evaluate.json", {
+  // ...
+});
+```
+
+或部署到公网时：
+
+```js
+const res = await fetch("https://api.rust-learning.example.com/evaluate.json", {
+  // ...
+});
+```
+
+#### 注意事项
+
+- 如果前端和后端部署在**相同域名和端口**，保持 `/evaluate.json` 即可。
+- 如果部署在**不同域名或端口**，后端已默认开启 `CorsLayer::permissive()`，允许跨域请求。
+- 修改完成后，建议同步更新 `index.html` 中 `js/app.js` 的版本参数（如 `?v=4`），避免浏览器缓存旧代码：
+
+```html
+<script type="module" src="js/app.js?v=4"></script>
+```
+
+- 如果通过 Nginx/Caddy 反向代理 `/evaluate.json`，则不需要修改前端代码，保持 `/evaluate.json` 即可。
 
 ## 环境变量
 
