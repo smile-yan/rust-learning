@@ -193,7 +193,7 @@ createApp({
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 25000);
 
-        const res = await fetch("/evaluate.json", {
+        const res = await fetch("https://play.rust-lang.org/evaluate.json", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

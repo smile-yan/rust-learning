@@ -220,6 +220,50 @@ const res = await fetch("https://api.rust-learning.example.com/evaluate.json", {
 
 - 如果通过 Nginx/Caddy 反向代理 `/evaluate.json`，则不需要修改前端代码，保持 `/evaluate.json` 即可。
 
+### 4. 使用 Rust 官方 Playground 接口（可选）
+
+如果你不想部署本地后端，可以直接使用 Rust 官方 Playground 的 `/evaluate.json` 接口。该接口无需本地 Docker，但**需要访问外网**，且无法控制执行环境。
+
+修改 `js/app.js` 中的 `runCode` 函数，将请求地址改为：
+
+```js
+const res = await fetch("https://play.rust-lang.org/evaluate.json", {
+  method: "POST",
+  headers: { "Content-Type": "application/json" },
+  body: JSON.stringify({
+    version: "stable",
+    edition: "2021",
+    crateType: "bin",
+    mode: "debug",
+    tests: false,
+    optimize: "0",
+    code
+  }),
+  signal: controller.signal
+});
+```
+
+官方接口的请求体格式与本地后端一致，响应格式也兼容：
+
+```json
+{
+  "result": "Hello\n",
+  "error": ""
+}
+```
+
+#### 适用场景
+
+- 本地没有 Docker 环境
+- 只需要快速演示前端功能
+- 部署环境无法运行本地后端
+
+#### 限制
+
+- 必须能够访问外网（`https://play.rust-lang.org`）
+- 无法自定义执行超时、内存限制等资源参数
+- 依赖第三方服务，不适合生产环境或对稳定性要求高的场景
+
 ## 环境变量
 
 | 变量 | 默认值 | 说明 |
