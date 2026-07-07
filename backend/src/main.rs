@@ -97,7 +97,7 @@ async fn main() {
         .layer(CorsLayer::permissive())
         .with_state(state);
 
-    let port = std::env::var("PORT").ok().and_then(|s| s.parse().ok()).unwrap_or(3000);
+    let port = std::env::var("PORT").ok().and_then(|s| s.parse().ok()).unwrap_or(9001);
     let listener = tokio::net::TcpListener::bind(format!("0.0.0.0:{port}"))
         .await
         .unwrap();

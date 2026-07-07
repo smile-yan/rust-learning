@@ -82,10 +82,10 @@ cd ..
 打开浏览器访问：
 
 ```
-http://localhost:3000
+http://localhost:9001
 ```
 
-后端默认监听 `0.0.0.0:3000`，同时提供前端资源和 `/evaluate.json` 接口。
+后端默认监听 `0.0.0.0:9001`，同时提供前端资源和 `/evaluate.json` 接口。
 
 ## 前后端分离部署
 
@@ -111,7 +111,7 @@ server {
     }
 
     location /evaluate.json {
-        proxy_pass http://localhost:3000;
+        proxy_pass http://localhost:9001;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
@@ -130,7 +130,7 @@ rust-learning.example.com {
     try_files {path} /index.html
 
     handle /evaluate.json {
-        reverse_proxy localhost:3000
+        reverse_proxy localhost:9001
     }
 }
 ```
@@ -163,7 +163,7 @@ cd backend
 cargo build --release
 
 # 启动后端，不托管前端静态文件或托管到另一个目录
-PORT=3000 ./target/release/rust-learning-backend
+PORT=9001 ./target/release/rust-learning-backend
 ```
 
 如果后端不托管前端，确保前端能通过同源或 CORS 访问到 `/evaluate.json`。后端已默认开启 `CorsLayer::permissive()`，允许跨域请求。
@@ -195,7 +195,7 @@ const res = await fetch("/evaluate.json", {
 3. 将 `/evaluate.json` 替换为完整后端地址，例如：
 
 ```js
-const res = await fetch("http://localhost:3000/evaluate.json", {
+const res = await fetch("http://localhost:9001/evaluate.json", {
   // ...
 });
 ```
@@ -293,7 +293,7 @@ const res = await fetch("https://play.rust-lang.org/evaluate.json", {
 
 | 变量 | 默认值 | 说明 |
 |------|--------|------|
-| `PORT` | `3000` | 后端监听端口 |
+| `PORT` | `9001` | 后端监听端口 |
 | `STATIC_DIR` | `../` | 前端静态文件目录（相对 backend 目录） |
 | `CONCURRENCY` | `4` | 最大并发编译任务数 |
 | `TIMEOUT_SECONDS` | `25` | 单次编译运行超时时间 |
