@@ -152,7 +152,7 @@ python3 -m http.server 8080
 
 然后访问 `http://localhost:8080`。
 
-#### 方式三：任意静态托管
+#### 方式四：任意静态托管
 
 GitHub Pages、Vercel、Netlify、对象存储 CDN 等均可直接部署。
 
