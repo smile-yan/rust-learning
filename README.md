@@ -119,7 +119,31 @@ server {
 }
 ```
 
-#### 方式二：Python 临时服务器（开发测试）
+#### 方式二：Caddy
+
+将项目根目录复制到 Caddy 的站点目录，例如 `/var/www/rust-learning`，然后创建 `/etc/caddy/Caddyfile`：
+
+```caddyfile
+rust-learning.example.com {
+    root * /var/www/rust-learning
+    file_server
+    try_files {path} /index.html
+
+    handle /evaluate.json {
+        reverse_proxy localhost:3000
+    }
+}
+```
+
+重载 Caddy：
+
+```bash
+sudo systemctl reload caddy
+```
+
+Caddy 会自动处理 HTTPS（如果域名可解析），配置比 Nginx 更简洁。
+
+#### 方式三：Python 临时服务器（开发测试）
 
 ```bash
 # 在项目根目录运行
