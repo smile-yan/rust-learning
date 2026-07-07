@@ -23,9 +23,9 @@ use tower_http::cors::CorsLayer;
 use tracing::{error, info};
 use uuid::Uuid;
 
-const DEFAULT_TIMEOUT_SECONDS: u64 = 25;
-const DEFAULT_MEMORY_LIMIT_MB: u64 = 256;
-const DOCKER_IMAGE: &str = "rust:1.79-slim";
+const DEFAULT_TIMEOUT_SECONDS: u64 = 120;
+const DEFAULT_MEMORY_LIMIT_MB: u64 = 512;
+const DOCKER_IMAGE: &str = "rust-learning-playground:1.86";
 
 #[derive(Debug, Clone, Deserialize)]
 struct EvaluateRequest {
@@ -135,10 +135,22 @@ edition = "{}"
 [[bin]]
 name = "playground"
 path = "main.rs"
+
+[dependencies]
+axum = "0.7"
+tokio = {{ version = "1", features = ["full"] }}
+serde = {{ version = "1.0", features = ["derive"] }}
+serde_json = "1.0"
+reqwest = {{ version = "0.12", default-features = false, features = ["json", "blocking", "rustls-tls"] }}
+chrono = {{ version = "0.4", features = ["serde"] }}
 "#,
         req.edition
     );
     fs::write(project_dir.join("Cargo.toml"), cargo_toml)
+        .await
+        .map_err(AppError::Internal)?;
+
+    fs::write(project_dir.join("Cargo.lock"), include_str!("Cargo.lock.playground"))
         .await
         .map_err(AppError::Internal)?;
 
@@ -207,7 +219,7 @@ async fn run_in_docker(
         .arg(&state.docker_image)
         .arg("sh")
         .arg("-c")
-        .arg("cp -r /project /tmp/project && cd /tmp/project && cargo build --quiet 2>&1 && ./target/debug/playground")
+        .arg("cp -r /project /tmp/project && cd /tmp/project && cargo build --offline --quiet 2>&1 && ./target/debug/playground")
         .stdout(Stdio::piped())
         .stderr(Stdio::piped());
 

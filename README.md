@@ -63,18 +63,74 @@
 - [Rust](https://www.rust-lang.org/)（用于构建后端）
 - [Docker](https://www.docker.com/)（用于沙箱编译运行 Rust 代码）
 - [Node.js](https://nodejs.org/)（仅当需要重新打包 CodeMirror bundle 时）
-- 已预装 Rust 镜像：`rust:1.79-slim`（首次运行会自动拉取）
+- 自定义 Docker 镜像：`rust-learning-playground:1.86`（包含常用 crate，离线编译，需按下面步骤构建）
+
+## 构建 Docker 编译镜像
+
+后端默认使用自定义镜像 `rust-learning-playground:1.86`，该镜像预下载了 `axum`、`tokio`、`serde`、`serde_json`、`reqwest`、`chrono` 等常用依赖，并内置 `Cargo.lock`。容器运行时通过 `cargo build --offline` 编译，**无需访问外网**，适合无法连接 crates.io 的部署环境。
+
+构建命令：
+
+```bash
+cd backend
+docker build -f Dockerfile.playground -t rust-learning-playground:1.86 .
+```
+
+构建完成后，镜像中会缓存所有依赖的 crate 文件。后续每次执行代码时，Docker 容器直接离线编译，无需联网。
+
+### 为什么要自定义镜像？
+
+- 原 `rust:1.79-slim` 等官方镜像不包含任何第三方 crate，运行时必须联网下载，在封闭网络环境无法使用。
+- 本项目示例包含 Web 开发（axum）、序列化（serde）、HTTP 请求（reqwest）等，需要预置依赖。
+- `--network none` 的沙箱容器无法联网，因此所有依赖必须在镜像构建阶段缓存好。
+
+### 如何扩展依赖？
+
+如果你需要给示例代码添加更多 crate，按以下步骤操作：
+
+1. 修改 `backend/src/main.rs` 中生成 `Cargo.toml` 的 `[dependencies]` 段落。
+2. 同步修改 `backend/Dockerfile.playground` 中的 `[dependencies]`，保持一致。
+3. 重新构建镜像：`docker build -f Dockerfile.playground -t rust-learning-playground:1.86 .`
+4. 在镜像内生成新的 `Cargo.lock`：
+
+   ```bash
+   mkdir -p /tmp/offline-lock
+   cat > /tmp/offline-lock/Cargo.toml <<'EOF'
+   [package]
+   name = "playground"
+   version = "0.1.0"
+   edition = "2021"
+
+   [[bin]]
+   name = "playground"
+   path = "main.rs"
+
+   [dependencies]
+   # 与 Dockerfile.playground 中一致
+   EOF
+   echo 'fn main() {}' > /tmp/offline-lock/main.rs
+   docker run --rm -v /tmp/offline-lock:/project -w /project \
+     rust-learning-playground:1.86 sh -c 'cargo generate-lockfile 2>/dev/null; cat Cargo.lock' \
+     > backend/src/Cargo.lock.playground
+   ```
+
+5. 重新编译后端：`cd backend && cargo build --release`。
+
+> 注意：`Cargo.lock.playground` 必须与镜像中的依赖版本严格一致，否则 `--offline` 编译会失败。
 
 ## 快速开始（前后端一体）
 
 最简单的运行方式是让后端同时托管前端静态文件：
 
 ```bash
-# 1. 构建后端
+# 1. 构建 Docker 编译镜像（仅需一次）
 cd backend
+docker build -f Dockerfile.playground -t rust-learning-playground:1.86 .
+
+# 2. 构建后端
 cargo build --release
 
-# 2. 在前端项目根目录启动后端（STATIC_DIR 默认为 ../，即项目根目录）
+# 3. 在前端项目根目录启动后端（STATIC_DIR 默认为 ../，即项目根目录）
 cd ..
 ./backend/target/release/rust-learning-backend
 ```
@@ -296,9 +352,9 @@ const res = await fetch("https://play.rust-lang.org/evaluate.json", {
 | `PORT` | `9001` | 后端监听端口 |
 | `STATIC_DIR` | `../` | 前端静态文件目录（相对 backend 目录） |
 | `CONCURRENCY` | `4` | 最大并发编译任务数 |
-| `TIMEOUT_SECONDS` | `25` | 单次编译运行超时时间 |
-| `MEMORY_LIMIT_MB` | `256` | Docker 容器内存限制 |
-| `DOCKER_IMAGE` | `rust:1.79-slim` | 编译运行使用的 Docker 镜像 |
+| `TIMEOUT_SECONDS` | `120` | 单次编译运行超时时间 |
+| `MEMORY_LIMIT_MB` | `512` | Docker 容器内存限制 |
+| `DOCKER_IMAGE` | `rust-learning-playground:1.86` | 编译运行使用的 Docker 镜像 |
 
 ## 本地构建与打包
 
@@ -400,9 +456,13 @@ STATIC_DIR=/opt/rust-learning /opt/rust-learning/backend/target/release/rust-lea
 后端接收到请求后：
 
 1. 创建临时目录，写入 `Cargo.toml` 和 `main.rs`
-2. 通过 `docker run` 启动隔离容器编译并运行代码
-3. 容器限制：无网络、最小权限、256MB 内存、1 CPU、64 进程、25 秒超时
+2. 通过 `docker run` 启动隔离容器，使用 `cargo build --offline` 离线编译并运行代码
+3. 容器限制：无网络、最小权限、512MB 内存、1 CPU、64 进程、120 秒超时
 4. 返回 `result`（标准输出）和 `error`（编译/运行错误），前端分别用绿色和红色展示
+
+### 离线编译说明
+
+由于容器使用 `--network none`，无法访问 crates.io。因此后端会在临时项目中同时写入 `Cargo.toml` 和固定的 `Cargo.lock`（来自 `backend/src/Cargo.lock.playground`），并调用 `cargo build --offline`。只要自定义镜像 `rust-learning-playground:1.86` 中已缓存对应版本的 crate，编译就能在无网络环境下完成。
 
 ### Docker 安全配置
 
@@ -422,8 +482,8 @@ STATIC_DIR=/opt/rust-learning /opt/rust-learning/backend/target/release/rust-lea
 
 ## 注意事项
 
-- 后端服务需要 Docker 守护进程正常运行，并能够拉取/运行 `rust:1.79-slim` 镜像。
-- 首次运行某个 Rust 代码时，`cargo build` 需要下载依赖，可能会比较慢。建议提前准备包含常用 crate 的自定义镜像，或在镜像中预编译依赖。
+- 后端服务需要 Docker 守护进程正常运行，并能够运行 `rust-learning-playground:1.86` 镜像。如果镜像未构建，请参考上文「构建 Docker 编译镜像」步骤。
+- 首次构建 `rust-learning-playground:1.86` 镜像时需要联网下载 crate；构建完成后，运行时容器无需联网。
 - 示例代码均已控制在数秒内完成；过长或无限循环会被 Docker 超时机制终止。
 - 移动端浏览器中，侧边栏可通过顶部菜单按钮展开/收起。
 - 主题设置会保存在浏览器 `localStorage` 中，刷新页面后仍然生效。
