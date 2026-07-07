@@ -66,6 +66,31 @@ createApp({
       return chapterIndexMap.value.get(`${moduleIdx}-${chapterIdxInModule}`);
     }
 
+    function getModuleChapterFromGlobal(globalIdx) {
+      const ch = allChapters.value[globalIdx];
+      return ch ? { moduleIdx: ch.moduleIdx, chapterIdxInModule: ch.chapterIdxInModule } : null;
+    }
+
+    function updateUrlHash(globalIdx) {
+      const loc = getModuleChapterFromGlobal(globalIdx);
+      if (loc) {
+        window.location.hash = `#chapter/${loc.moduleIdx}/${loc.chapterIdxInModule}`;
+      }
+    }
+
+    function parseUrlHash() {
+      const match = window.location.hash.match(/^#chapter\/(\d+)\/(\d+)$/);
+      if (match) {
+        const moduleIdx = parseInt(match[1], 10);
+        const chapterIdxInModule = parseInt(match[2], 10);
+        const globalIdx = getGlobalIdx(moduleIdx, chapterIdxInModule);
+        if (globalIdx !== undefined && globalIdx >= 0 && globalIdx < allChapters.value.length) {
+          return globalIdx;
+        }
+      }
+      return null;
+    }
+
     function initEditorWithDoc(doc = "", isDark = true) {
       const themeExtension = EditorView.theme({
         "&": { height: "100%" },
@@ -154,6 +179,7 @@ createApp({
 
     function loadChapter(globalIdx) {
       currentGlobalIdx.value = globalIdx;
+      updateUrlHash(globalIdx);
       clearOutput();
       if (theoryEl.value) {
         theoryEl.value.scrollTop = 0;
@@ -266,7 +292,19 @@ createApp({
       initEditorWithDoc("", theme.value === "dark");
       try {
         await loadData();
-        currentGlobalIdx.value = 0;
+        const hashIdx = parseUrlHash();
+        currentGlobalIdx.value = hashIdx !== null ? hashIdx : 0;
+
+        window.addEventListener("hashchange", () => {
+          const idx = parseUrlHash();
+          if (idx !== null && idx !== currentGlobalIdx.value) {
+            currentGlobalIdx.value = idx;
+            clearOutput();
+            if (theoryEl.value) {
+              theoryEl.value.scrollTop = 0;
+            }
+          }
+        });
       } catch (err) {
         loadError.value = err.message;
       }

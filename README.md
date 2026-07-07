@@ -220,7 +220,32 @@ const res = await fetch("https://api.rust-learning.example.com/evaluate.json", {
 
 - 如果通过 Nginx/Caddy 反向代理 `/evaluate.json`，则不需要修改前端代码，保持 `/evaluate.json` 即可。
 
-### 4. 使用 Rust 官方 Playground 接口（可选）
+### 4. 章节 URL 与分享
+
+每个章节都有独立的 URL，方便收藏和分享。
+
+#### URL 格式
+
+```
+http://localhost:8080/#chapter/<moduleIdx>/<chapterIdxInModule>
+```
+
+例如：
+
+```
+http://localhost:8080/#chapter/0/0   # 基础入门 - Hello World
+http://localhost:8080/#chapter/1/3   # 中等应用 - 闭包与迭代器
+http://localhost:8080/#chapter/3/5   # Q & A - 第 6 个问题
+```
+
+#### 行为
+
+- 点击左侧目录中的章节按钮，URL 会自动更新为对应 hash。
+- 直接访问带 hash 的 URL，页面加载后会自动跳转到对应章节。
+- 浏览器前进/后退按钮可以切换章节。
+- hash 路由不需要后端特殊配置，纯静态托管即可支持。
+
+### 5. 使用 Rust 官方 Playground 接口（可选）
 
 如果你不想部署本地后端，可以直接使用 Rust 官方 Playground 的 `/evaluate.json` 接口。该接口无需本地 Docker，但**需要访问外网**，且无法控制执行环境。
 
