@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 340" width="560" height="340">
+  <rect width="560" height="340" fill="#fff8f0" rx="10"/>
+  <text x="280" y="30" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">🦀 引用 vs 裸指针</text>
+  <rect x="40" y="60" width="230" height="240" fill="#e3f2fd" stroke="#1565c0" stroke-width="2" rx="8"/>
+  <text x="155" y="90" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#0d47a1">&amp;T / &amp;mut T</text>
+  <text x="155" y="120" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">✅ 借用检查</text>
+  <text x="155" y="145" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">✅ 生命周期保证</text>
+  <text x="155" y="170" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">✅ 不可为空</text>
+  <text x="155" y="205" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">编译器担保有效</text>
+  <rect x="290" y="60" width="230" height="240" fill="#fff3e0" stroke="#ef6c00" stroke-width="2" rx="8"/>
+  <text x="405" y="90" font-family="system-ui, sans-serif" font-size="15" font-weight="bold" text-anchor="middle" fill="#e65100">*const T / *mut T</text>
+  <text x="405" y="120" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">⚠️ 无借用检查</text>
+  <text x="405" y="145" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">⚠️ 可为 null</text>
+  <text x="405" y="170" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">⚠️ 可指向无效内存</text>
+  <text x="405" y="205" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">需要 unsafe 块解引用</text>
+  <path d="M 270 180 L 290 180" stroke="#666" stroke-width="2"/>
+  <text x="280" y="200" font-family="system-ui, sans-serif" font-size="20" text-anchor="middle" fill="#666">→</text>
+  <text x="280" y="250" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#666">安全责任转移</text>
+</svg>

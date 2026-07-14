@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 380" width="560" height="380">
+  <rect width="560" height="380" fill="#fff8f0" rx="10"/>
+  <text x="280" y="30" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">⚙️ Tokio 运行时架构</text>
+  <rect x="40" y="60" width="480" height="80" fill="#e3f2fd" stroke="#1565c0" stroke-width="2" rx="8"/>
+  <text x="280" y="95" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">应用层 async fn / .await</text>
+  <text x="280" y="120" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">业务代码：spawn、join、select、channel</text>
+  <rect x="40" y="160" width="480" height="80" fill="#fff3e0" stroke="#ef6c00" stroke-width="2" rx="8"/>
+  <text x="280" y="195" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">调度层 线程池 + 工作窃取</text>
+  <text x="280" y="220" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">将任务分配到多个 worker 线程执行</text>
+  <rect x="40" y="260" width="480" height="80" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2" rx="8"/>
+  <text x="280" y="295" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">I/O 驱动 epoll/kqueue/IOCP</text>
+  <text x="280" y="320" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">监听网络、定时器、文件事件并唤醒任务</text>
+  <path d="M 280 140 L 280 160" stroke="#666" stroke-width="2"/>
+  <path d="M 280 240 L 280 260" stroke="#666" stroke-width="2"/>
+</svg>

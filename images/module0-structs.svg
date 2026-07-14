@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="350" viewBox="0 0 720 350">
+  <defs>
+    <style>
+      .bg { fill: #fff8f0; }
+      .card { fill: #ffffff; stroke: #e0d6cc; stroke-width: 2; }
+      .title { font: bold 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .text { font: 15px system-ui, -apple-system, sans-serif; fill: #2a2a2a; }
+      .code { font: 14px "SF Mono", Menlo, monospace; fill: #3a2a1a; }
+      .label { font: 13px system-ui, -apple-system, sans-serif; fill: #5a5a5a; }
+      .arrow { stroke: #7a6a5a; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .highlight { fill: #ffeacc; stroke: #ffaa55; stroke-width: 2; }
+      .box { fill: #e8f4ff; stroke: #3399ff; stroke-width: 2; }
+      .box2 { fill: #f0ffe8; stroke: #66bb33; stroke-width: 2; }
+      .box3 { fill: #fff0f5; stroke: #dd5599; stroke-width: 2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
+    </marker>
+  </defs>
+  <rect width="720" height="350" class="bg"/>
+  <rect x="16" y="16" width="688" height="318" rx="12" class="card"/>
+  <text x="360" y="50" text-anchor="middle" class="title">module0-structs</text>
+  
+  <rect x="60" y="80" width="320" height="140" rx="8" class="box"/>
+  <text x="80" y="115" class="code">struct User {</text>
+  <text x="100" y="145" class="code">  username: String,</text>
+  <text x="100" y="175" class="code">  email: String,</text>
+  <text x="100" y="205" class="code">  active: bool,</text>
+  <text x="80" y="235" class="code">}</text>
+  
+  <rect x="420" y="80" width="240" height="140" rx="8" class="box2"/>
+  <text x="440" y="115" class="text">实例化</text>
+  <text x="440" y="150" class="code">User {</text>
+  <text x="460" y="180" class="code">username: ...</text>
+  <text x="460" y="210" class="code">..Default::default()</text>
+  <text x="440" y="235" class="code">}</text>
+  
+  <text x="360" y="280" text-anchor="middle" class="text">🦀 结构体把相关数据打包成一个有意义的整体</text>
+  <text x="360" y="310" text-anchor="middle" class="label">Tuple struct / Unit struct 是另外两种变体</text>
+
+</svg>

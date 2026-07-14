@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+  <rect width="100%" height="100%" fill="#fff8f0" rx="12"/>
+  <text x="320" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#4a3b2a">Trait Bounds：能力组合</text>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#5c4b37"/>
+    </marker>
+  </defs><rect x="120" y="70" width="400" height="80" fill="#fff3e0" stroke="#fb8c00" stroke-width="2" rx="8"/><text x="320" y="105" font-size="15" font-weight="bold" fill="#3d3229" text-anchor="middle">fn notify<T: Summary + Display>(item: &T)</text><text x="320" y="135" font-size="13" font-weight="normal" fill="#666" text-anchor="middle">类型 T 必须同时实现 Summary 和 Display</text><rect x="120" y="200" width="180" height="100" fill="#e8f5e9" stroke="#66bb6a" stroke-width="2" rx="8"/><text x="210" y="235" font-size="14" font-weight="bold" fill="#3d3229" text-anchor="middle">Summary</text><text x="210" y="260" font-size="12" font-weight="normal" fill="#3d3229" text-anchor="middle">summarize()</text><rect x="340" y="200" width="180" height="100" fill="#e3f2fd" stroke="#42a5f5" stroke-width="2" rx="8"/><text x="430" y="235" font-size="14" font-weight="bold" fill="#3d3229" text-anchor="middle">Display</text><text x="430" y="260" font-size="12" font-weight="normal" fill="#3d3229" text-anchor="middle">to_string()</text><rect x="230" y="260" width="180" height="50" fill="#ffe0b2" stroke="#fb8c00" stroke-width="2" rx="8"/><text x="320" y="290" font-size="12" font-weight="bold" fill="#3d3229" text-anchor="middle">T 必须同时满足</text><line x1="240" y1="260" x2="240" y2="240" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/><line x1="400" y1="260" x2="400" y2="240" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/><text x="320" y="170" font-size="15" font-weight="normal" fill="#5c4b37" text-anchor="middle">Trait Bounds：组合多个能力</text>
+</svg>

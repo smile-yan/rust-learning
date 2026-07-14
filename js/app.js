@@ -214,12 +214,13 @@ createApp({
       outputClass.value = "text-gray-200";
 
       const code = editor.state.doc.toString();
+      const evaluateUrl = (window.RUST_PLAYGROUND && window.RUST_PLAYGROUND.evaluateUrl) || "/evaluate.json";
 
       try {
         const controller = new AbortController();
         const timeoutId = setTimeout(() => controller.abort(), 25000);
 
-        const res = await fetch("/evaluate.json", {
+        const res = await fetch(evaluateUrl, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({

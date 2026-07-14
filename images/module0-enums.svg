@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="340" viewBox="0 0 720 340">
+  <defs>
+    <style>
+      .bg { fill: #fff8f0; }
+      .card { fill: #ffffff; stroke: #e0d6cc; stroke-width: 2; }
+      .title { font: bold 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .text { font: 15px system-ui, -apple-system, sans-serif; fill: #2a2a2a; }
+      .code { font: 14px "SF Mono", Menlo, monospace; fill: #3a2a1a; }
+      .label { font: 13px system-ui, -apple-system, sans-serif; fill: #5a5a5a; }
+      .arrow { stroke: #7a6a5a; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .highlight { fill: #ffeacc; stroke: #ffaa55; stroke-width: 2; }
+      .box { fill: #e8f4ff; stroke: #3399ff; stroke-width: 2; }
+      .box2 { fill: #f0ffe8; stroke: #66bb33; stroke-width: 2; }
+      .box3 { fill: #fff0f5; stroke: #dd5599; stroke-width: 2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
+    </marker>
+  </defs>
+  <rect width="720" height="340" class="bg"/>
+  <rect x="16" y="16" width="688" height="308" rx="12" class="card"/>
+  <text x="360" y="50" text-anchor="middle" class="title">module0-enums</text>
+  
+  <rect x="60" y="80" width="260" height="150" rx="8" class="box"/>
+  <text x="80" y="115" class="code">enum Message {</text>
+  <text x="100" y="145" class="code">  Quit,</text>
+  <text x="100" y="175" class="code">  Move { x, y },</text>
+  <text x="100" y="205" class="code">  Write(String),</text>
+  <text x="100" y="235" class="code">  ChangeColor(i32, i32, i32),</text>
+  <text x="80" y="260" class="code">}</text>
+  
+  <rect x="380" y="80" width="280" height="150" rx="8" class="box2"/>
+  <text x="400" y="115" class="text">模式匹配</text>
+  <text x="400" y="150" class="code">match msg {</text>
+  <text x="420" y="180" class="code">Message::Quit =&gt; ...,</text>
+  <text x="420" y="210" class="code">Message::Move{x,y} =&gt; ...,</text>
+  <text x="420" y="240" class="code">_ =&gt; ...,</text>
+  <text x="400" y="265" class="code">}</text>
+  
+  <text x="360" y="290" text-anchor="middle" class="text">💡 枚举让“一个类型的不同形态”在类型系统中显式表达</text>
+
+</svg>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="380" viewBox="0 0 720 380">
+  <defs>
+    <style>
+      .bg { fill: #fff8f0; }
+      .card { fill: #ffffff; stroke: #e0d6cc; stroke-width: 2; }
+      .title { font: bold 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .text { font: 15px system-ui, -apple-system, sans-serif; fill: #2a2a2a; }
+      .code { font: 14px "SF Mono", Menlo, monospace; fill: #3a2a1a; }
+      .label { font: 13px system-ui, -apple-system, sans-serif; fill: #5a5a5a; }
+      .arrow { stroke: #7a6a5a; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .highlight { fill: #ffeacc; stroke: #ffaa55; stroke-width: 2; }
+      .box { fill: #e8f4ff; stroke: #3399ff; stroke-width: 2; }
+      .box2 { fill: #f0ffe8; stroke: #66bb33; stroke-width: 2; }
+      .box3 { fill: #fff0f5; stroke: #dd5599; stroke-width: 2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
+    </marker>
+  </defs>
+  <rect width="720" height="380" class="bg"/>
+  <rect x="16" y="16" width="688" height="348" rx="12" class="card"/>
+  <text x="360" y="50" text-anchor="middle" class="title">module0-functions</text>
+  
+  <rect x="60" y="80" width="600" height="100" rx="8" class="box"/>
+  <text x="80" y="115" class="code">fn add(a: i32, b: i32) -&gt; i32 { a + b }</text>
+  <text x="80" y="145" class="label">fn 关键字</text>
+  <text x="210" y="145" class="label">参数列表</text>
+  <text x="420" y="145" class="label">返回类型</text>
+  <text x="520" y="145" class="label">函数体/表达式</text>
+  <line x1="95" y1="120" x2="95" y2="135" class="arrow"/>
+  <line x1="225" y1="120" x2="225" y2="135" class="arrow"/>
+  <line x1="435" y1="120" x2="435" y2="135" class="arrow"/>
+  <line x1="540" y1="120" x2="540" y2="135" class="arrow"/>
+  
+  <rect x="120" y="240" width="180" height="80" rx="8" class="box2"/>
+  <text x="210" y="275" text-anchor="middle" class="text">调用方</text>
+  <text x="210" y="300" text-anchor="middle" class="label">add(2, 3)</text>
+  
+  <rect x="420" y="240" width="180" height="80" rx="8" class="box3"/>
+  <text x="510" y="275" text-anchor="middle" class="text">函数</text>
+  <text x="510" y="300" text-anchor="middle" class="label">返回 5</text>
+  
+  <line x1="300" y1="280" x2="420" y2="280" class="arrow"/>
+  <line x1="420" y1="310" x2="300" y2="310" class="arrow"/>
+
+</svg>

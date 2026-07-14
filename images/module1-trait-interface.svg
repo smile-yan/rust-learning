@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+  <rect width="100%" height="100%" fill="#fff8f0" rx="12"/>
+  <text x="320" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#4a3b2a">Trait：定义共享行为</text>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#5c4b37"/>
+    </marker>
+  </defs><rect x="220" y="60" width="200" height="70" fill="#fff3e0" stroke="#fb8c00" stroke-width="2" rx="8"/><text x="320" y="90" font-size="14" font-weight="bold" fill="#3d3229" text-anchor="middle">trait Summary</text><text x="320" y="115" font-size="12" font-weight="normal" fill="#3d3229" text-anchor="middle">fn summarize(&self) -> String</text><rect x="70" y="200" width="210" height="110" fill="#e8f5e9" stroke="#66bb6a" stroke-width="2" rx="8"/><text x="175" y="230" font-size="14" font-weight="bold" fill="#3d3229" text-anchor="middle">NewsArticle</text><text x="175" y="255" font-size="12" font-weight="normal" fill="#3d3229" text-anchor="middle">headline</text><text x="175" y="275" font-size="12" font-weight="normal" fill="#3d3229" text-anchor="middle">location</text><text x="175" y="295" font-size="12" font-weight="normal" fill="#3d3229" text-anchor="middle">author</text><rect x="360" y="200" width="210" height="110" fill="#e3f2fd" stroke="#42a5f5" stroke-width="2" rx="8"/><text x="465" y="230" font-size="14" font-weight="bold" fill="#3d3229" text-anchor="middle">Tweet</text><text x="465" y="255" font-size="12" font-weight="normal" fill="#3d3229" text-anchor="middle">username</text><text x="465" y="275" font-size="12" font-weight="normal" fill="#3d3229" text-anchor="middle">content</text><line x1="280" y1="130" x2="180" y2="200" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/><line x1="360" y1="130" x2="460" y2="200" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/><text x="320" y="170" font-size="13" font-weight="normal" fill="#5c4b37" text-anchor="middle">impl Summary for</text>
+</svg>

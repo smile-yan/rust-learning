@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="360" viewBox="0 0 720 360" role="img" aria-label="Rc 循环引用导致内存泄漏">
+  <title>Rc 循环引用导致内存泄漏</title>
+  <rect width="100%" height="100%" fill="#fff8f0" rx="12"/>
+  <text x="360" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="bold" fill="#3d2b1f">⚠️ Rc 循环引用导致内存泄漏</text>
+
+  <rect x="60" y="70" width="260" height="100" fill="#ffebee" stroke="#c62828" stroke-width="2" rx="8"/>
+  <text x="190" y="100" text-anchor="middle" font-family="monospace" font-size="14" font-weight="bold" fill="#b71c1c">Rc&lt;A&gt;</text>
+  <text x="190" y="125" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#333">strong_count = 1</text>
+  <text x="190" y="150" text-anchor="middle" font-family="monospace" font-size="12" fill="#555">RefCell::new(None)</text>
+
+  <rect x="400" y="70" width="260" height="100" fill="#ffebee" stroke="#c62828" stroke-width="2" rx="8"/>
+  <text x="530" y="100" text-anchor="middle" font-family="monospace" font-size="14" font-weight="bold" fill="#b71c1c">Rc&lt;B&gt;</text>
+  <text x="530" y="125" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#333">strong_count = 1</text>
+  <text x="530" y="150" text-anchor="middle" font-family="monospace" font-size="12" fill="#555">RefCell::new(Some(Rc&lt;A&gt;))</text>
+
+  <path d="M 320 95 C 360 60, 360 60, 400 95" stroke="#d32f2f" stroke-width="2.5" marker-end="url(#arrow-red)" fill="none"/>
+  <text x="360" y="70" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#d32f2f">A → B</text>
+
+  <path d="M 400 145 C 360 180, 360 180, 320 145" stroke="#d32f2f" stroke-width="2.5" marker-end="url(#arrow-red)" fill="none"/>
+  <text x="360" y="180" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#d32f2f">B → A</text>
+
+  <rect x="60" y="210" width="600" height="110" fill="#fff8f0" stroke="#c62828" stroke-width="2" stroke-dasharray="5,3" rx="8"/>
+  <text x="360" y="240" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">🔴 循环引用后果</text>
+  <text x="360" y="268" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#333">两个 Rc 的 strong_count 永远不会归零</text>
+  <text x="360" y="292" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#333">堆上内存无法被释放 → 内存泄漏</text>
+  <text x="360" y="316" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#2e7d32">✅ 解法：使用 Weak&lt;T&gt; 打破循环，或改用借用</text>
+
+  <defs>
+    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#d32f2f"/>
+    </marker>
+  </defs>
+</svg>

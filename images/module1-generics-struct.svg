@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+  <rect width="100%" height="100%" fill="#fff8f0" rx="12"/>
+  <text x="320" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#4a3b2a">泛型结构体：类型参数化</text>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#5c4b37"/>
+    </marker>
+  </defs><rect x="80" y="100" width="200" height="120" fill="#e8f5e9" stroke="#66bb6a" stroke-width="2" rx="8"/><text x="180" y="135" font-size="14" font-weight="bold" fill="#3d3229" text-anchor="middle">Point<i32></text><text x="180" y="165" font-size="14" font-weight="normal" fill="#3d3229" text-anchor="middle">x: 5</text><text x="180" y="190" font-size="14" font-weight="normal" fill="#3d3229" text-anchor="middle">y: 10</text><rect x="360" y="100" width="200" height="120" fill="#e3f2fd" stroke="#42a5f5" stroke-width="2" rx="8"/><text x="460" y="135" font-size="14" font-weight="bold" fill="#3d3229" text-anchor="middle">Point<f64></text><text x="460" y="165" font-size="14" font-weight="normal" fill="#3d3229" text-anchor="middle">x: 3.0</text><text x="460" y="190" font-size="14" font-weight="normal" fill="#3d3229" text-anchor="middle">y: 4.0</text><rect x="240" y="235" width="160" height="80" fill="#fff3e0" stroke="#fb8c00" stroke-width="2" rx="8"/><text x="320" y="270" font-size="14" font-weight="bold" fill="#3d3229" text-anchor="middle">Point<T></text><text x="320" y="300" font-size="13" font-weight="normal" fill="#3d3229" text-anchor="middle">{ x: T, y: T }</text><line x1="180" y1="220" x2="280" y2="250" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/><line x1="460" y1="220" x2="360" y2="250" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/><text x="320" y="70" font-size="15" font-weight="normal" fill="#5c4b37" text-anchor="middle">泛型结构体：同一个模板，不同的具体类型</text>
+</svg>

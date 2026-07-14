@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="380" viewBox="0 0 720 380">
+  <defs>
+    <style>
+      .bg { fill: #fff8f0; }
+      .card { fill: #ffffff; stroke: #e0d6cc; stroke-width: 2; }
+      .title { font: bold 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .text { font: 15px system-ui, -apple-system, sans-serif; fill: #2a2a2a; }
+      .code { font: 14px "SF Mono", Menlo, monospace; fill: #3a2a1a; }
+      .label { font: 13px system-ui, -apple-system, sans-serif; fill: #5a5a5a; }
+      .arrow { stroke: #7a6a5a; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .highlight { fill: #ffeacc; stroke: #ffaa55; stroke-width: 2; }
+      .box { fill: #e8f4ff; stroke: #3399ff; stroke-width: 2; }
+      .box2 { fill: #f0ffe8; stroke: #66bb33; stroke-width: 2; }
+      .box3 { fill: #fff0f5; stroke: #dd5599; stroke-width: 2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
+    </marker>
+  </defs>
+  <rect width="720" height="380" class="bg"/>
+  <rect x="16" y="16" width="688" height="348" rx="12" class="card"/>
+  <text x="360" y="50" text-anchor="middle" class="title">module0-error-handling</text>
+  
+  <rect x="60" y="80" width="240" height="120" rx="8" class="box"/>
+  <text x="80" y="115" class="text">Result&lt;T, E&gt;</text>
+  <text x="80" y="150" class="code">Ok(value)</text>
+  <text x="80" y="180" class="code">Err(error)</text>
+  
+  <rect x="360" y="80" width="240" height="120" rx="8" class="box2"/>
+  <text x="380" y="115" class="text">Option&lt;T&gt;</text>
+  <text x="380" y="150" class="code">Some(value)</text>
+  <text x="380" y="180" class="code">None</text>
+  
+  <text x="360" y="250" text-anchor="middle" class="text">🔧 ? 运算符：遇到 Err/None 时提前返回</text>
+  <text x="360" y="290" text-anchor="middle" class="code">let f = File::open("a.txt")?;</text>
+  
+  <text x="360" y="330" text-anchor="middle" class="label">unwrap 适合示例/原型，生产环境优先 match / ? / expect</text>
+
+</svg>

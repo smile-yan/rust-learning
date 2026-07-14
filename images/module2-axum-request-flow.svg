@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 340" width="600" height="340">
+  <rect width="600" height="340" fill="#fff8f0" rx="10"/>
+  <text x="300" y="30" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">🌐 Axum 请求处理流程</text>
+  <rect x="40" y="80" width="100" height="60" fill="#e3f2fd" stroke="#1565c0" stroke-width="2" rx="8"/>
+  <text x="90" y="115" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#0d47a1">HTTP Request</text>
+  <rect x="180" y="80" width="100" height="60" fill="#fff3e0" stroke="#ef6c00" stroke-width="2" rx="8"/>
+  <text x="230" y="115" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#e65100">Router</text>
+  <rect x="320" y="80" width="110" height="60" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2" rx="8"/>
+  <text x="375" y="115" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#4a148c">Middleware</text>
+  <rect x="470" y="80" width="100" height="60" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2" rx="8"/>
+  <text x="520" y="115" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#1b5e20">Handler</text>
+  <path d="M 140 110 L 180 110" stroke="#666" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M 280 110 L 320 110" stroke="#666" stroke-width="2" marker-end="url(#a)"/>
+  <path d="M 430 110 L 470 110" stroke="#666" stroke-width="2" marker-end="url(#a)"/>
+  <rect x="470" y="200" width="100" height="60" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2" rx="8"/>
+  <text x="520" y="235" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#1b5e20">Response</text>
+  <path d="M 520 140 L 520 200" stroke="#2e7d32" stroke-width="2" marker-end="url(#a)"/>
+  <text x="300" y="290" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#666">路由匹配 → 中间件预处理 → Handler 提取参数并返回 → 中间件后处理 → 响应</text>
+  <defs>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#666"/>
+    </marker>
+  </defs>
+</svg>

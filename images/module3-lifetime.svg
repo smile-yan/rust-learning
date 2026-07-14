@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="340" viewBox="0 0 720 340" role="img" aria-label="生命周期作用域示意">
+  <title>生命周期作用域示意</title>
+  <rect width="100%" height="100%" fill="#fff8f0" rx="12"/>
+  <text x="360" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="bold" fill="#3d2b1f">⏳ 生命周期作用域示意</text>
+  <rect x="40" y="60" width="640" height="260" fill="#f8f4ff" stroke="#6b4c9a" stroke-width="2" rx="8"/>
+  <text x="360" y="88" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#4a3560">代码作用域</text>
+
+  <rect x="80" y="110" width="200" height="50" fill="#e0f7fa" stroke="#00838f" stroke-width="1.5" rx="4"/>
+  <text x="180" y="141" text-anchor="middle" font-family="monospace" font-size="13" fill="#006064">let a = "long";</text>
+
+  <rect x="80" y="170" width="360" height="50" fill="#fff3e0" stroke="#ef6c00" stroke-width="1.5" rx="4"/>
+  <text x="260" y="201" text-anchor="middle" font-family="monospace" font-size="13" fill="#e65100">{ let b = "short"; ... }</text>
+
+  <rect x="80" y="230" width="560" height="60" fill="#e8f5e9" stroke="#2e7d32" stroke-width="1.5" rx="4"/>
+  <text x="360" y="256" text-anchor="middle" font-family="monospace" font-size="13" fill="#1b5e20">let result = longest(a.as_str(), b.as_str());</text>
+  <text x="360" y="278" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#d32f2f">❌ 错误：result 的生命周期不能超过 b</text>
+
+  <path d="M 290 135 L 480 135" stroke="#00838f" stroke-width="2" marker-end="url(#arrow-green)" fill="none"/>
+  <text x="385" y="125" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#00838f">'a 足够长</text>
+
+  <path d="M 445 195 L 445 245" stroke="#d32f2f" stroke-width="2" marker-end="url(#arrow-red)" fill="none"/>
+  <text x="500" y="225" text-anchor="start" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#d32f2f">b 已释放</text>
+
+  <defs>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#00838f"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#d32f2f"/>
+    </marker>
+  </defs>
+</svg>

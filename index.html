@@ -114,6 +114,15 @@
     </div>
   </div>
 
+  <script>
+    // 配置后端执行接口。可选项：
+    //   "/evaluate.json"                          -> 与前端同域名（由后端统一提供静态资源时使用）
+    //   "http://localhost:9001/evaluate.json"       -> 本地前后端分离开发
+    //   "https://play.rust-lang.org/evaluate.json"  -> Rust 官方 Playground
+    window.RUST_PLAYGROUND = {
+      evaluateUrl: "http://localhost:9001/evaluate.json"
+    };
+  </script>
   <script type="module" src="js/app.js?v=5"></script>
 </body>
 </html>

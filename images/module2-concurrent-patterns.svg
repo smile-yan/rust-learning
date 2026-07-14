@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420" width="640" height="420">
+  <rect width="640" height="420" fill="#fff8f0" rx="10"/>
+  <text x="320" y="30" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">🦀 Rust 并发模式地图</text>
+  <rect x="40" y="60" width="170" height="150" fill="#e3f2fd" stroke="#1565c0" stroke-width="2" rx="8"/>
+  <text x="125" y="90" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#0d47a1">Actor 模型</text>
+  <text x="125" y="120" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">独立计算单元</text>
+  <text x="125" y="145" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">通过消息通信</text>
+  <text x="125" y="170" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">所有权天然契合</text>
+  <rect x="235" y="60" width="170" height="150" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2" rx="8"/>
+  <text x="320" y="90" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#1b5e20">Pipeline 管道</text>
+  <text x="320" y="120" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">多个处理阶段</text>
+  <text x="320" y="145" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">channel 连接</text>
+  <text x="320" y="170" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">数据流式传递</text>
+  <rect x="430" y="60" width="170" height="150" fill="#fff3e0" stroke="#ef6c00" stroke-width="2" rx="8"/>
+  <text x="515" y="90" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#e65100">Work Stealing</text>
+  <text x="515" y="120" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">任务队列 per thread</text>
+  <text x="515" y="145" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">空闲线程窃取任务</text>
+  <text x="515" y="170" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">负载自动均衡</text>
+  <rect x="40" y="240" width="280" height="120" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2" rx="8"/>
+  <text x="180" y="270" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">读写锁 RwLock</text>
+  <text x="180" y="300" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">多个 reader 或一个 writer</text>
+  <text x="180" y="325" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">适合读多写少场景</text>
+  <text x="180" y="350" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">避免 Mutex 读竞争</text>
+  <rect x="350" y="240" width="250" height="120" fill="#ffebee" stroke="#c62828" stroke-width="2" rx="8"/>
+  <text x="475" y="270" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#b71c1c">背压 Backpressure</text>
+  <text x="475" y="300" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">生产快于消费时</text>
+  <text x="475" y="325" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">有界 channel 阻塞发送</text>
+  <text x="475" y="350" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">防止内存无限增长</text>
+</svg>
