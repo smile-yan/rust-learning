@@ -38,18 +38,23 @@ tar czf /tmp/backend.tar.gz \
   --exclude='node_modules' \
   .
 
-scp /tmp/backend.tar.gz backend-deploy:/tmp/backend.tar.gz
+echo "上传源码压缩包到服务器..."
+scp -o ConnectTimeout=30 -o BatchMode=yes /tmp/backend.tar.gz backend-deploy:/tmp/backend.tar.gz
 
 # 如果存在预编译二进制（GitHub Actions 构建），一并上传
 if [ -d /tmp/backend-release ] && [ -f /tmp/backend-release/rust-learning-backend ] && [ -f /tmp/backend-release/docker-runner ]; then
+  echo "打包预编译二进制..."
   tar czf /tmp/backend-binaries.tar.gz -C /tmp/backend-release rust-learning-backend docker-runner
-  scp /tmp/backend-binaries.tar.gz backend-deploy:/tmp/backend-binaries.tar.gz
+  echo "上传预编译二进制到服务器..."
+  scp -o ConnectTimeout=30 -o BatchMode=yes /tmp/backend-binaries.tar.gz backend-deploy:/tmp/backend-binaries.tar.gz
   PREBUILT_BINARIES=1
 else
+  echo "未找到预编译二进制，将回退到服务器端 cargo build"
   PREBUILT_BINARIES=0
 fi
 
 # 生成并上传 systemd 服务文件
+echo "生成 systemd 服务文件..."
 cat > "/tmp/${SERVICE_FILE}" <<EOF
 [Unit]
 Description=Rust Learning Backend
@@ -75,18 +80,23 @@ Environment="DOCKER_IMAGE=${DOCKER_IMAGE:-rust-learning-playground:1.86}"
 WantedBy=multi-user.target
 EOF
 
-scp "/tmp/${SERVICE_FILE}" backend-deploy:/tmp/${SERVICE_FILE}
+echo "上传服务文件..."
+scp -o ConnectTimeout=30 -o BatchMode=yes "/tmp/${SERVICE_FILE}" backend-deploy:/tmp/${SERVICE_FILE}
 
 # 解压、编译、重启
-ssh backend-deploy \
+echo "连接服务器执行部署脚本..."
+ssh -o ConnectTimeout=30 -o BatchMode=yes backend-deploy \
   "set -e; \
+   echo '创建后端目录...'; \
    mkdir -p '${BACKEND_DEPLOY_DIR}/backend/target/release'; \
+   echo '解压源码...'; \
    tar xzf /tmp/backend.tar.gz -C '${BACKEND_DEPLOY_DIR}'; \
    rm -f /tmp/backend.tar.gz; \
    if [ '${PREBUILT_BINARIES}' = '1' ]; then \
      echo '使用 GitHub Actions 预编译的二进制...'; \
      tar xzf /tmp/backend-binaries.tar.gz -C '${BACKEND_DEPLOY_DIR}/backend/target/release'; \
      rm -f /tmp/backend-binaries.tar.gz; \
+     ls -lh '${BACKEND_DEPLOY_DIR}/backend/target/release'; \
    fi; \
    export PORT='${BACKEND_PORT}'; \
    export STATIC_DIR='${BACKEND_DEPLOY_DIR}'; \
@@ -106,10 +116,12 @@ ssh backend-deploy \
      cd '${BACKEND_DEPLOY_DIR}/backend'; \
      cargo build --release; \
    fi; \
+   echo '检查 Docker 守护进程...'; \
+   timeout 10 docker info >/dev/null; \
    image='${DOCKER_IMAGE:-rust-learning-playground:1.86}'; \
    if ! docker image inspect "\$image" >/dev/null 2>&1; then \
      echo "Docker 镜像 \$image 不存在，开始从仓库拉取..."; \
-     docker pull "\$image"; \
+     timeout 300 docker pull "\$image"; \
    fi; \
    if ! sudo systemctl cat '${SERVICE_NAME}' >/dev/null 2>&1; then \
      echo '正在安装 systemd 服务...'; \
@@ -117,17 +129,18 @@ ssh backend-deploy \
      sudo systemctl daemon-reload; \
      sudo systemctl enable '${SERVICE_NAME}'; \
    fi; \
+   echo '重启后端服务...'; \
    sudo systemctl restart '${SERVICE_NAME}'; \
    sleep 2; \
    for i in 1 2 3 4 5; do \
-     if curl -fsS http://localhost:${BACKEND_PORT}/ > /dev/null 2>&1; then \
+     if curl -fsS --max-time 5 http://localhost:${BACKEND_PORT}/ > /dev/null 2>&1; then \
        echo '后端健康检查通过'; \
        break; \
      fi; \
      echo "健康检查 \$i/5 失败，等待..."; \
      sleep 3; \
    done; \
-   if ! curl -fsS http://localhost:${BACKEND_PORT}/ > /dev/null 2>&1; then \
+   if ! curl -fsS --max-time 5 http://localhost:${BACKEND_PORT}/ > /dev/null 2>&1; then \
      echo '后端健康检查失败，服务状态和日志如下：'; \
      sudo systemctl status '${SERVICE_NAME}' --no-pager -l || true; \
      sudo journalctl -u '${SERVICE_NAME}' -n 50 --no-pager || true; \

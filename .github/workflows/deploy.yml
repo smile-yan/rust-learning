@@ -58,14 +58,23 @@ jobs:
 
       - name: Install Rust
         uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: x86_64-unknown-linux-musl
+
+      - name: Cache Rust dependencies
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: backend
 
       - name: Build backend binaries
         run: |
           cd backend
-          cargo build --release
+          cargo build --release --target x86_64-unknown-linux-musl
           mkdir -p /tmp/backend-release
-          cp target/release/rust-learning-backend /tmp/backend-release/
-          cp target/release/docker-runner /tmp/backend-release/
+          cp target/x86_64-unknown-linux-musl/release/rust-learning-backend /tmp/backend-release/
+          cp target/x86_64-unknown-linux-musl/release/docker-runner /tmp/backend-release/
+          strip /tmp/backend-release/rust-learning-backend
+          strip /tmp/backend-release/docker-runner
 
       - name: Deploy backend
         env:
