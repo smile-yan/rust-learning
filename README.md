@@ -489,36 +489,6 @@ STATIC_DIR=/opt/rust-learning /opt/rust-learning/backend/target/release/rust-lea
 - 主题设置会保存在浏览器 `localStorage` 中，刷新页面后仍然生效。
 - 修改 `codemirror-bundle.js` 后，建议同步更新 `js/app.js` 和 `index.html` 中的版本参数（`?v=N`），避免浏览器缓存旧 bundle。
 
-## 自动部署
-
-本项目已配置 Gitee Actions，推送 `v*` 标签时自动部署前后端：
-
-```bash
-git tag v1.0.0
-git push origin v1.0.0
-```
-
-### 前置条件
-
-1. 在 Gitee 仓库 **设置 → CI/CD → 变量** 中配置：
-   - `SSH_PRIVATE_KEY`：用于登录前后端服务器的 SSH 私钥
-   - `FRONTEND_HOST`、`FRONTEND_USER`、`FRONTEND_WEB_ROOT`：前端服务器信息
-   - `BACKEND_HOST`、`BACKEND_USER`、`BACKEND_DEPLOY_DIR`、`BACKEND_SERVICE`、`BACKEND_PORT`：后端服务器信息
-   - `EVALUATE_URL`：生产环境 `/evaluate.json` 完整地址，例如 `http://api.rust-learning.example.com/evaluate.json`
-2. 后端服务器安装 Rust、Cargo、Docker，并构建好 `rust-learning-playground:1.86` 镜像。
-3. 后端服务器配置 systemd 服务：
-   ```bash
-   sudo cp systemd/rust-learning-backend.service /etc/systemd/system/
-   sudo systemctl daemon-reload
-   sudo systemctl enable rust-learning-backend
-   ```
-4. 把 CI 使用的 SSH 公钥添加到前后端服务器的 `~/.ssh/authorized_keys`。
-
-### 部署流程
-
-- **前端**：CI 通过 `scripts/deploy-frontend.sh` 把 `index.html`、`css/`、`js/`、`libs/`、`images/` 上传到 `FRONTEND_WEB_ROOT`，并自动把 `index.html` 中的 `evaluateUrl` 替换为 `EVALUATE_URL`。
-- **后端**：CI 通过 `scripts/deploy-backend.sh` 把源码上传到 `BACKEND_DEPLOY_DIR`，在服务器上执行 `cargo build --release` 并重启 `BACKEND_SERVICE`。
-
 ## 许可证
 
 MIT
