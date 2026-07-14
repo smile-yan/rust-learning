@@ -1,5 +1,7 @@
 # Rust 学习之旅
 
+> ⚠️ **仓库已迁移**：本仓库不再维护，最新代码请访问 https://github.com/smile-yan/rust-learning
+
 一个前后端分离的 Rust 交互式学习网站。前端使用 **Vue 3** 管理状态，后端使用 **Rust + Axum + Docker** 在本地编译执行 Rust 代码，无需访问外网 CDN 或 Rust Playground。
 
 ![Vue](https://img.shields.io/badge/Vue-3-4FC08D?logo=vue.js&logoColor=white)
