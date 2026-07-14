@@ -11,6 +11,9 @@ cd "$PROJECT_ROOT"
 : "${BACKEND_SERVICE:?missing BACKEND_SERVICE}"
 : "${BACKEND_PORT:?missing BACKEND_PORT}"
 
+SERVICE_NAME="${BACKEND_SERVICE%.service}"
+SERVICE_FILE="${SERVICE_NAME}.service"
+
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
 printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
@@ -37,6 +40,33 @@ tar czf /tmp/backend.tar.gz \
 
 scp /tmp/backend.tar.gz backend-deploy:/tmp/backend.tar.gz
 
+# 生成并上传 systemd 服务文件
+cat > "/tmp/${SERVICE_FILE}" <<EOF
+[Unit]
+Description=Rust Learning Backend
+After=network.target
+
+[Service]
+Type=simple
+User=${BACKEND_USER}
+WorkingDirectory=${BACKEND_DEPLOY_DIR}
+ExecStart=${BACKEND_DEPLOY_DIR}/backend/target/release/rust-learning-backend
+Restart=on-failure
+RestartSec=5
+
+Environment="PORT=${BACKEND_PORT}"
+Environment="STATIC_DIR=${BACKEND_DEPLOY_DIR}"
+Environment="CONCURRENCY=${CONCURRENCY:-4}"
+Environment="TIMEOUT_SECONDS=${TIMEOUT_SECONDS:-120}"
+Environment="MEMORY_LIMIT_MB=${MEMORY_LIMIT_MB:-512}"
+Environment="DOCKER_IMAGE=${DOCKER_IMAGE:-rust-learning-playground:1.86}"
+
+[Install]
+WantedBy=multi-user.target
+EOF
+
+scp "/tmp/${SERVICE_FILE}" backend-deploy:/tmp/${SERVICE_FILE}
+
 # 解压、编译、重启
 ssh backend-deploy \
   "set -e; \
@@ -61,8 +91,14 @@ ssh backend-deploy \
    fi; \
    cd '${BACKEND_DEPLOY_DIR}/backend'; \
    cargo build --release; \
-   sudo systemctl restart '${BACKEND_SERVICE}'; \
-   sudo systemctl status '${BACKEND_SERVICE}' --no-pager; \
+   if ! sudo systemctl cat '${SERVICE_NAME}' >/dev/null 2>&1; then \
+     echo '正在安装 systemd 服务...'; \
+     sudo mv /tmp/${SERVICE_FILE} /etc/systemd/system/${SERVICE_FILE}; \
+     sudo systemctl daemon-reload; \
+     sudo systemctl enable '${SERVICE_NAME}'; \
+   fi; \
+   sudo systemctl restart '${SERVICE_NAME}'; \
+   sudo systemctl status '${SERVICE_NAME}' --no-pager; \
    sleep 2; \
    curl -fsS http://localhost:${BACKEND_PORT}/ > /dev/null"
 
