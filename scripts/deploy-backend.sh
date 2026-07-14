@@ -51,8 +51,9 @@ Type=simple
 User=${BACKEND_USER}
 WorkingDirectory=${BACKEND_DEPLOY_DIR}
 ExecStart=${BACKEND_DEPLOY_DIR}/backend/target/release/rust-learning-backend
-Restart=on-failure
+Restart=always
 RestartSec=5
+StartLimitIntervalSec=0
 
 Environment="PORT=${BACKEND_PORT}"
 Environment="STATIC_DIR=${BACKEND_DEPLOY_DIR}"
@@ -96,8 +97,21 @@ ssh backend-deploy \
      sudo systemctl enable '${SERVICE_NAME}'; \
    fi; \
    sudo systemctl restart '${SERVICE_NAME}'; \
-   sudo systemctl status '${SERVICE_NAME}' --no-pager; \
    sleep 2; \
-   curl -fsS http://localhost:${BACKEND_PORT}/ > /dev/null"
+   for i in 1 2 3 4 5; do \
+     if curl -fsS http://localhost:${BACKEND_PORT}/ > /dev/null 2>&1; then \
+       echo '后端健康检查通过'; \
+       break; \
+     fi; \
+     echo "健康检查 $i/5 失败，等待..."; \
+     sleep 3; \
+   done; \
+   if ! curl -fsS http://localhost:${BACKEND_PORT}/ > /dev/null 2>&1; then \
+     echo '后端健康检查失败，服务状态和日志如下：'; \
+     sudo systemctl status '${SERVICE_NAME}' --no-pager -l || true; \
+     sudo journalctl -u '${SERVICE_NAME}' -n 50 --no-pager || true; \
+     exit 1; \
+   fi; \
+   sudo systemctl status '${SERVICE_NAME}' --no-pager; "
 
 echo "后端部署完成"

@@ -182,8 +182,14 @@ async fn run_in_docker(
     let memory_limit_mb = state.memory_limit_mb;
     let timeout_seconds = state.timeout_seconds;
 
+    let docker_runner = std::env::current_exe()
+        .map_err(|e| AppError::Internal(e))?
+        .parent()
+        .ok_or_else(|| AppError::Internal(std::io::Error::new(std::io::ErrorKind::Other, "missing exe dir")))?
+        .join("docker-runner");
+
     let output = tokio::task::spawn_blocking(move || {
-        let mut cmd = std::process::Command::new("/Users/yanshili/me/projects/rust-projects/backend/target/release/docker-runner");
+        let mut cmd = std::process::Command::new(&docker_runner);
         cmd.arg(host_project.display().to_string())
             .arg(host_output.display().to_string())
             .arg(docker_image)
