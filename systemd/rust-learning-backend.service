@@ -1,0 +1,21 @@
+[Unit]
+Description=Rust Learning Backend
+After=network.target
+
+[Service]
+Type=simple
+User=deploy
+WorkingDirectory=/opt/rust-learning
+ExecStart=/opt/rust-learning/backend/target/release/rust-learning-backend
+Restart=on-failure
+RestartSec=5
+
+Environment="PORT=9001"
+Environment="STATIC_DIR=/opt/rust-learning"
+Environment="CONCURRENCY=4"
+Environment="TIMEOUT_SECONDS=120"
+Environment="MEMORY_LIMIT_MB=512"
+Environment="DOCKER_IMAGE=rust-learning-playground:1.86"
+
+[Install]
+WantedBy=multi-user.target
