@@ -5,9 +5,39 @@ on:
     tags:
       - 'v*'
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
+  build-playground-image:
+    name: Build playground image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push playground image
+        uses: docker/build-push-action@v5
+        with:
+          context: backend
+          file: backend/Dockerfile.playground
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/rust-learning-playground:1.86
+
   deploy-frontend:
     name: Deploy frontend
+    needs: build-playground-image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -26,6 +56,7 @@ jobs:
 
   deploy-backend:
     name: Deploy backend
+    needs: build-playground-image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -42,7 +73,7 @@ jobs:
           CONCURRENCY: ${{ secrets.CONCURRENCY }}
           TIMEOUT_SECONDS: ${{ secrets.TIMEOUT_SECONDS }}
           MEMORY_LIMIT_MB: ${{ secrets.MEMORY_LIMIT_MB }}
-          DOCKER_IMAGE: ${{ secrets.DOCKER_IMAGE }}
+          DOCKER_IMAGE: ghcr.io/${{ github.repository_owner }}/rust-learning-playground:1.86
         run: |
           chmod +x scripts/deploy-backend.sh
           scripts/deploy-backend.sh
