@@ -47,6 +47,11 @@ ssh backend-deploy \
    export TIMEOUT_SECONDS='${TIMEOUT_SECONDS:-120}'; \
    export MEMORY_LIMIT_MB='${MEMORY_LIMIT_MB:-512}'; \
    export DOCKER_IMAGE='${DOCKER_IMAGE:-rust-learning-playground:1.86}'; \
+   if ! command -v cargo >/dev/null 2>&1; then \
+     echo 'Rust 未安装，开始通过 rustup 安装...'; \
+     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain stable; \
+   fi; \
+   . "$HOME/.cargo/env"; \
    cd '${BACKEND_DEPLOY_DIR}'; \
    cargo build --release; \
    sudo systemctl restart '${BACKEND_SERVICE}'; \
