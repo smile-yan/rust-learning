@@ -1,0 +1,54 @@
+name: Deploy on tag
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  deploy-frontend:
+    name: Deploy frontend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install rsync and ssh
+        run: sudo apt-get update && sudo apt-get install -y rsync openssh-client
+
+      - name: Deploy frontend
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          FRONTEND_HOST: ${{ secrets.FRONTEND_HOST }}
+          FRONTEND_USER: ${{ secrets.FRONTEND_USER }}
+          FRONTEND_WEB_ROOT: ${{ secrets.FRONTEND_WEB_ROOT }}
+          EVALUATE_URL: ${{ secrets.EVALUATE_URL }}
+        run: |
+          chmod +x scripts/deploy-frontend.sh
+          scripts/deploy-frontend.sh
+
+  deploy-backend:
+    name: Deploy backend
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install rsync and ssh
+        run: sudo apt-get update && sudo apt-get install -y rsync openssh-client
+
+      - name: Deploy backend
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          BACKEND_HOST: ${{ secrets.BACKEND_HOST }}
+          BACKEND_USER: ${{ secrets.BACKEND_USER }}
+          BACKEND_DEPLOY_DIR: ${{ secrets.BACKEND_DEPLOY_DIR }}
+          BACKEND_SERVICE: ${{ secrets.BACKEND_SERVICE }}
+          BACKEND_PORT: ${{ secrets.BACKEND_PORT }}
+          CONCURRENCY: ${{ secrets.CONCURRENCY }}
+          TIMEOUT_SECONDS: ${{ secrets.TIMEOUT_SECONDS }}
+          MEMORY_LIMIT_MB: ${{ secrets.MEMORY_LIMIT_MB }}
+          DOCKER_IMAGE: ${{ secrets.DOCKER_IMAGE }}
+        run: |
+          chmod +x scripts/deploy-backend.sh
+          scripts/deploy-backend.sh
