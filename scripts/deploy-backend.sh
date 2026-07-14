@@ -91,7 +91,7 @@ ssh backend-deploy \
    cd '${BACKEND_DEPLOY_DIR}/backend'; \
    cargo build --release; \
    image='${DOCKER_IMAGE:-rust-learning-playground:1.86}'; \
-   base_image='${DOCKER_BASE_IMAGE:-docker.mirrors.ustc.edu.cn/library/rust:1.86-slim}'; \
+   base_image='${DOCKER_BASE_IMAGE:-docker.mirrors.163.com/library/rust:1.86-slim}'; \
    if ! docker image inspect "\$image" >/dev/null 2>&1; then \
      echo "Docker 镜像 \$image 不存在，开始构建..."; \
      docker build --build-arg BASE_IMAGE="\$base_image" -t "\$image" -f '${BACKEND_DEPLOY_DIR}/backend/Dockerfile.playground' '${BACKEND_DEPLOY_DIR}/backend'; \
