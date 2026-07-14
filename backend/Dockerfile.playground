@@ -1,6 +1,10 @@
 ARG BASE_IMAGE=rust:1.86-slim
 FROM ${BASE_IMAGE}
 
+# Use USTC crates.io mirror to speed up dependency downloads in China.
+RUN mkdir -p /usr/local/cargo && \
+    printf '%s\n' '[source.crates-io]' 'replace-with = "ustc"' '' '[source.ustc]' 'registry = "sparse+https://mirrors.ustc.edu.cn/crates.io-index/"' > /usr/local/cargo/config.toml
+
 # Pre-build a template project at the exact path used by the runner.
 # This warms the target/ directory so each request only recompiles main.rs.
 WORKDIR /tmp/project

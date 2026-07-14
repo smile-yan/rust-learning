@@ -120,8 +120,8 @@ ssh -o ConnectTimeout=30 -o BatchMode=yes backend-deploy \
    timeout 10 docker info >/dev/null; \
    image='${DOCKER_IMAGE:-rust-learning-playground:1.86}'; \
    if ! docker image inspect "\$image" >/dev/null 2>&1; then \
-     echo "Docker 镜像 \$image 不存在，开始从仓库拉取..."; \
-     timeout 300 docker pull "\$image"; \
+     echo "Docker 镜像 \$image 不存在，开始在服务器本地构建..."; \
+     docker build -t "\$image" -f '${BACKEND_DEPLOY_DIR}/backend/Dockerfile.playground' '${BACKEND_DEPLOY_DIR}/backend/'; \
    fi; \
    if ! sudo systemctl cat '${SERVICE_NAME}' >/dev/null 2>&1; then \
      echo '正在安装 systemd 服务...'; \
