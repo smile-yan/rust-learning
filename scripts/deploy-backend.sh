@@ -90,6 +90,11 @@ ssh backend-deploy \
    echo '已配置 USTC cargo sparse 镜像'; \
    cd '${BACKEND_DEPLOY_DIR}/backend'; \
    cargo build --release; \
+   image='${DOCKER_IMAGE:-rust-learning-playground:1.86}'; \
+   if ! docker image inspect "\$image" >/dev/null 2>&1; then \
+     echo "Docker 镜像 \$image 不存在，开始构建..."; \
+     docker build -t "\$image" -f '${BACKEND_DEPLOY_DIR}/backend/Dockerfile.playground' '${BACKEND_DEPLOY_DIR}/backend'; \
+   fi; \
    if ! sudo systemctl cat '${SERVICE_NAME}' >/dev/null 2>&1; then \
      echo '正在安装 systemd 服务...'; \
      sudo mv /tmp/${SERVICE_FILE} /etc/systemd/system/${SERVICE_FILE}; \
