@@ -31,7 +31,7 @@ Host backend-deploy
 EOF
 chmod 600 ~/.ssh/config
 
-# 打包并上传源码到后端服务器（不依赖服务器端 rsync）
+# 打包源码（用于静态文件和后端源码）
 tar czf /tmp/backend.tar.gz \
   --exclude='.git' \
   --exclude='backend/target' \
@@ -39,6 +39,15 @@ tar czf /tmp/backend.tar.gz \
   .
 
 scp /tmp/backend.tar.gz backend-deploy:/tmp/backend.tar.gz
+
+# 如果存在预编译二进制（GitHub Actions 构建），一并上传
+if [ -d /tmp/backend-release ] && [ -f /tmp/backend-release/rust-learning-backend ] && [ -f /tmp/backend-release/docker-runner ]; then
+  tar czf /tmp/backend-binaries.tar.gz -C /tmp/backend-release rust-learning-backend docker-runner
+  scp /tmp/backend-binaries.tar.gz backend-deploy:/tmp/backend-binaries.tar.gz
+  PREBUILT_BINARIES=1
+else
+  PREBUILT_BINARIES=0
+fi
 
 # 生成并上传 systemd 服务文件
 cat > "/tmp/${SERVICE_FILE}" <<EOF
@@ -71,25 +80,32 @@ scp "/tmp/${SERVICE_FILE}" backend-deploy:/tmp/${SERVICE_FILE}
 # 解压、编译、重启
 ssh backend-deploy \
   "set -e; \
-   mkdir -p '${BACKEND_DEPLOY_DIR}'; \
+   mkdir -p '${BACKEND_DEPLOY_DIR}/backend/target/release'; \
    tar xzf /tmp/backend.tar.gz -C '${BACKEND_DEPLOY_DIR}'; \
    rm -f /tmp/backend.tar.gz; \
+   if [ '${PREBUILT_BINARIES}' = '1' ]; then \
+     echo '使用 GitHub Actions 预编译的二进制...'; \
+     tar xzf /tmp/backend-binaries.tar.gz -C '${BACKEND_DEPLOY_DIR}/backend/target/release'; \
+     rm -f /tmp/backend-binaries.tar.gz; \
+   fi; \
    export PORT='${BACKEND_PORT}'; \
    export STATIC_DIR='${BACKEND_DEPLOY_DIR}'; \
    export CONCURRENCY='${CONCURRENCY:-4}'; \
    export TIMEOUT_SECONDS='${TIMEOUT_SECONDS:-120}'; \
    export MEMORY_LIMIT_MB='${MEMORY_LIMIT_MB:-512}'; \
    export DOCKER_IMAGE='${DOCKER_IMAGE:-rust-learning-playground:1.86}'; \
-   if ! command -v cargo >/dev/null 2>&1; then \
-     echo '错误：服务器上未找到 cargo，请先安装 Rust 工具链。' >&2; \
-     exit 1; \
+   if [ '${PREBUILT_BINARIES}' = '0' ]; then \
+     if ! command -v cargo >/dev/null 2>&1; then \
+       echo '错误：服务器上未找到 cargo，请先安装 Rust 工具链。' >&2; \
+       exit 1; \
+     fi; \
+     . "\$HOME/.cargo/env"; \
+     mkdir -p "\$HOME/.cargo"; \
+     printf '%s\n' '[source.crates-io]' 'replace-with = \"ustc\"' '' '[source.ustc]' 'registry = \"sparse+https://mirrors.ustc.edu.cn/crates.io-index/\"' > "\$HOME/.cargo/config.toml"; \
+     echo '已配置 USTC cargo sparse 镜像'; \
+     cd '${BACKEND_DEPLOY_DIR}/backend'; \
+     cargo build --release; \
    fi; \
-   . "\$HOME/.cargo/env"; \
-   mkdir -p "\$HOME/.cargo"; \
-   printf '%s\n' '[source.crates-io]' 'replace-with = \"ustc\"' '' '[source.ustc]' 'registry = \"sparse+https://mirrors.ustc.edu.cn/crates.io-index/\"' > "\$HOME/.cargo/config.toml"; \
-   echo '已配置 USTC cargo sparse 镜像'; \
-   cd '${BACKEND_DEPLOY_DIR}/backend'; \
-   cargo build --release; \
    image='${DOCKER_IMAGE:-rust-learning-playground:1.86}'; \
    if ! docker image inspect "\$image" >/dev/null 2>&1; then \
      echo "Docker 镜像 \$image 不存在，开始从仓库拉取..."; \

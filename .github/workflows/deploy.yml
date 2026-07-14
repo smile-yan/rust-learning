@@ -56,6 +56,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      - name: Install Rust
+        uses: dtolnay/rust-toolchain@stable
+
+      - name: Build backend binaries
+        run: |
+          cd backend
+          cargo build --release
+          mkdir -p /tmp/backend-release
+          cp target/release/rust-learning-backend /tmp/backend-release/
+          cp target/release/docker-runner /tmp/backend-release/
+
       - name: Deploy backend
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
