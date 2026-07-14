@@ -103,7 +103,7 @@ ssh backend-deploy \
        echo '后端健康检查通过'; \
        break; \
      fi; \
-     echo "健康检查 $i/5 失败，等待..."; \
+     echo "健康检查 \$i/5 失败，等待..."; \
      sleep 3; \
    done; \
    if ! curl -fsS http://localhost:${BACKEND_PORT}/ > /dev/null 2>&1; then \
