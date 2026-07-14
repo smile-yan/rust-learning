@@ -84,11 +84,9 @@ ssh backend-deploy \
      exit 1; \
    fi; \
    . "\$HOME/.cargo/env"; \
-   if [ ! -f "\$HOME/.cargo/config.toml" ]; then \
-     mkdir -p "\$HOME/.cargo"; \
-     printf '%s\n' '[source.crates-io]' 'replace-with = \"ustc\"' '' '[source.ustc]' 'registry = \"https://mirrors.ustc.edu.cn/crates.io-index\"' > "\$HOME/.cargo/config.toml"; \
-     echo '已配置 USTC cargo 镜像，后续下载会更快'; \
-   fi; \
+   mkdir -p "\$HOME/.cargo"; \
+   printf '%s\n' '[source.crates-io]' 'replace-with = \"ustc\"' '' '[source.ustc]' 'registry = \"sparse+https://mirrors.ustc.edu.cn/crates.io-index/\"' > "\$HOME/.cargo/config.toml"; \
+   echo '已配置 USTC cargo sparse 镜像'; \
    cd '${BACKEND_DEPLOY_DIR}/backend'; \
    cargo build --release; \
    if ! sudo systemctl cat '${SERVICE_NAME}' >/dev/null 2>&1; then \
