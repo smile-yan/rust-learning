@@ -29,10 +29,8 @@ chmod 600 ~/.ssh/config
 sed -i.bak "s|evaluateUrl: \"http://localhost:9001/evaluate.json\"|evaluateUrl: \"$EVALUATE_URL\"|" index.html
 rm -f index.html.bak
 
-# 上传静态文件
-rsync -avz --delete \
-  index.html css/ js/ libs/ images/ \
-  frontend-deploy:"$FRONTEND_WEB_ROOT/"
+# 上传静态文件（使用 scp，不依赖服务器端 rsync）
+scp -r index.html css js libs images frontend-deploy:"$FRONTEND_WEB_ROOT/"
 
 curl -fsS "http://${FRONTEND_HOST}/" > /dev/null
 

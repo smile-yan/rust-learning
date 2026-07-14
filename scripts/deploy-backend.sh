@@ -26,26 +26,32 @@ Host backend-deploy
 EOF
 chmod 600 ~/.ssh/config
 
-# 上传源码到后端服务器
-rsync -avz --delete \
-  --exclude='.git/' \
-  --exclude='backend/target/' \
-  --exclude='node_modules/' \
-  . backend-deploy:"$BACKEND_DEPLOY_DIR/"
+# 打包并上传源码到后端服务器（不依赖服务器端 rsync）
+tar czf /tmp/backend.tar.gz \
+  --exclude='.git' \
+  --exclude='backend/target' \
+  --exclude='node_modules' \
+  .
 
-# 编译并重启
+scp /tmp/backend.tar.gz backend-deploy:/tmp/backend.tar.gz
+
+# 解压、编译、重启
 ssh backend-deploy \
-  "export PORT='${BACKEND_PORT}' \
-   STATIC_DIR='${BACKEND_DEPLOY_DIR}' \
-   CONCURRENCY='${CONCURRENCY:-4}' \
-   TIMEOUT_SECONDS='${TIMEOUT_SECONDS:-120}' \
-   MEMORY_LIMIT_MB='${MEMORY_LIMIT_MB:-512}' \
-   DOCKER_IMAGE='${DOCKER_IMAGE:-rust-learning-playground:1.86}' \
-   && cd '${BACKEND_DEPLOY_DIR}' \
-   && cargo build --release \
-   && sudo systemctl restart '${BACKEND_SERVICE}' \
-   && sudo systemctl status '${BACKEND_SERVICE}' --no-pager \
-   && sleep 2 \
-   && curl -fsS http://localhost:${BACKEND_PORT}/ > /dev/null"
+  "set -e; \
+   mkdir -p '${BACKEND_DEPLOY_DIR}'; \
+   tar xzf /tmp/backend.tar.gz -C '${BACKEND_DEPLOY_DIR}'; \
+   rm -f /tmp/backend.tar.gz; \
+   export PORT='${BACKEND_PORT}'; \
+   export STATIC_DIR='${BACKEND_DEPLOY_DIR}'; \
+   export CONCURRENCY='${CONCURRENCY:-4}'; \
+   export TIMEOUT_SECONDS='${TIMEOUT_SECONDS:-120}'; \
+   export MEMORY_LIMIT_MB='${MEMORY_LIMIT_MB:-512}'; \
+   export DOCKER_IMAGE='${DOCKER_IMAGE:-rust-learning-playground:1.86}'; \
+   cd '${BACKEND_DEPLOY_DIR}'; \
+   cargo build --release; \
+   sudo systemctl restart '${BACKEND_SERVICE}'; \
+   sudo systemctl status '${BACKEND_SERVICE}' --no-pager; \
+   sleep 2; \
+   curl -fsS http://localhost:${BACKEND_PORT}/ > /dev/null"
 
 echo "后端部署完成"
