@@ -491,7 +491,7 @@ STATIC_DIR=/opt/rust-learning /opt/rust-learning/backend/target/release/rust-lea
 
 ## 自动部署
 
-本项目已配置 Gitee Go，推送 `v*` 标签时自动部署前后端：
+本项目已配置 Gitee Actions，推送 `v*` 标签时自动部署前后端：
 
 ```bash
 git tag v1.0.0
