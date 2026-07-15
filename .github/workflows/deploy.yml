@@ -1,4 +1,4 @@
-name: Deploy on tag
+name: Deploy frontend on tag
 
 on:
   push:
@@ -7,28 +7,8 @@ on:
 
 permissions:
   contents: read
-  packages: write
 
 jobs:
-  build-playground-image:
-    name: Build playground image
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Login to GitHub Container Registry
-        run: |
-          echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
-
-      - name: Build and push playground image
-        run: |
-          docker build \
-            -t ghcr.io/${{ github.repository_owner }}/rust-learning-playground:1.86 \
-            -f backend/Dockerfile.playground \
-            backend/
-          docker push ghcr.io/${{ github.repository_owner }}/rust-learning-playground:1.86
-
   deploy-frontend:
     name: Deploy frontend
     runs-on: ubuntu-latest
@@ -46,46 +26,3 @@ jobs:
         run: |
           chmod +x scripts/deploy-frontend.sh
           scripts/deploy-frontend.sh
-
-  deploy-backend:
-    name: Deploy backend
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v5
-
-      - name: Install Rust
-        uses: dtolnay/rust-toolchain@stable
-        with:
-          targets: x86_64-unknown-linux-musl
-
-      - name: Cache Rust dependencies
-        uses: Swatinem/rust-cache@v2
-        with:
-          workspaces: backend
-
-      - name: Build backend binaries
-        run: |
-          cd backend
-          cargo build --release --target x86_64-unknown-linux-musl
-          mkdir -p /tmp/backend-release
-          cp target/x86_64-unknown-linux-musl/release/rust-learning-backend /tmp/backend-release/
-          cp target/x86_64-unknown-linux-musl/release/docker-runner /tmp/backend-release/
-          strip /tmp/backend-release/rust-learning-backend
-          strip /tmp/backend-release/docker-runner
-
-      - name: Deploy backend
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
-          BACKEND_HOST: ${{ secrets.BACKEND_HOST }}
-          BACKEND_USER: ${{ secrets.BACKEND_USER }}
-          BACKEND_DEPLOY_DIR: ${{ secrets.BACKEND_DEPLOY_DIR }}
-          BACKEND_SERVICE: ${{ secrets.BACKEND_SERVICE }}
-          BACKEND_PORT: ${{ secrets.BACKEND_PORT }}
-          CONCURRENCY: ${{ secrets.CONCURRENCY }}
-          TIMEOUT_SECONDS: ${{ secrets.TIMEOUT_SECONDS }}
-          MEMORY_LIMIT_MB: ${{ secrets.MEMORY_LIMIT_MB }}
-          DOCKER_IMAGE: ghcr.io/${{ github.repository_owner }}/rust-learning-playground:1.86
-        run: |
-          chmod +x scripts/deploy-backend.sh
-          scripts/deploy-backend.sh
