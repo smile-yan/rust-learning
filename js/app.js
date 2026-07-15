@@ -254,14 +254,24 @@ createApp({
     }
 
     function renderOutput(data) {
+      // 支持两种响应格式：
+      // 1. 新版后端：{ success, stdout, stderr, error }
+      // 2. 旧版后端：{ result, error }
+      const stdout = typeof data.stdout === "string" ? data.stdout : "";
+      const stderr = typeof data.stderr === "string" ? data.stderr : "";
       const result = typeof data.result === "string" ? data.result : "";
-      const error = typeof data.error === "string" ? data.error : "";
+      const error = data.error !== null && data.error !== undefined ? String(data.error) : "";
+
+      const output = stdout || result;
 
       if (error.length > 0) {
         outputText.value = error;
         outputClass.value = "text-red-400";
-      } else if (result.length > 0) {
-        outputText.value = result;
+      } else if (stderr.length > 0 && output.length === 0) {
+        outputText.value = stderr;
+        outputClass.value = "text-orange-400";
+      } else if (output.length > 0) {
+        outputText.value = stderr.length > 0 ? `${output}\n${stderr}` : output;
         outputClass.value = "text-green-400";
       } else {
         outputText.value = "（程序没有输出）";
