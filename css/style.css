@@ -202,13 +202,15 @@ section:has(> #editor) > div:last-child {
 }
 
 /* 主题切换按钮 */
-#theme-toggle {
+#theme-toggle,
+#github-link {
   background: var(--bg-theory);
   border-color: var(--border-color) !important;
   color: var(--text-primary);
 }
 
-#theme-toggle:hover {
+#theme-toggle:hover,
+#github-link:hover {
   background: var(--chapter-btn-hover-bg);
 }
 
