@@ -29,7 +29,7 @@
   
   <rect x="60" y="230" width="160" height="70" rx="8" class="box"/>
   <text x="140" y="260" text-anchor="middle" class="text">s1</text>
-  <text x="140" y="285" text-anchor="middle" class="code">String::from("hi")</text>
+  <text x="140" y="285" text-anchor="middle" class="code">String::from(&quot;hi&quot;)</text>
   
   <line x1="220" y1="265" x2="300" y2="265" class="arrow"/>
   <text x="260" y="255" text-anchor="middle" class="label">move</text>

@@ -33,7 +33,7 @@
   <text x="380" y="180" class="code">None</text>
   
   <text x="360" y="250" text-anchor="middle" class="text">🔧 ? 运算符：遇到 Err/None 时提前返回</text>
-  <text x="360" y="290" text-anchor="middle" class="code">let f = File::open("a.txt")?;</text>
+  <text x="360" y="290" text-anchor="middle" class="code">let f = File::open(&quot;a.txt&quot;)?;</text>
   
   <text x="360" y="330" text-anchor="middle" class="label">unwrap 适合示例/原型，生产环境优先 match / ? / expect</text>
 

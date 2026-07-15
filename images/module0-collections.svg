@@ -30,7 +30,7 @@
   <rect x="265" y="80" width="190" height="120" rx="8" class="box2"/>
   <text x="360" y="120" text-anchor="middle" class="text">String</text>
   <text x="360" y="150" text-anchor="middle" class="label">UTF-8 可变字符串</text>
-  <text x="360" y="180" text-anchor="middle" class="code">"hello".to_string()</text>
+  <text x="360" y="180" text-anchor="middle" class="code">&quot;hello&quot;.to_string()</text>
   
   <rect x="480" y="80" width="190" height="120" rx="8" class="box3"/>
   <text x="575" y="120" text-anchor="middle" class="text">HashMap&lt;K,V&gt;</text>

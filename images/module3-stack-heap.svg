@@ -26,7 +26,7 @@
 
   <rect x="410" y="130" width="240" height="50" fill="#ffffff" stroke="#ef6c00" stroke-width="1.5" rx="4"/>
   <text x="530" y="150" text-anchor="middle" font-family="monospace" font-size="13" fill="#333">String 实际内容</text>
-  <text x="530" y="170" text-anchor="middle" font-family="monospace" font-size="13" fill="#333">"hello, Rust"</text>
+  <text x="530" y="170" text-anchor="middle" font-family="monospace" font-size="13" fill="#333">&quot;hello, Rust&quot;</text>
 
   <rect x="410" y="200" width="240" height="50" fill="#ffffff" stroke="#ef6c00" stroke-width="1.5" rx="4"/>
   <text x="530" y="220" text-anchor="middle" font-family="monospace" font-size="13" fill="#333">Vec 元素</text>
