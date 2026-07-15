@@ -149,9 +149,13 @@ header {
 
 [data-theme="light"] #editor .cm-editor,
 [data-theme="light"] #editor .cm-scroller,
-[data-theme="light"] #editor .cm-gutters,
-[data-theme="light"] #editor .cm-content {
+[data-theme="light"] #editor .cm-gutters {
   background: #ffffff !important;
+}
+
+/* 让 .cm-content 保持透明，这样 CodeMirror 的选区层才能透出来，否则选中和全选都看不见 */
+#editor .cm-content {
+  background: transparent !important;
 }
 
 section:has(> #editor) {
