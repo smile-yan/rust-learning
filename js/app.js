@@ -26,6 +26,54 @@ createApp({
     const theoryEl = ref(null);
     let editor = null;
 
+    const TAB_INDENT = "    ";
+
+    function insertTab(view) {
+      const { state, dispatch } = view;
+      const selection = state.selection.main;
+
+      if (selection.empty) {
+        dispatch({
+          changes: { from: selection.head, insert: TAB_INDENT }
+        });
+        return true;
+      }
+
+      const changes = [];
+      let pos = selection.from;
+      while (pos <= selection.to) {
+        const line = state.doc.lineAt(pos);
+        changes.push({ from: line.from, insert: TAB_INDENT });
+        pos = line.to + 1;
+      }
+      dispatch({ changes });
+      return true;
+    }
+
+    function unindent(view) {
+      const { state, dispatch } = view;
+      const selection = state.selection.main;
+      const changes = [];
+
+      let pos = selection.from;
+      while (pos <= selection.to) {
+        const line = state.doc.lineAt(pos);
+        let remove = 0;
+        while (remove < TAB_INDENT.length && remove < line.text.length && line.text[remove] === " ") {
+          remove++;
+        }
+        if (remove > 0) {
+          changes.push({ from: line.from, to: line.from + remove });
+        }
+        pos = line.to + 1;
+      }
+
+      if (changes.length > 0) {
+        dispatch({ changes });
+      }
+      return true;
+    }
+
     document.documentElement.setAttribute("data-theme", theme.value);
 
     const allChapters = computed(() => {
@@ -146,6 +194,14 @@ createApp({
         themeExtension,
         isDark ? oneDark : syntaxHighlighting(lightHighlight, { fallback: true }),
         keymap.of([
+          {
+            key: "Tab",
+            run: insertTab
+          },
+          {
+            key: "Shift-Tab",
+            run: unindent
+          },
           {
             key: "Ctrl-Enter",
             run: () => {
