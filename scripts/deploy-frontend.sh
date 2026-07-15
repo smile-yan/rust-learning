@@ -29,9 +29,36 @@ chmod 600 ~/.ssh/config
 sed -i.bak "s|evaluateUrl: \"http://localhost:9001/evaluate.json\"|evaluateUrl: \"$EVALUATE_URL\"|" index.html
 rm -f index.html.bak
 
-# 上传静态文件（使用 scp，不依赖服务器端 rsync）
-scp -r index.html css js libs images frontend-deploy:"$FRONTEND_WEB_ROOT/"
+# 上传静态文件（使用 scp，不依赖服务器端 rsync），带超时和重试
+upload_files() {
+    scp -o ConnectTimeout=30 -o ServerAliveInterval=30 -o ServerAliveCountMax=3 \
+        -r index.html css js libs images frontend-deploy:"$FRONTEND_WEB_ROOT/"
+}
 
-curl -fsS "http://${FRONTEND_HOST}/" > /dev/null
+retry=0
+max_retry=3
+while true; do
+    if upload_files; then
+        break
+    fi
+    retry=$((retry + 1))
+    if [ "$retry" -ge "$max_retry" ]; then
+        echo "ERROR: 上传静态文件失败，已重试 $max_retry 次" >&2
+        exit 1
+    fi
+    echo "上传失败，5 秒后第 $retry 次重试..."
+    sleep 5
+done
 
-echo "前端部署完成"
+# 验证部署
+for i in 1 2 3; do
+    if curl -fsS --max-time 30 "http://${FRONTEND_HOST}/" > /dev/null; then
+        echo "前端部署完成"
+        exit 0
+    fi
+    echo "首页访问校验失败，第 $i 次重试..."
+    sleep 5
+done
+
+echo "ERROR: 部署后首页不可访问" >&2
+exit 1
