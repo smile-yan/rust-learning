@@ -14,6 +14,10 @@
   }
   </script>
   <link rel="stylesheet" href="css/style.css">
+  <!-- Prism 代码高亮 -->
+  <link rel="stylesheet" href="css/prism-theme.css">
+  <script src="libs/prism.js"></script>
+  <script src="libs/prism-rust.js"></script>
 </head>
 <body>
   <div id="app" v-cloak class="h-screen flex flex-col overflow-hidden">
@@ -76,7 +80,7 @@
               <p>{{ loadError }}</p>
             </div>
             <template v-else>
-              <div id="theory-content" v-html="renderedTheory"></div>
+              <div id="theory-content" class="theory-content" v-html="renderedTheory"></div>
               <div v-if="currentChapter?.hint" id="chapter-hint" class="mt-6 p-4 rounded-lg text-sm">
                 <strong class="text-blue-300">💡 提示：</strong>
                 <span v-html="currentChapter.hint"></span>
@@ -123,6 +127,6 @@
       evaluateUrl: "http://localhost:9001/evaluate.json"
     };
   </script>
-  <script type="module" src="js/app.js?v=6"></script>
+  <script type="module" src="js/app.js?v=7"></script>
 </body>
 </html>

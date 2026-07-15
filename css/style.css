@@ -222,12 +222,12 @@ section:has(> #editor) > div:last-child {
 }
 
 /* 理论区域 Markdown 样式 */
-#theory-content {
+.theory-content {
   color: var(--theory-text);
   line-height: 1.75;
 }
 
-#theory-content h1 {
+.theory-content h1 {
   font-size: 1.875rem;
   font-weight: 700;
   color: var(--theory-heading);
@@ -236,7 +236,7 @@ section:has(> #editor) > div:last-child {
   border-bottom: 1px solid var(--theory-h1-border);
 }
 
-#theory-content h2 {
+.theory-content h2 {
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--theory-heading);
@@ -244,7 +244,7 @@ section:has(> #editor) > div:last-child {
   margin-bottom: 0.75rem;
 }
 
-#theory-content h3 {
+.theory-content h3 {
   font-size: 1.25rem;
   font-weight: 600;
   color: var(--theory-heading);
@@ -252,21 +252,21 @@ section:has(> #editor) > div:last-child {
   margin-bottom: 0.5rem;
 }
 
-#theory-content p {
+.theory-content p {
   margin-bottom: 1rem;
 }
 
-#theory-content ul,
-#theory-content ol {
+.theory-content ul,
+.theory-content ol {
   margin-bottom: 1rem;
   padding-left: 1.5rem;
 }
 
-#theory-content li {
+.theory-content li {
   margin-bottom: 0.35rem;
 }
 
-#theory-content code {
+.theory-content code {
   background: var(--theory-code-bg);
   color: var(--theory-code-text);
   padding: 0.15rem 0.35rem;
@@ -275,7 +275,7 @@ section:has(> #editor) > div:last-child {
   font-size: 0.9em;
 }
 
-#theory-content pre {
+.theory-content pre {
   background: var(--theory-pre-bg);
   border: 1px solid var(--theory-pre-border);
   border-radius: 0.5rem;
@@ -284,23 +284,23 @@ section:has(> #editor) > div:last-child {
   margin-bottom: 1rem;
 }
 
-#theory-content pre code {
+.theory-content pre code {
   background: transparent;
   color: var(--theory-pre-text);
   padding: 0;
   font-size: 0.875rem;
 }
 
-#theory-content strong {
+.theory-content strong {
   color: var(--theory-strong);
 }
 
-#theory-content a {
+.theory-content a {
   color: var(--theory-link);
   text-decoration: none;
 }
 
-#theory-content a:hover {
+.theory-content a:hover {
   text-decoration: underline;
 }
 

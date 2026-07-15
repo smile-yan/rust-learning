@@ -1,4 +1,4 @@
-import { createApp, ref, computed, onMounted, watch } from "vue";
+import { createApp, ref, computed, onMounted, watch, nextTick } from "vue";
 import { EditorView, basicSetup, rust, oneDark, keymap, syntaxHighlighting, HighlightStyle, tags } from "../libs/codemirror-bundle.js?v=3";
 
 const { marked } = window;
@@ -206,6 +206,17 @@ createApp({
         const currentDoc = editor.state.doc.toString();
         editor.destroy();
         initEditorWithDoc(currentDoc, newTheme === "dark");
+      }
+    });
+
+    watch(renderedTheory, async () => {
+      await nextTick();
+      if (theoryEl.value && window.Prism) {
+        // 没有语言标记的代码块默认按 Rust 高亮
+        theoryEl.value.querySelectorAll('pre code:not([class*="language-"])').forEach((block) => {
+          block.classList.add('language-rust');
+        });
+        window.Prism.highlightAllUnder(theoryEl.value);
       }
     });
 
