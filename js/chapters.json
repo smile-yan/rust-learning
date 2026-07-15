@@ -231,6 +231,47 @@
     ]
   },
   {
+    "name": "Rust 哲学",
+    "chapters": [
+      {
+        "title": "安全优先：编译期保证",
+        "theory": "\n# 安全优先：编译期保证 🛡️\n\nRust 最著名的标签之一就是「安全」。但它所说的安全并不是运行时加一层沙箱，而是把大量潜在错误推到编译期解决。这种哲学让 Rust 在不牺牲性能的前提下，显著降低崩溃、内存泄漏和数据竞争的概率。\n\n## 为什么编译期安全更重要？\n\n运行时检查有两个明显缺点：\n\n1. **发现太晚**：bug 可能已经在线上造成损失。\n2. **运行开销**：每次检查都要消耗 CPU 周期。\n\n编译期检查则相反：你在写代码时就能拿到精确的错误位置和修复建议，而且这些检查不会生成任何运行时代码。\n\n## Rust 的编译期防线\n\n```\n┌─────────────────────────────────────────┐\n│           Rust 编译期安全防线            │\n├─────────────────────────────────────────┤\n│  所有权与借用检查  → 防止 use-after-free │\n│  类型系统          → 防止类型不匹配       │\n│  模式匹配          → 强制处理所有分支     │\n│  生命周期          → 防止悬挂引用         │\n│  Send/Sync trait   → 防止数据竞争         │\n└─────────────────────────────────────────┘\n```\n\n## 零成本抽象\n\n「零成本抽象」是 Rust 的核心口号之一。它的含义是：高级特性（迭代器、泛型、trait 等）不会带来运行时开销。你写的抽象代码会被编译器优化成与手写底层代码几乎相同的机器码。\n\n这意味着你可以同时拥有：\n- **高级语言的表达能力**\n- **接近 C/C++ 的运行时性能**\n- **编译期的严格安全检查**\n\n## 与 GC 语言的对比\n\n垃圾回收语言通过运行时追踪内存来保证安全，代价是不可预测的暂停。Rust 则在编译期就确定内存归属，释放时机完全可控。\n\n## 一句话总结 ✅\n\nRust 的安全哲学是：把错误消灭在编译阶段，用类型系统和所有权规则替代运行时的猜测与检查。\n",
+        "code": "fn main() {\n    // 这行代码在编译期就会被阻止，而不是运行时崩溃\n    // let s = String::from(\"hello\");\n    // let r = &s;\n    // drop(s); // ❌ 编译错误：不能在使用引用后释放所有者\n    // println!(\"{}\", r);\n\n    // 正确的做法：引用只在所有者有效期间使用\n    let s = String::from(\"hello\");\n    let r = &s;\n    println!(\"引用: {}\", r);\n    // r 不再被使用，s 在作用域结束时自动释放\n}\n",
+        "hint": "Rust 编译器会在你运行代码之前捕获内存安全问题。仔细阅读错误信息，它通常会给出修复建议。"
+      },
+      {
+        "title": "所有权：内存管理的哲学",
+        "theory": "\n# 所有权：内存管理的哲学 🦀\n\n所有权是 Rust 区别于其他语言的根本设计。它用一套简单的规则，在编译期解决内存安全难题。\n\n## 三条铁律\n\n1. **每个值都有一个所有者**。\n2. **同一时间只能有一个所有者**。\n3. **所有者离开作用域，值被自动释放**。\n\n这三条规则看起来简单，却足以消除 double-free、use-after-free 和悬空指针。\n\n## 移动而非复制\n\n当把堆上的值赋给另一个变量时，Rust 默认「移动」所有权，而不是深拷贝。这避免了：\n- 多个变量指向同一块内存\n- 重复释放或遗漏释放\n\n```\nlet s1 = String::from(\"hello\");\nlet s2 = s1;       // s1 的所有权移动到 s2\n// println!(\"{}\", s1); // ❌ 编译错误\n```\n\n## 借用：不转移所有权\n\n如果只是想临时使用值而不想拿走它，就用借用：\n- `&T`：不可变借用，可以有多个。\n- `&mut T`：可变借用，同时只能有一个。\n\n借用规则保证：\n- 不能同时存在可变引用和不可变引用\n- 引用不能比被引用的数据活得更久\n\n## 为什么这样设计？\n\n所有权把内存责任写进了类型系统。你不需要记住每个指针该由谁释放，编译器会替你检查。这种「显式责任」的哲学，是 Rust 安全的基础。\n\n## 一句话总结 ✅\n\n所有权让每块内存都有明确的主人；移动和借用规则确保这个主人不会同时有两个，也不会在离开前把钥匙借给别人。\n",
+        "code": "fn main() {\n    // 所有权移动\n    let s1 = String::from(\"Rust\");\n    let s2 = s1;\n    println!(\"s2: {}\", s2);\n\n    // 不可变借用\n    let s3 = String::from(\"borrow\");\n    let r1 = &s3;\n    let r2 = &s3;\n    println!(\"r1: {}, r2: {}\", r1, r2);\n\n    // 可变借用\n    let mut s4 = String::from(\"mut\");\n    {\n        let r3 = &mut s4;\n        r3.push_str(\"able\");\n    } // r3 在这里结束\n    println!(\"s4: {}\", s4);\n}\n",
+        "hint": "需要共享数据时优先使用借用（&T / &mut T），而不是 clone 或转移所有权。"
+      },
+      {
+        "title": "fearless 并发：共享状态的安全哲学",
+        "theory": "\n# fearless 并发：共享状态的安全哲学 🧵\n\n并发编程一直是 bug 高发区：数据竞争、死锁、竞态条件让人头疼。Rust 的所有权和类型系统把并发安全也推进到了编译期。\n\n## 数据竞争的本质\n\n数据竞争通常发生在：\n- 多个线程同时访问同一块数据\n- 至少有一个是写操作\n- 没有同步机制\n\nRust 的借用规则天然阻止了这种情况：\n- 同一时刻只能有一个 `&mut T`\n- 同一时刻可以有多个 `&T`，但不能和 `&mut T` 共存\n\n## Send 与 Sync\n\nRust 用两个 marker trait 描述类型的并发安全性：\n\n- **`Send`**：可以安全地在线程间转移所有权。\n- **`Sync`**：可以安全地在线程间共享不可变引用。\n\n编译器会自动为类型推导这两个 trait。如果类型不满足条件，你就无法在线程间传递它。\n\n## 通道 vs 共享内存\n\nRust 鼓励用消息传递（channel）来组织并发：每个线程拥有独立的数据，通过 channel 交换所有权。这比直接加锁共享内存更安全、更容易推理。\n\n```\n线程 A ──► channel ──► 线程 B\n   │                    │\n   ▼                    ▼\n数据所有权转移        独占处理\n```\n\n## 不是完全没有并发 bug\n\nRust 能防止数据竞争，但不能防止逻辑上的竞态条件或死锁。你仍然需要合理设计锁的粒度和顺序。\n\n## 一句话总结 ✅\n\nRust 的并发哲学是：把数据竞争变成编译错误，让你敢于写多线程代码而不用担心 segmentation fault。\n",
+        "code": "use std::sync::mpsc;\nuse std::thread;\n\nfn main() {\n    // 使用 channel 在线程间传递数据所有权\n    let (tx, rx) = mpsc::channel();\n\n    thread::spawn(move || {\n        let data = String::from(\"来自子线程的数据\");\n        tx.send(data).unwrap();\n        // data 的所有权已经发送出去，这里不能再使用\n    });\n\n    let received = rx.recv().unwrap();\n    println!(\"收到: {}\", received);\n}\n",
+        "hint": "在 Rust 中，优先通过 channel 转移所有权，而不是直接共享可变状态。"
+      },
+      {
+        "title": "组合优于继承：设计哲学的选择",
+        "theory": "\n# 组合优于继承：设计哲学的选择 🧩\n\n传统面向对象语言常常通过类继承复用代码，但继承层次过深会导致「脆弱的基类」问题：子类被迫依赖父类的实现细节，一改父类就可能破坏所有子类。\n\n## Rust 的选择\n\nRust 没有类继承。它用两种更灵活的方式实现代码复用：\n\n1. **组合（Composition）**：一个结构体包含另一个结构体，通过委托使用其能力。\n2. **Trait**：定义行为接口，不同类型可以实现同一个 trait，也可以有默认实现。\n\n## 组合 vs 继承\n\n| 维度 | 继承 | 组合 + Trait |\n|------|------|--------------|\n| 耦合度 | 高，子类依赖父类 | 低，依赖接口和包含对象 |\n| 灵活性 | 单继承，受限 | 可实现多个 trait |\n| 可测试性 | 需要 Mock 父类 | 依赖接口更容易 Mock |\n| 意图清晰度 | 隐藏实现细节 | 显式列出依赖 |\n\n## 多态依然存在\n\nRust 通过 `&dyn Trait` 和泛型 trait bound 实现多态。你仍然可以写出高度抽象的代码，只是不依赖类层次结构。\n\n```\ntrait Flyable {\n    fn fly(&self);\n}\n\nfn let_it_fly(f: &dyn Flyable) {\n    f.fly();\n}\n```\n\n## 为什么这样更好？\n\n组合让你只引入需要的能力，不会被不需要的父类方法绑架。trait 则让你定义清晰的契约，而不是隐含的血缘关系。\n\n## 一句话总结 ✅\n\nRust 的设计哲学是：用组合拼装能力，用 trait 定义契约，避免继承带来的紧耦合和脆弱基类。\n",
+        "code": "// 组合：Car 由 Engine 和 Wheels 组成\nstruct Engine;\nstruct Wheels;\n\nimpl Engine {\n    fn start(&self) {\n        println!(\"发动机启动\");\n    }\n}\n\nimpl Wheels {\n    fn roll(&self) {\n        println!(\"车轮转动\");\n    }\n}\n\nstruct Car {\n    engine: Engine,\n    wheels: Wheels,\n}\n\nimpl Car {\n    fn start(&self) {\n        self.engine.start();\n        self.wheels.roll();\n        println!(\"汽车开始行驶\");\n    }\n}\n\n// trait：定义飞行的能力\ntrait Flyable {\n    fn fly(&self);\n}\n\nstruct Bird;\nimpl Flyable for Bird {\n    fn fly(&self) {\n        println!(\"鸟在飞翔\");\n    }\n}\n\nfn let_it_fly(f: &dyn Flyable) {\n    f.fly();\n}\n\nfn main() {\n    let car = Car { engine: Engine, wheels: Wheels };\n    car.start();\n\n    let bird = Bird;\n    let_it_fly(&bird);\n}\n",
+        "hint": "当你想写继承时，先考虑能否用组合 + trait 实现。Rust 的组合方式通常更清晰、更安全。"
+      },
+      {
+        "title": "显式优于隐式：错误处理与可变性",
+        "theory": "\n# 显式优于隐式：错误处理与可变性 🎭\n\nRust 喜欢把重要决策显式化。变量默认可变还是不可变？错误如何处理？这些在其他语言里可能隐式发生，但在 Rust 里必须明确写出来。\n\n## 默认不可变\n\nRust 中 `let x = 5;` 默认不可变。需要修改时必须写 `let mut x = 5;`。\n\n这背后的哲学是：\n- 不可变数据更容易推理\n- 不可变数据可以安全地并发共享\n- `mut` 标记让代码中的变化点一目了然\n\n## 显式错误处理\n\nRust 没有异常机制。函数用 `Result<T, E>` 或 `Option<T>` 返回可能失败的结果，调用者必须决定：\n- 用 `match` / `if let` 处理\n- 用 `?` 把错误传播给上层\n- 用 `unwrap` / `expect` 在确定安全时快速解包\n\n```\nfn read_file(path: &str) -> Result<String, io::Error> {\n    fs::read_to_string(path)\n}\n```\n\n## 没有隐式转换\n\nRust 也没有隐式类型转换。`u8` 不会自动变成 `u32`，整数不会自动变成浮点数。你需要显式写出 `as`、`into()` 或 `from()`。\n\n## 为什么这样更好？\n\n显式化减少了 surprises。读代码时，你看到 `mut` 就知道这里会变化；看到 `?` 就知道这里可能提前返回错误；看到类型转换就知道数据在变化。\n\n## 一句话总结 ✅\n\nRust 相信「重要的决定应该被看见」：可变性、错误、类型转换都要显式表达，让代码意图更清晰。\n",
+        "code": "use std::fs;\n\nfn read_file(path: &str) -> Result<String, String> {\n    // ? 显式传播错误\n    let content = fs::read_to_string(path).map_err(|e| e.to_string())?;\n    Ok(content)\n}\n\nfn double_if_positive(n: i32) -> Option<i32> {\n    if n > 0 {\n        Some(n * 2)\n    } else {\n        None\n    }\n}\n\nfn main() {\n    // 可变变量必须显式声明\n    let mut count = 0;\n    count += 1;\n    println!(\"count: {}\", count);\n\n    // 显式错误处理\n    match read_file(\"/etc/hosts\") {\n        Ok(content) => println!(\"读取了 {} 字节\", content.len()),\n        Err(e) => println!(\"读取失败: {}\", e),\n    }\n\n    // Option 也必须显式处理\n    match double_if_positive(5) {\n        Some(v) => println!(\"结果: {}\", v),\n        None => println!(\"输入不合法\"),\n    }\n}\n",
+        "hint": "显式错误处理让调用者清楚知道哪里可能失败。生产代码中优先使用 ? 或 match，而不是 unwrap。"
+      },
+      {
+        "title": "实用主义：unsafe 的边界与责任",
+        "theory": "\n# 实用主义：unsafe 的边界与责任 ⚠️\n\nRust 的安全规则非常强大，但现实世界并不总是完美的。有时你必须与 C 代码交互、操作裸指针，或者做一些编译器无法验证的优化。Rust 没有逃避这个问题，而是提供了 `unsafe` 块，让你明确标出「这里我承担了安全责任」。\n\n## unsafe 不是关闭所有检查\n\n`unsafe` 只关闭了少数几项检查：\n- 解引用裸指针\n- 调用 unsafe 函数或方法\n- 访问或修改可变静态变量\n- 实现 unsafe trait\n- 读写 union 的字段\n\n它**不会**关闭：\n- 借用检查\n- 生命周期检查\n- 类型检查\n\n## 边界与责任\n\n使用 `unsafe` 时，你必须手动保证：\n- 裸指针有效\n- 不创建数据竞争\n- 不破坏不变量\n- 调用约定正确\n\n理想情况下，`unsafe` 代码应该被封装成 safe API，让调用者无需关心内部风险。\n\n## 什么时候用 unsafe？\n\n- 与 C/FFI 交互\n- 实现某些数据结构（如自定义链表、环形缓冲区）\n- 对热点代码做极限优化\n\n## 不是越多越好\n\nRust 哲学鼓励把 `unsafe` 压缩到最小范围，并且用 safe 抽象包裹它。大多数 Rust 代码一辈子都不需要写 `unsafe`。\n\n## 一句话总结 ✅\n\n`unsafe` 是 Rust 的逃生舱，不是任意破坏规则的许可证。它的使用必须被明确标记、最小化范围，并封装成安全的 API。\n",
+        "code": "// 安全包装层：内部使用 unsafe，但对外提供安全接口\nfn split_at_mut(slice: &mut [i32], mid: usize) -> (&mut [i32], &mut [i32]) {\n    let len = slice.len();\n    assert!(mid <= len, \"mid 不能超过切片长度\");\n\n    // 返回两个不重叠的可变切片\n    // 这个安全抽象在内部可以基于裸指针实现\n    let ptr = slice.as_mut_ptr();\n    unsafe {\n        (\n            std::slice::from_raw_parts_mut(ptr, mid),\n            std::slice::from_raw_parts_mut(ptr.add(mid), len - mid),\n        )\n    }\n}\n\nfn main() {\n    let mut numbers = [1, 2, 3, 4, 5];\n    let (left, right) = split_at_mut(&mut numbers, 2);\n\n    left[0] = 10;\n    right[0] = 20;\n\n    println!(\"left: {:?}\", left);\n    println!(\"right: {:?}\", right);\n    println!(\"原始数组: {:?}\", numbers);\n}\n",
+        "hint": "unsafe 代码应该尽量封装在 safe API 内部，并清楚文档化其不变量。"
+      }
+    ]
+  },
+  {
     "name": "Q & A",
     "chapters": [
       {
