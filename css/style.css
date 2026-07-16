@@ -132,15 +132,39 @@ header {
 }
 
 .collapse-toggle {
-  background: var(--bg-sidebar);
-  border-color: var(--border-color) !important;
+  position: relative;
+  z-index: 10;
+  background: transparent;
+  border: none;
   color: inherit;
   cursor: pointer;
   padding: 0;
 }
 
-.collapse-toggle:hover {
-  background: var(--bg-output-header);
+.collapse-knob {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 22px;
+  height: 48px;
+  border-radius: 6px;
+  background: var(--bg-header);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  color: var(--text-primary, #334155);
+  opacity: 0.75;
+}
+
+.collapse-toggle:hover .collapse-knob {
+  color: #f97316;
+  border-color: #f97316;
+  opacity: 1;
+}
+
+.panel-toggle-active {
+  color: #f97316 !important;
+  border-color: #f97316 !important;
 }
 
 @media (min-width: 768px) {
