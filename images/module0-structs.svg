@@ -22,14 +22,14 @@
   <rect x="16" y="16" width="688" height="318" rx="12" class="card"/>
   <text x="360" y="50" text-anchor="middle" class="title">module0-structs</text>
   
-  <rect x="60" y="80" width="320" height="140" rx="8" class="box"/>
+  <rect x="60" y="80" width="320" height="170" rx="8" class="box"/>
   <text x="80" y="115" class="code">struct User {</text>
   <text x="100" y="145" class="code">  username: String,</text>
   <text x="100" y="175" class="code">  email: String,</text>
   <text x="100" y="205" class="code">  active: bool,</text>
   <text x="80" y="235" class="code">}</text>
   
-  <rect x="420" y="80" width="240" height="140" rx="8" class="box2"/>
+  <rect x="420" y="80" width="240" height="170" rx="8" class="box2"/>
   <text x="440" y="115" class="text">实例化</text>
   <text x="440" y="150" class="code">User {</text>
   <text x="460" y="180" class="code">username: ...</text>
