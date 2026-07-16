@@ -131,6 +131,26 @@ header {
   border-color: var(--border-color) !important;
 }
 
+.collapse-toggle {
+  background: var(--bg-sidebar);
+  border-color: var(--border-color) !important;
+  color: inherit;
+  cursor: pointer;
+  padding: 0;
+}
+
+.collapse-toggle:hover {
+  background: var(--bg-output-header);
+}
+
+@media (min-width: 768px) {
+  #sidebar,
+  #theory,
+  #editor-panel {
+    transition: width 0.2s ease;
+  }
+}
+
 #theory {
   background: var(--bg-theory);
   border-color: var(--border-color) !important;

@@ -19,6 +19,8 @@ createApp({
     const currentGlobalIdx = ref(0);
     const theme = ref(getPreferredTheme());
     const menuOpen = ref(false);
+    const sidebarCollapsed = ref(false);
+    const editorCollapsed = ref(false);
     const outputText = ref("点击「运行」按钮查看输出结果");
     const outputClass = ref("text-gray-400");
     const loadError = ref("");
@@ -380,6 +382,18 @@ createApp({
       menuOpen.value = false;
     }
 
+    function toggleSidebar() {
+      sidebarCollapsed.value = !sidebarCollapsed.value;
+    }
+
+    function toggleEditor() {
+      editorCollapsed.value = !editorCollapsed.value;
+      // 展开后编辑器容器宽度从 0 恢复，需要让 CodeMirror 重新测量布局
+      if (!editorCollapsed.value && editor) {
+        nextTick(() => editor.requestMeasure());
+      }
+    }
+
     async function bootstrap(isFirst) {
       loading.value = true;
       loadError.value = "";
@@ -438,7 +452,11 @@ createApp({
       clearOutput,
       toggleTheme,
       toggleMenu,
-      closeMenu
+      closeMenu,
+      sidebarCollapsed,
+      editorCollapsed,
+      toggleSidebar,
+      toggleEditor
     };
   }
 }).mount("#app");
