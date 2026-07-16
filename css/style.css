@@ -162,11 +162,6 @@ header {
   opacity: 1;
 }
 
-.panel-toggle-active {
-  color: #f97316 !important;
-  border-color: #f97316 !important;
-}
-
 @media (min-width: 768px) {
   #sidebar,
   #theory,
