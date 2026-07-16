@@ -127,7 +127,6 @@ header {
 }
 
 #sidebar {
-  width: var(--sidebar-width);
   background: var(--bg-sidebar);
   border-color: var(--border-color) !important;
 }
