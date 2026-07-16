@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="290" viewBox="0 0 640 290">
   <rect width="100%" height="100%" fill="#fff8f0" rx="12"/>
   <text x="320" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#4a3b2a">Box&lt;T&gt;：堆内存单所有权</text>
   <defs>

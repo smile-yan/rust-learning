@@ -15,5 +15,5 @@
   <text x="405" y="205" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">需要 unsafe 块解引用</text>
   <path d="M 270 180 L 290 180" stroke="#666" stroke-width="2"/>
   <text x="280" y="200" font-family="system-ui, sans-serif" font-size="20" text-anchor="middle" fill="#666">→</text>
-  <text x="280" y="250" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#666">安全责任转移</text>
+  <text x="280" y="322" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#666">安全责任转移</text>
 </svg>
