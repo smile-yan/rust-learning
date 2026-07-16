@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="350" viewBox="0 0 720 350">
+  <defs>
+    <style>
+      .bg { fill: #fff8f0; }
+      .card { fill: #ffffff; stroke: #e0d6cc; stroke-width: 2; }
+      .title { font: bold 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .text { font: 15px system-ui, -apple-system, sans-serif; fill: #2a2a2a; }
+      .code { font: 14px "SF Mono", Menlo, monospace; fill: #3a2a1a; }
+      .label { font: 13px system-ui, -apple-system, sans-serif; fill: #5a5a5a; }
+      .arrow { stroke: #7a6a5a; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .highlight { fill: #ffeacc; stroke: #ffaa55; stroke-width: 2; }
+      .box { fill: #e8f4ff; stroke: #3399ff; stroke-width: 2; }
+      .box2 { fill: #f0ffe8; stroke: #66bb33; stroke-width: 2; }
+      .box3 { fill: #fff0f5; stroke: #dd5599; stroke-width: 2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
+    </marker>
+  </defs>
+  <rect width="720" height="350" class="bg"/>
+  <rect x="16" y="16" width="688" height="318" rx="12" class="card"/>
+  <text x="360" y="50" text-anchor="middle" class="title">unwrap 与 ? 的行为差异</text>
+  <text x="115" y="90" text-anchor="middle" class="label">值</text>
+  <text x="310" y="90" text-anchor="middle" class="label">unwrap</text>
+  <text x="560" y="90" text-anchor="middle" class="label">? 运算符</text>
+  <rect x="60" y="105" width="110" height="40" rx="8" class="box2"/>
+  <text x="115" y="132" text-anchor="middle" class="code">Ok(T)</text>
+  <rect x="200" y="105" width="220" height="40" rx="8" class="box2"/>
+  <text x="310" y="132" text-anchor="middle" class="text">返回 T，继续执行</text>
+  <rect x="450" y="105" width="220" height="40" rx="8" class="box2"/>
+  <text x="560" y="132" text-anchor="middle" class="text">返回 T，继续执行</text>
+  <rect x="60" y="160" width="110" height="40" rx="8" class="box3"/>
+  <text x="115" y="187" text-anchor="middle" class="code">Err(E)</text>
+  <rect x="200" y="160" width="220" height="40" rx="8" class="box3"/>
+  <text x="310" y="187" text-anchor="middle" class="text">panic! 程序崩溃</text>
+  <rect x="450" y="160" width="220" height="40" rx="8" class="highlight"/>
+  <text x="560" y="187" text-anchor="middle" class="text">提前返回 Err(E)</text>
+  <rect x="60" y="215" width="110" height="40" rx="8" class="box2"/>
+  <text x="115" y="242" text-anchor="middle" class="code">Some(T)</text>
+  <rect x="200" y="215" width="220" height="40" rx="8" class="box2"/>
+  <text x="310" y="242" text-anchor="middle" class="text">返回 T，继续执行</text>
+  <rect x="450" y="215" width="220" height="40" rx="8" class="box2"/>
+  <text x="560" y="242" text-anchor="middle" class="text">返回 T，继续执行</text>
+  <rect x="60" y="270" width="110" height="40" rx="8" class="box3"/>
+  <text x="115" y="297" text-anchor="middle" class="code">None</text>
+  <rect x="200" y="270" width="220" height="40" rx="8" class="box3"/>
+  <text x="310" y="297" text-anchor="middle" class="text">panic! 程序崩溃</text>
+  <rect x="450" y="270" width="220" height="40" rx="8" class="highlight"/>
+  <text x="560" y="297" text-anchor="middle" class="text">提前返回 None</text>
+  <text x="360" y="332" text-anchor="middle" class="label">? 把错误交给调用方处理，unwrap 把错误变成崩溃</text>
+</svg>

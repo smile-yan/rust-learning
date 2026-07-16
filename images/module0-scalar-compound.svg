@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="330" viewBox="0 0 720 330">
+  <defs>
+    <style>
+      .bg { fill: #fff8f0; }
+      .card { fill: #ffffff; stroke: #e0d6cc; stroke-width: 2; }
+      .title { font: bold 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .text { font: 15px system-ui, -apple-system, sans-serif; fill: #2a2a2a; }
+      .code { font: 14px "SF Mono", Menlo, monospace; fill: #3a2a1a; }
+      .label { font: 13px system-ui, -apple-system, sans-serif; fill: #5a5a5a; }
+      .arrow { stroke: #7a6a5a; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .highlight { fill: #ffeacc; stroke: #ffaa55; stroke-width: 2; }
+      .box { fill: #e8f4ff; stroke: #3399ff; stroke-width: 2; }
+      .box2 { fill: #f0ffe8; stroke: #66bb33; stroke-width: 2; }
+      .box3 { fill: #fff0f5; stroke: #dd5599; stroke-width: 2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
+    </marker>
+  </defs>
+  <rect width="720" height="330" class="bg"/>
+  <rect x="16" y="16" width="688" height="298" rx="12" class="card"/>
+  <text x="360" y="50" text-anchor="middle" class="title">Rust 数据类型总览</text>
+  <rect x="50" y="85" width="300" height="185" rx="10" class="box"/>
+  <text x="200" y="115" text-anchor="middle" class="text">标量类型（Scalar）</text>
+  <text x="70" y="148" class="label">· 整数：i8 ~ u64, isize</text>
+  <text x="70" y="181" class="label">· 浮点：f32, f64</text>
+  <text x="70" y="214" class="label">· 布尔：bool</text>
+  <text x="70" y="247" class="label">· 字符：char</text>
+  <rect x="370" y="85" width="300" height="185" rx="10" class="box2"/>
+  <text x="520" y="115" text-anchor="middle" class="text">复合类型（Compound）</text>
+  <text x="390" y="148" class="label">· 元组 tuple：(i32, f64, &amp;str)</text>
+  <text x="390" y="181" class="label">· 数组 array：[i32; 5]</text>
+  <text x="360" y="290" text-anchor="middle" class="label">标量表达单个值，复合把多个值打包成一个整体</text>
+</svg>
