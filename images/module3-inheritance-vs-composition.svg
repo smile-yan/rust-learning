@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="350" viewBox="0 0 720 350">
+  <defs>
+    <style>
+      .bg { fill: #fff8f0; }
+      .card { fill: #ffffff; stroke: #e0d6cc; stroke-width: 2; }
+      .title { font: bold 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .text { font: 15px system-ui, -apple-system, sans-serif; fill: #2a2a2a; }
+      .code { font: 14px "SF Mono", Menlo, monospace; fill: #3a2a1a; }
+      .label { font: 13px system-ui, -apple-system, sans-serif; fill: #5a5a5a; }
+      .arrow { stroke: #7a6a5a; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .highlight { fill: #ffeacc; stroke: #ffaa55; stroke-width: 2; }
+      .box { fill: #e8f4ff; stroke: #3399ff; stroke-width: 2; }
+      .box2 { fill: #f0ffe8; stroke: #66bb33; stroke-width: 2; }
+      .box3 { fill: #fff0f5; stroke: #dd5599; stroke-width: 2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
+    </marker>
+  </defs>
+  <rect width="720" height="350" class="bg"/>
+  <rect x="16" y="16" width="688" height="318" rx="12" class="card"/>
+  <text x="360" y="50" text-anchor="middle" class="title">继承树 vs 组合积木</text>
+  <!-- CONTENT -->
+  <text x="185" y="90" text-anchor="middle" class="text">继承：深层耦合</text>
+  <rect x="115" y="105" width="140" height="36" rx="8" class="box3"/>
+  <text x="185" y="129" text-anchor="middle" class="text">Animal（基类）</text>
+  <text x="265" y="129" class="label" style="fill:#cc3333">脆弱基类!</text>
+  <rect x="60" y="185" width="110" height="36" rx="8" class="box"/>
+  <text x="115" y="209" text-anchor="middle" class="text">Mammal</text>
+  <rect x="200" y="185" width="110" height="36" rx="8" class="box"/>
+  <text x="255" y="209" text-anchor="middle" class="text">Bird</text>
+  <rect x="60" y="265" width="110" height="36" rx="8" class="box"/>
+  <text x="115" y="289" text-anchor="middle" class="text">Dog</text>
+  <line x1="170" y1="141" x2="120" y2="185" class="arrow"/>
+  <line x1="200" y1="141" x2="250" y2="185" class="arrow"/>
+  <line x1="115" y1="221" x2="115" y2="265" class="arrow"/>
+  <text x="185" y="330" text-anchor="middle" class="label">❌ 改基类，全部子类遭殃</text>
+  <text x="535" y="90" text-anchor="middle" class="text">组合：按需拼装</text>
+  <rect x="420" y="100" width="85" height="26" rx="13" class="highlight"/>
+  <text x="462" y="117" text-anchor="middle" class="label">Flyable</text>
+  <rect x="520" y="100" width="85" height="26" rx="13" class="highlight"/>
+  <text x="562" y="117" text-anchor="middle" class="label">Drivable</text>
+  <line x1="462" y1="126" x2="480" y2="140" class="arrow"/>
+  <line x1="562" y1="126" x2="540" y2="140" class="arrow"/>
+  <rect x="420" y="140" width="230" height="150" rx="10" class="box2"/>
+  <text x="445" y="165" class="code">Robot</text>
+  <rect x="445" y="180" width="60" height="30" rx="6" class="box"/>
+  <text x="475" y="200" text-anchor="middle" class="label">引擎</text>
+  <rect x="520" y="180" width="60" height="30" rx="6" class="box"/>
+  <text x="550" y="200" text-anchor="middle" class="label">轮子</text>
+  <rect x="445" y="230" width="90" height="30" rx="6" class="box"/>
+  <text x="490" y="250" text-anchor="middle" class="label">传感器</text>
+  <rect x="550" y="230" width="80" height="30" rx="6" class="box"/>
+  <text x="590" y="250" text-anchor="middle" class="label">电池</text>
+  <text x="535" y="330" text-anchor="middle" class="label">✅ 能力像积木一样插拔</text>
+</svg>

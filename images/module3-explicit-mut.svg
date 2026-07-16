@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="340" viewBox="0 0 720 340">
+  <defs>
+    <style>
+      .bg { fill: #fff8f0; }
+      .card { fill: #ffffff; stroke: #e0d6cc; stroke-width: 2; }
+      .title { font: bold 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .text { font: 15px system-ui, -apple-system, sans-serif; fill: #2a2a2a; }
+      .code { font: 14px "SF Mono", Menlo, monospace; fill: #3a2a1a; }
+      .label { font: 13px system-ui, -apple-system, sans-serif; fill: #5a5a5a; }
+      .arrow { stroke: #7a6a5a; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .highlight { fill: #ffeacc; stroke: #ffaa55; stroke-width: 2; }
+      .box { fill: #e8f4ff; stroke: #3399ff; stroke-width: 2; }
+      .box2 { fill: #f0ffe8; stroke: #66bb33; stroke-width: 2; }
+      .box3 { fill: #fff0f5; stroke: #dd5599; stroke-width: 2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
+    </marker>
+  </defs>
+  <rect width="720" height="340" class="bg"/>
+  <rect x="16" y="16" width="688" height="308" rx="12" class="card"/>
+  <text x="360" y="50" text-anchor="middle" class="title">默认不可变，mut 显式开口</text>
+  <rect x="60" y="95" width="240" height="50" rx="8" class="box2"/>
+  <text x="80" y="126" class="code">let x = 5;</text>
+  <text x="330" y="120" class="code">x = 6;</text>
+  <text x="400" y="122" font-size="18">❌</text>
+  <text x="428" y="122" class="text">编译错误：不能二次赋值</text>
+  <rect x="60" y="185" width="240" height="50" rx="8" class="highlight"/>
+  <text x="80" y="216" class="code">let mut x = 5;</text>
+  <text x="330" y="210" class="code">x = 6;</text>
+  <text x="400" y="212" font-size="18">✅</text>
+  <text x="428" y="212" class="text">允许修改，mut 让变化点显式可见</text>
+  <text x="360" y="300" text-anchor="middle" class="label">不可变是默认，可变是显式选择 —— 读代码时一眼定位变化点</text>
+</svg>

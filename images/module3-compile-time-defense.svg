@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="380" viewBox="0 0 720 380">
+  <defs>
+    <style>
+      .bg { fill: #fff8f0; }
+      .card { fill: #ffffff; stroke: #e0d6cc; stroke-width: 2; }
+      .title { font: bold 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .text { font: 15px system-ui, -apple-system, sans-serif; fill: #2a2a2a; }
+      .code { font: 14px "SF Mono", Menlo, monospace; fill: #3a2a1a; }
+      .label { font: 13px system-ui, -apple-system, sans-serif; fill: #5a5a5a; }
+      .arrow { stroke: #7a6a5a; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .highlight { fill: #ffeacc; stroke: #ffaa55; stroke-width: 2; }
+      .box { fill: #e8f4ff; stroke: #3399ff; stroke-width: 2; }
+      .box2 { fill: #f0ffe8; stroke: #66bb33; stroke-width: 2; }
+      .box3 { fill: #fff0f5; stroke: #dd5599; stroke-width: 2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
+    </marker>
+  </defs>
+  <rect width="720" height="380" class="bg"/>
+  <rect x="16" y="16" width="688" height="348" rx="12" class="card"/>
+  <text x="360" y="50" text-anchor="middle" class="title">Rust 编译期的五道安全防线</text>
+  <!-- 行1 y=86: 所有权与借用检查 → 防止 use-after-free -->
+  <rect x="70" y="86" width="220" height="40" rx="8" class="box"/>
+  <text x="180" y="112" text-anchor="middle" class="text">所有权与借用检查</text>
+  <line x1="300" y1="106" x2="340" y2="106" class="arrow"/>
+  <rect x="350" y="86" width="300" height="40" rx="8" class="box3"/>
+  <text x="500" y="112" text-anchor="middle" class="text">防止 use-after-free</text>
+  <!-- 行2 y=138: 类型系统 → 防止类型不匹配 -->
+  <rect x="70" y="138" width="220" height="40" rx="8" class="box"/>
+  <text x="180" y="164" text-anchor="middle" class="text">类型系统</text>
+  <line x1="300" y1="158" x2="340" y2="158" class="arrow"/>
+  <rect x="350" y="138" width="300" height="40" rx="8" class="box3"/>
+  <text x="500" y="164" text-anchor="middle" class="text">防止类型不匹配</text>
+  <!-- 行3 y=190: 模式匹配 → 强制处理所有分支 -->
+  <rect x="70" y="190" width="220" height="40" rx="8" class="box"/>
+  <text x="180" y="216" text-anchor="middle" class="text">模式匹配</text>
+  <line x1="300" y1="210" x2="340" y2="210" class="arrow"/>
+  <rect x="350" y="190" width="300" height="40" rx="8" class="box3"/>
+  <text x="500" y="216" text-anchor="middle" class="text">强制处理所有分支</text>
+  <!-- 行4 y=242: 生命周期 → 防止悬垂引用 -->
+  <rect x="70" y="242" width="220" height="40" rx="8" class="box"/>
+  <text x="180" y="268" text-anchor="middle" class="text">生命周期</text>
+  <line x1="300" y1="262" x2="340" y2="262" class="arrow"/>
+  <rect x="350" y="242" width="300" height="40" rx="8" class="box3"/>
+  <text x="500" y="268" text-anchor="middle" class="text">防止悬垂引用</text>
+  <!-- 行5 y=294: Send / Sync → 防止数据竞争 -->
+  <rect x="70" y="294" width="220" height="40" rx="8" class="box"/>
+  <text x="180" y="320" text-anchor="middle" class="text">Send / Sync</text>
+  <line x1="300" y1="314" x2="340" y2="314" class="arrow"/>
+  <rect x="350" y="294" width="300" height="40" rx="8" class="box3"/>
+  <text x="500" y="320" text-anchor="middle" class="text">防止数据竞争</text>
+  <text x="360" y="356" text-anchor="middle" class="label">五道防线全部在编译期生效，不生成任何运行时代码</text>
+</svg>

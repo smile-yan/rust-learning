@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="360" viewBox="0 0 720 360">
+  <defs>
+    <style>
+      .bg { fill: #fff8f0; }
+      .card { fill: #ffffff; stroke: #e0d6cc; stroke-width: 2; }
+      .title { font: bold 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .text { font: 15px system-ui, -apple-system, sans-serif; fill: #2a2a2a; }
+      .code { font: 14px "SF Mono", Menlo, monospace; fill: #3a2a1a; }
+      .label { font: 13px system-ui, -apple-system, sans-serif; fill: #5a5a5a; }
+      .arrow { stroke: #7a6a5a; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .highlight { fill: #ffeacc; stroke: #ffaa55; stroke-width: 2; }
+      .box { fill: #e8f4ff; stroke: #3399ff; stroke-width: 2; }
+      .box2 { fill: #f0ffe8; stroke: #66bb33; stroke-width: 2; }
+      .box3 { fill: #fff0f5; stroke: #dd5599; stroke-width: 2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
+    </marker>
+  </defs>
+  <rect width="720" height="360" class="bg"/>
+  <rect x="16" y="16" width="688" height="328" rx="12" class="card"/>
+  <text x="360" y="50" text-anchor="middle" class="title">数据竞争是如何被编译期拦截的</text>
+  <rect x="40" y="85" width="300" height="220" rx="10" class="box3"/>
+  <text x="55" y="118" class="text">数据竞争三条件</text>
+  <text x="55" y="150" class="label">① 多线程同时访问同一数据</text>
+  <text x="55" y="185" class="label">② 至少有一个是写操作</text>
+  <text x="55" y="220" class="label">③ 没有同步机制</text>
+  <text x="55" y="262" class="label" style="fill:#cc3333">组合起来 = 数据竞争（未定义行为）</text>
+  <text x="360" y="195" text-anchor="middle" font-size="26">🛡️</text>
+  <rect x="380" y="85" width="300" height="220" rx="10" class="box2"/>
+  <text x="395" y="118" class="text">Rust 的拦截规则</text>
+  <text x="395" y="150" class="label">① 同一时刻只有一个 &amp;mut T</text>
+  <text x="395" y="185" class="label">② &amp;T 与 &amp;mut T 不能共存</text>
+  <text x="395" y="220" class="label">③ 不满足 Send / Sync 无法跨线程</text>
+  <text x="395" y="262" class="label">④ 违反规则 → 编译直接报错</text>
+  <text x="360" y="340" text-anchor="middle" class="label">数据竞争在编译期就变成错误，而不是线上崩溃</text>
+</svg>

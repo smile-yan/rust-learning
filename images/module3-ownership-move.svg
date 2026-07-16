@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="330" viewBox="0 0 720 330">
+  <defs>
+    <style>
+      .bg { fill: #fff8f0; }
+      .card { fill: #ffffff; stroke: #e0d6cc; stroke-width: 2; }
+      .title { font: bold 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .text { font: 15px system-ui, -apple-system, sans-serif; fill: #2a2a2a; }
+      .code { font: 14px "SF Mono", Menlo, monospace; fill: #3a2a1a; }
+      .label { font: 13px system-ui, -apple-system, sans-serif; fill: #5a5a5a; }
+      .arrow { stroke: #7a6a5a; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .highlight { fill: #ffeacc; stroke: #ffaa55; stroke-width: 2; }
+      .box { fill: #e8f4ff; stroke: #3399ff; stroke-width: 2; }
+      .box2 { fill: #f0ffe8; stroke: #66bb33; stroke-width: 2; }
+      .box3 { fill: #fff0f5; stroke: #dd5599; stroke-width: 2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
+    </marker>
+  </defs>
+  <rect width="720" height="330" class="bg"/>
+  <rect x="16" y="16" width="688" height="298" rx="12" class="card"/>
+  <text x="360" y="50" text-anchor="middle" class="title">移动语义：所有权从 s1 转移到 s2</text>
+  <text x="140" y="100" text-anchor="middle" class="text">栈</text>
+  <text x="560" y="100" text-anchor="middle" class="text">堆</text>
+  <rect x="70" y="115" width="140" height="50" rx="8" class="box3"/>
+  <text x="90" y="137" class="code">s1</text>
+  <text x="90" y="158" class="label">已失效 ❌</text>
+  <rect x="70" y="205" width="140" height="50" rx="8" class="box2"/>
+  <text x="90" y="227" class="code">s2</text>
+  <text x="90" y="248" class="label">新主人 ✅</text>
+  <rect x="460" y="140" width="200" height="70" rx="8" class="highlight"/>
+  <text x="480" y="182" class="code">String "hello"</text>
+  <line x1="210" y1="230" x2="455" y2="180" class="arrow"/>
+  <text x="280" y="195" class="label">所有权转移</text>
+  <line x1="210" y1="140" x2="455" y2="165" stroke="#cc3333" stroke-width="2" stroke-dasharray="6 4"/>
+  <text x="320" y="145" font-size="18">❌</text>
+  <text x="360" y="300" text-anchor="middle" class="label">let s2 = s1; 之后 s1 即失效（编译错误）</text>
+</svg>

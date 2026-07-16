@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="350" viewBox="0 0 720 350">
+  <defs>
+    <style>
+      .bg { fill: #fff8f0; }
+      .card { fill: #ffffff; stroke: #e0d6cc; stroke-width: 2; }
+      .title { font: bold 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .text { font: 15px system-ui, -apple-system, sans-serif; fill: #2a2a2a; }
+      .code { font: 14px "SF Mono", Menlo, monospace; fill: #3a2a1a; }
+      .label { font: 13px system-ui, -apple-system, sans-serif; fill: #5a5a5a; }
+      .arrow { stroke: #7a6a5a; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .highlight { fill: #ffeacc; stroke: #ffaa55; stroke-width: 2; }
+      .box { fill: #e8f4ff; stroke: #3399ff; stroke-width: 2; }
+      .box2 { fill: #f0ffe8; stroke: #66bb33; stroke-width: 2; }
+      .box3 { fill: #fff0f5; stroke: #dd5599; stroke-width: 2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
+    </marker>
+  </defs>
+  <rect width="720" height="350" class="bg"/>
+  <rect x="16" y="16" width="688" height="318" rx="12" class="card"/>
+  <text x="360" y="50" text-anchor="middle" class="title">四大优势 × AI 场景</text>
+  <rect x="60" y="85" width="170" height="44" rx="8" class="box"/>
+  <text x="145" y="113" text-anchor="middle" class="text">极致性能</text>
+  <line x1="230" y1="107" x2="330" y2="107" class="arrow"/>
+  <rect x="340" y="85" width="330" height="44" rx="8" class="box2"/>
+  <text x="505" y="113" text-anchor="middle" class="text">推理引擎、张量运算、KV Cache 管理</text>
+  <rect x="60" y="145" width="170" height="44" rx="8" class="box"/>
+  <text x="145" y="173" text-anchor="middle" class="text">无数据竞争并发</text>
+  <line x1="230" y1="167" x2="330" y2="167" class="arrow"/>
+  <rect x="340" y="145" width="330" height="44" rx="8" class="box2"/>
+  <text x="505" y="173" text-anchor="middle" class="text">高并发模型服务、批量请求处理</text>
+  <rect x="60" y="205" width="170" height="44" rx="8" class="box"/>
+  <text x="145" y="233" text-anchor="middle" class="text">编译期安全</text>
+  <line x1="230" y1="227" x2="330" y2="227" class="arrow"/>
+  <rect x="340" y="205" width="330" height="44" rx="8" class="box2"/>
+  <text x="505" y="233" text-anchor="middle" class="text">AI 基础设施稳定运行，更少崩溃</text>
+  <rect x="60" y="265" width="170" height="44" rx="8" class="box"/>
+  <text x="145" y="293" text-anchor="middle" class="text">单文件部署</text>
+  <line x1="230" y1="287" x2="330" y2="287" class="arrow"/>
+  <rect x="340" y="265" width="330" height="44" rx="8" class="box2"/>
+  <text x="505" y="293" text-anchor="middle" class="text">容器化、WASM、边缘与 IoT 设备</text>
+  <text x="360" y="328" text-anchor="middle" class="label">大模型时代拼的不只是 GPU，还有 CPU 侧基础设施的效率</text>
+</svg>

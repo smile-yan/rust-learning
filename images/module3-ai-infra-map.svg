@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="380" viewBox="0 0 720 380">
+  <defs>
+    <style>
+      .bg { fill: #fff8f0; }
+      .card { fill: #ffffff; stroke: #e0d6cc; stroke-width: 2; }
+      .title { font: bold 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .text { font: 15px system-ui, -apple-system, sans-serif; fill: #2a2a2a; }
+      .code { font: 14px "SF Mono", Menlo, monospace; fill: #3a2a1a; }
+      .label { font: 13px system-ui, -apple-system, sans-serif; fill: #5a5a5a; }
+      .arrow { stroke: #7a6a5a; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .highlight { fill: #ffeacc; stroke: #ffaa55; stroke-width: 2; }
+      .box { fill: #e8f4ff; stroke: #3399ff; stroke-width: 2; }
+      .box2 { fill: #f0ffe8; stroke: #66bb33; stroke-width: 2; }
+      .box3 { fill: #fff0f5; stroke: #dd5599; stroke-width: 2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
+    </marker>
+  </defs>
+  <rect width="720" height="380" class="bg"/>
+  <rect x="16" y="16" width="688" height="348" rx="12" class="card"/>
+  <text x="360" y="50" text-anchor="middle" class="title">Rust 在 AI 基础设施中的位置</text>
+  <rect x="45" y="95" width="180" height="48" rx="8" class="box"/>
+  <text x="60" y="116" class="text">模型推理</text>
+  <text x="60" y="136" class="label">candle · tract</text>
+  <rect x="45" y="175" width="180" height="48" rx="8" class="box"/>
+  <text x="60" y="196" class="text">向量数据库</text>
+  <text x="60" y="216" class="label">Qdrant · tantivy</text>
+  <rect x="45" y="255" width="180" height="48" rx="8" class="box"/>
+  <text x="60" y="276" class="text">分词器</text>
+  <text x="60" y="296" class="label">tokenizers</text>
+  <rect x="495" y="95" width="180" height="48" rx="8" class="box2"/>
+  <text x="510" y="116" class="text">数据管道</text>
+  <text x="510" y="136" class="label">Polars · DataFusion</text>
+  <rect x="495" y="175" width="180" height="48" rx="8" class="box2"/>
+  <text x="510" y="196" class="text">Agent 网关</text>
+  <text x="510" y="216" class="label">tokio · axum</text>
+  <rect x="495" y="255" width="180" height="48" rx="8" class="box2"/>
+  <text x="510" y="276" class="text">边缘与浏览器</text>
+  <text x="510" y="296" class="label">wasm-bindgen</text>
+  <rect x="300" y="165" width="120" height="60" rx="30" class="highlight"/>
+  <text x="360" y="202" text-anchor="middle" class="text">Rust 🦀</text>
+  <line x1="225" y1="119" x2="305" y2="180" class="arrow"/>
+  <line x1="225" y1="199" x2="295" y2="195" class="arrow"/>
+  <line x1="225" y1="279" x2="305" y2="210" class="arrow"/>
+  <line x1="495" y1="119" x2="415" y2="180" class="arrow"/>
+  <line x1="495" y1="199" x2="425" y2="195" class="arrow"/>
+  <line x1="495" y1="279" x2="415" y2="210" class="arrow"/>
+  <text x="360" y="350" text-anchor="middle" class="label">从推理、检索到部署，Rust 正在覆盖 AI 链路的每个环节</text>
+</svg>

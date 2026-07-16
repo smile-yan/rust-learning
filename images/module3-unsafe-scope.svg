@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="370" viewBox="0 0 720 370">
+  <defs>
+    <style>
+      .bg { fill: #fff8f0; }
+      .card { fill: #ffffff; stroke: #e0d6cc; stroke-width: 2; }
+      .title { font: bold 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .text { font: 15px system-ui, -apple-system, sans-serif; fill: #2a2a2a; }
+      .code { font: 14px "SF Mono", Menlo, monospace; fill: #3a2a1a; }
+      .label { font: 13px system-ui, -apple-system, sans-serif; fill: #5a5a5a; }
+      .arrow { stroke: #7a6a5a; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .highlight { fill: #ffeacc; stroke: #ffaa55; stroke-width: 2; }
+      .box { fill: #e8f4ff; stroke: #3399ff; stroke-width: 2; }
+      .box2 { fill: #f0ffe8; stroke: #66bb33; stroke-width: 2; }
+      .box3 { fill: #fff0f5; stroke: #dd5599; stroke-width: 2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
+    </marker>
+  </defs>
+  <rect width="720" height="370" class="bg"/>
+  <rect x="16" y="16" width="688" height="338" rx="12" class="card"/>
+  <text x="360" y="50" text-anchor="middle" class="title">unsafe 关闭了什么，没关什么</text>
+  <rect x="40" y="85" width="310" height="230" rx="10" class="box3"/>
+  <text x="60" y="115" class="text">可以做的事（检查被放宽）</text>
+  <text x="60" y="150" class="label">· 解引用裸指针</text>
+  <text x="60" y="183" class="label">· 调用 unsafe 函数</text>
+  <text x="60" y="216" class="label">· 访问 / 修改可变静态变量</text>
+  <text x="60" y="249" class="label">· 实现 unsafe trait</text>
+  <text x="60" y="282" class="label">· 读写 union 的字段</text>
+  <rect x="370" y="85" width="310" height="230" rx="10" class="box2"/>
+  <text x="390" y="115" class="text">仍然生效的检查</text>
+  <text x="390" y="150" class="label">· 借用检查 ✅</text>
+  <text x="390" y="183" class="label">· 生命周期检查 ✅</text>
+  <text x="390" y="216" class="label">· 类型检查 ✅</text>
+  <text x="390" y="249" class="label">· 其他所有安全规则 ✅</text>
+  <text x="360" y="345" text-anchor="middle" class="label">unsafe 不是关掉编译器，只是申请了几项特许</text>
+</svg>
