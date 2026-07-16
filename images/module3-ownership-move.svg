@@ -23,10 +23,10 @@
   <text x="360" y="50" text-anchor="middle" class="title">移动语义：所有权从 s1 转移到 s2</text>
   <text x="140" y="100" text-anchor="middle" class="text">栈</text>
   <text x="560" y="100" text-anchor="middle" class="text">堆</text>
-  <rect x="70" y="115" width="140" height="50" rx="8" class="box3"/>
+  <rect x="70" y="115" width="140" height="56" rx="8" class="box3"/>
   <text x="90" y="137" class="code">s1</text>
   <text x="90" y="158" class="label">已失效 ❌</text>
-  <rect x="70" y="205" width="140" height="50" rx="8" class="box2"/>
+  <rect x="70" y="205" width="140" height="56" rx="8" class="box2"/>
   <text x="90" y="227" class="code">s2</text>
   <text x="90" y="248" class="label">新主人 ✅</text>
   <rect x="460" y="140" width="200" height="70" rx="8" class="highlight"/>

@@ -20,7 +20,7 @@
   <path d="M 400 145 C 360 180, 360 180, 320 145" stroke="#d32f2f" stroke-width="2.5" marker-end="url(#arrow-red)" fill="none"/>
   <text x="360" y="180" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#d32f2f">B → A</text>
 
-  <rect x="60" y="210" width="600" height="110" fill="#fff8f0" stroke="#c62828" stroke-width="2" stroke-dasharray="5,3" rx="8"/>
+  <rect x="60" y="210" width="600" height="122" fill="#fff8f0" stroke="#c62828" stroke-width="2" stroke-dasharray="5,3" rx="8"/>
   <text x="360" y="240" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#b71c1c">🔴 循环引用后果</text>
   <text x="360" y="268" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#333">两个 Rc 的 strong_count 永远不会归零</text>
   <text x="360" y="292" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#333">堆上内存无法被释放 → 内存泄漏</text>

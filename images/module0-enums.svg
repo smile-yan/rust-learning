@@ -22,7 +22,7 @@
   <rect x="16" y="16" width="688" height="308" rx="12" class="card"/>
   <text x="360" y="50" text-anchor="middle" class="title">module0-enums</text>
 
-  <rect x="40" y="80" width="300" height="190" rx="8" class="box"/>
+  <rect x="40" y="80" width="300" height="198" rx="8" class="box"/>
   <text x="60" y="115" class="code">enum Message {</text>
   <text x="80" y="145" class="code">  Quit,</text>
   <text x="80" y="175" class="code">  Move { x, y },</text>
@@ -30,7 +30,7 @@
   <text x="80" y="235" class="code">  ChangeColor(i32, i32, i32),</text>
   <text x="60" y="260" class="code">}</text>
 
-  <rect x="380" y="80" width="300" height="190" rx="8" class="box2"/>
+  <rect x="380" y="80" width="300" height="198" rx="8" class="box2"/>
   <text x="400" y="115" class="text">模式匹配</text>
   <text x="400" y="150" class="code">match msg {</text>
   <text x="420" y="180" class="code">Message::Quit =&gt; ...,</text>
@@ -38,6 +38,6 @@
   <text x="420" y="240" class="code">_ =&gt; ...,</text>
   <text x="400" y="265" class="code">}</text>
 
-  <text x="360" y="290" text-anchor="middle" class="text">💡 枚举让“一个类型的不同形态”在类型系统中显式表达</text>
+  <text x="360" y="300" text-anchor="middle" class="text">💡 枚举让“一个类型的不同形态”在类型系统中显式表达</text>
 
 </svg>
