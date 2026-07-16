@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="350" viewBox="0 0 720 350">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="370" viewBox="0 0 720 370">
   <defs>
     <style>
       .bg { fill: #fff8f0; }
@@ -18,8 +18,8 @@
       <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
     </marker>
   </defs>
-  <rect width="720" height="350" class="bg"/>
-  <rect x="16" y="16" width="688" height="318" rx="12" class="card"/>
+  <rect width="720" height="370" class="bg"/>
+  <rect x="16" y="16" width="688" height="338" rx="12" class="card"/>
   <text x="360" y="50" text-anchor="middle" class="title">继承树 vs 组合积木</text>
   <!-- CONTENT -->
   <text x="185" y="90" text-anchor="middle" class="text">继承：深层耦合</text>

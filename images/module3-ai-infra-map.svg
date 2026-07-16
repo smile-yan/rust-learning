@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="380" viewBox="0 0 720 380">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="390" viewBox="0 0 720 390">
   <defs>
     <style>
       .bg { fill: #fff8f0; }
@@ -18,8 +18,8 @@
       <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
     </marker>
   </defs>
-  <rect width="720" height="380" class="bg"/>
-  <rect x="16" y="16" width="688" height="348" rx="12" class="card"/>
+  <rect width="720" height="390" class="bg"/>
+  <rect x="16" y="16" width="688" height="358" rx="12" class="card"/>
   <text x="360" y="50" text-anchor="middle" class="title">Rust 在 AI 基础设施中的位置</text>
   <rect x="45" y="95" width="180" height="48" rx="8" class="box"/>
   <text x="60" y="116" class="text">模型推理</text>

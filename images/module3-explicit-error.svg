@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="350" viewBox="0 0 720 350">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="362" viewBox="0 0 720 362">
   <defs>
     <style>
       .bg { fill: #fff8f0; }
@@ -18,8 +18,8 @@
       <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
     </marker>
   </defs>
-  <rect width="720" height="350" class="bg"/>
-  <rect x="16" y="16" width="688" height="318" rx="12" class="card"/>
+  <rect width="720" height="362" class="bg"/>
+  <rect x="16" y="16" width="688" height="330" rx="12" class="card"/>
   <text x="360" y="50" text-anchor="middle" class="title">Result 的三种显式处理方式</text>
   <rect x="170" y="80" width="380" height="46" rx="8" class="box"/>
   <text x="360" y="109" text-anchor="middle" class="code">fn read() -&gt; Result&lt;String, io::Error&gt;</text>
