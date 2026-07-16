@@ -226,7 +226,7 @@ createApp({
     }
 
     async function loadData() {
-      const res = await fetch("./js/chapters.json?v=9");
+      const res = await fetch("./js/chapters.json?v=10");
       if (!res.ok) {
         throw new Error(`无法加载章节数据: HTTP ${res.status}`);
       }
