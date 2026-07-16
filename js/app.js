@@ -22,6 +22,7 @@ createApp({
     const outputText = ref("点击「运行」按钮查看输出结果");
     const outputClass = ref("text-gray-400");
     const loadError = ref("");
+    const loading = ref(true);
     const editorEl = ref(null);
     const theoryEl = ref(null);
     let editor = null;
@@ -226,11 +227,24 @@ createApp({
     }
 
     async function loadData() {
-      const res = await fetch("./js/chapters.json?v=11");
-      if (!res.ok) {
-        throw new Error(`无法加载章节数据: HTTP ${res.status}`);
+      // 首次加载可能遇到瞬时的网络/CDN 抖动，自动重试两次，避免直接展示「加载失败」
+      let lastErr = null;
+      for (let attempt = 0; attempt < 3; attempt++) {
+        try {
+          const res = await fetch("./js/chapters.json?v=11");
+          if (!res.ok) {
+            throw new Error(`无法加载章节数据: HTTP ${res.status}`);
+          }
+          modules.value = await res.json();
+          return;
+        } catch (err) {
+          lastErr = err;
+          if (attempt < 2) {
+            await new Promise((resolve) => setTimeout(resolve, 700 * (attempt + 1)));
+          }
+        }
       }
-      modules.value = await res.json();
+      throw lastErr;
     }
 
     function loadChapter(globalIdx) {
@@ -366,26 +380,42 @@ createApp({
       menuOpen.value = false;
     }
 
-    onMounted(async () => {
-      initEditorWithDoc("", theme.value === "dark");
+    async function bootstrap(isFirst) {
+      loading.value = true;
+      loadError.value = "";
       try {
         await loadData();
-        const hashIdx = parseUrlHash();
-        currentGlobalIdx.value = hashIdx !== null ? hashIdx : 0;
-
-        window.addEventListener("hashchange", () => {
-          const idx = parseUrlHash();
-          if (idx !== null && idx !== currentGlobalIdx.value) {
-            currentGlobalIdx.value = idx;
-            clearOutput();
-            if (theoryEl.value) {
-              theoryEl.value.scrollTop = 0;
-            }
-          }
-        });
+        if (isFirst) {
+          const hashIdx = parseUrlHash();
+          currentGlobalIdx.value = hashIdx !== null ? hashIdx : 0;
+        }
       } catch (err) {
         loadError.value = err.message;
+      } finally {
+        loading.value = false;
       }
+    }
+
+    function retryLoad() {
+      bootstrap(false);
+    }
+
+    onMounted(() => {
+      initEditorWithDoc("", theme.value === "dark");
+      // 移除 Vue 挂载前的启动加载动画，此后由 loading 状态接管
+      document.getElementById("boot-loader")?.remove();
+      bootstrap(true);
+
+      window.addEventListener("hashchange", () => {
+        const idx = parseUrlHash();
+        if (idx !== null && idx !== currentGlobalIdx.value) {
+          currentGlobalIdx.value = idx;
+          clearOutput();
+          if (theoryEl.value) {
+            theoryEl.value.scrollTop = 0;
+          }
+        }
+      });
     });
 
     return {
@@ -396,6 +426,8 @@ createApp({
       outputText,
       outputClass,
       loadError,
+      loading,
+      retryLoad,
       editorEl,
       theoryEl,
       currentChapter,
