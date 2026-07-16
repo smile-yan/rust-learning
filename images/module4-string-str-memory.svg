@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="390" viewBox="0 0 720 390">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="412" viewBox="0 0 720 412">
   <defs>
     <style>
       .bg { fill: #fff8f0; }
@@ -18,8 +18,8 @@
       <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
     </marker>
   </defs>
-  <rect width="720" height="390" class="bg"/>
-  <rect x="16" y="16" width="688" height="358" rx="12" class="card"/>
+  <rect width="720" height="412" class="bg"/>
+  <rect x="16" y="16" width="688" height="380" rx="12" class="card"/>
   <text x="360" y="50" text-anchor="middle" class="title">String 与 &amp;str 的内存布局</text>
   <rect x="45" y="85" width="260" height="120" rx="10" class="box"/>
   <text x="60" y="110" class="label">栈 Stack</text>

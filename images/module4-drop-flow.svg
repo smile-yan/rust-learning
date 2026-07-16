@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="320" viewBox="0 0 720 320">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="340" viewBox="0 0 720 340">
   <defs>
     <style>
       .bg { fill: #fff8f0; }
@@ -18,8 +18,8 @@
       <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
     </marker>
   </defs>
-  <rect width="720" height="320" class="bg"/>
-  <rect x="16" y="16" width="688" height="288" rx="12" class="card"/>
+  <rect width="720" height="340" class="bg"/>
+  <rect x="16" y="16" width="688" height="308" rx="12" class="card"/>
   <text x="360" y="50" text-anchor="middle" class="title">没有 GC：离开作用域即释放</text>
   <!-- CONTENT -->
   <rect x="210" y="85" width="300" height="44" rx="8" class="box"/>

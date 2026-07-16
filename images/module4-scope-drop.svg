@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="330" viewBox="0 0 720 330">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="340" viewBox="0 0 720 340">
   <defs>
     <style>
       .bg { fill: #fff8f0; }
@@ -18,8 +18,8 @@
       <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
     </marker>
   </defs>
-  <rect width="720" height="330" class="bg"/>
-  <rect x="16" y="16" width="688" height="298" rx="12" class="card"/>
+  <rect width="720" height="340" class="bg"/>
+  <rect x="16" y="16" width="688" height="308" rx="12" class="card"/>
   <text x="360" y="50" text-anchor="middle" class="title">不需要手动 free</text>
   <rect x="45" y="85" width="340" height="160" rx="10" class="box"/>
   <text x="65" y="115" class="code">let s = String::from("Rust");</text>
