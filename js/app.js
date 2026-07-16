@@ -231,7 +231,7 @@ createApp({
       let lastErr = null;
       for (let attempt = 0; attempt < 3; attempt++) {
         try {
-          const res = await fetch("./js/chapters.json?v=12");
+          const res = await fetch("./js/chapters.json?v=13");
           if (!res.ok) {
             throw new Error(`无法加载章节数据: HTTP ${res.status}`);
           }
