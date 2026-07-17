@@ -36,8 +36,11 @@ createApp({
       const selection = state.selection.main;
 
       if (selection.empty) {
+        const insertLen = TAB_INDENT.length;
         dispatch({
-          changes: { from: selection.head, insert: TAB_INDENT }
+          changes: { from: selection.head, insert: TAB_INDENT },
+          selection: { anchor: selection.head + insertLen, head: selection.head + insertLen },
+          userEvent: "input.indent"
         });
         return true;
       }
@@ -49,7 +52,11 @@ createApp({
         changes.push({ from: line.from, insert: TAB_INDENT });
         pos = line.to + 1;
       }
-      dispatch({ changes });
+      dispatch({
+        changes,
+        selection: selection.map(state.changes(changes)),
+        userEvent: "input.indent"
+      });
       return true;
     }
 
@@ -72,7 +79,11 @@ createApp({
       }
 
       if (changes.length > 0) {
-        dispatch({ changes });
+        dispatch({
+          changes,
+          selection: selection.map(state.changes(changes)),
+          userEvent: "input.indent"
+        });
       }
       return true;
     }
@@ -199,25 +210,29 @@ createApp({
         keymap.of([
           {
             key: "Tab",
-            run: insertTab
+            run: insertTab,
+            preventDefault: true
           },
           {
             key: "Shift-Tab",
-            run: unindent
+            run: unindent,
+            preventDefault: true
           },
           {
             key: "Ctrl-Enter",
             run: () => {
               runCode();
               return true;
-            }
+            },
+            preventDefault: true
           },
           {
             key: "Cmd-Enter",
             run: () => {
               runCode();
               return true;
-            }
+            },
+            preventDefault: true
           }
         ])
       ];
