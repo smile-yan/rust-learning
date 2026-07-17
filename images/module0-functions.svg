@@ -14,8 +14,8 @@
       .box2 { fill: #f0ffe8; stroke: #66bb33; stroke-width: 2; }
       .box3 { fill: #fff0f5; stroke: #dd5599; stroke-width: 2; }
     </style>
-    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
+    <marker id="arrowhead" markerWidth="6" markerHeight="4" refX="6" refY="2" orient="auto">
+      <polygon points="0 0, 6 2, 0 4" fill="#7a6a5a"/>
     </marker>
   </defs>
   <rect width="720" height="380" class="bg"/>
