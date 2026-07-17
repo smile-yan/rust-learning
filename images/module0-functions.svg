@@ -24,14 +24,14 @@
   
   <rect x="60" y="80" width="600" height="100" rx="8" class="box"/>
   <text x="80" y="115" class="code">fn add(a: i32, b: i32) -&gt; i32 { a + b }</text>
-  <text x="80" y="145" class="label">fn 关键字</text>
-  <text x="210" y="145" class="label">参数列表</text>
-  <text x="420" y="145" class="label">返回类型</text>
-  <text x="520" y="145" class="label">函数体/表达式</text>
-  <line x1="95" y1="120" x2="95" y2="135" class="arrow"/>
-  <line x1="225" y1="120" x2="225" y2="135" class="arrow"/>
-  <line x1="435" y1="120" x2="435" y2="135" class="arrow"/>
-  <line x1="540" y1="120" x2="540" y2="135" class="arrow"/>
+  <text x="88" y="145" text-anchor="middle" class="label">fn 关键字</text>
+  <text x="198" y="145" text-anchor="middle" class="label">参数列表</text>
+  <text x="291" y="145" text-anchor="middle" class="label">返回类型</text>
+  <text x="371" y="145" text-anchor="middle" class="label">函数体/表达式</text>
+  <line x1="88" y1="120" x2="88" y2="135" class="arrow"/>
+  <line x1="198" y1="120" x2="198" y2="135" class="arrow"/>
+  <line x1="291" y1="120" x2="291" y2="135" class="arrow"/>
+  <line x1="371" y1="120" x2="371" y2="135" class="arrow"/>
   
   <rect x="120" y="240" width="180" height="80" rx="8" class="box2"/>
   <text x="210" y="275" text-anchor="middle" class="text">调用方</text>
