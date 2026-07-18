@@ -27,6 +27,7 @@ createApp({
     const loading = ref(true);
     const editorEl = ref(null);
     const theoryEl = ref(null);
+    const mainEl = ref(null);
     let editor = null;
 
     const TAB_INDENT = "    ";
@@ -248,7 +249,7 @@ createApp({
       let lastErr = null;
       for (let attempt = 0; attempt < 3; attempt++) {
         try {
-          const res = await fetch("./js/chapters.json?v=14");
+          const res = await fetch("./js/chapters.json?v=15");
           if (!res.ok) {
             throw new Error(`无法加载章节数据: HTTP ${res.status}`);
           }
@@ -268,8 +269,12 @@ createApp({
       currentGlobalIdx.value = globalIdx;
       updateUrlHash(globalIdx);
       clearOutput();
+      // 桌面端滚动容器是理论区，移动端是整个 main，都重置到顶部
       if (theoryEl.value) {
         theoryEl.value.scrollTop = 0;
+      }
+      if (mainEl.value) {
+        mainEl.value.scrollTop = 0;
       }
       if (window.innerWidth < 768) {
         closeMenu();
@@ -443,6 +448,9 @@ createApp({
           if (theoryEl.value) {
             theoryEl.value.scrollTop = 0;
           }
+          if (mainEl.value) {
+            mainEl.value.scrollTop = 0;
+          }
         }
       });
     });
@@ -459,6 +467,7 @@ createApp({
       retryLoad,
       editorEl,
       theoryEl,
+      mainEl,
       currentChapter,
       renderedTheory,
       getGlobalIdx,
