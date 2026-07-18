@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="440" viewBox="0 0 720 440">
+  <defs>
+    <style>
+      .bg { fill: #fff8f0; }
+      .card { fill: #ffffff; stroke: #e0d6cc; stroke-width: 2; }
+      .title { font: bold 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .label { font: 13px system-ui, -apple-system, sans-serif; fill: #5a5a5a; }
+      .lang { font: 14px system-ui, -apple-system, sans-serif; fill: #2a2a2a; }
+      .axis { stroke: #7a6a5a; stroke-width: 2; fill: none; marker-end: url(#axis-arrow); }
+      .dot { fill: #cfe4f7; stroke: #3399ff; stroke-width: 2; }
+      .dot-rust { fill: #ffd9b3; stroke: #f97316; stroke-width: 2.5; }
+      .zone { fill: #fff3e2; stroke: #ffaa55; stroke-width: 1.5; stroke-dasharray: 6 4; }
+    </style>
+    <marker id="axis-arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
+    </marker>
+  </defs>
+  <rect width="720" height="440" class="bg"/>
+  <rect x="16" y="16" width="688" height="408" rx="12" class="card"/>
+  <text x="360" y="52" text-anchor="middle" class="title">性能 × 内存安全：各语言大致定位</text>
+
+  <!-- 理想区域：右上象限 -->
+  <rect x="470" y="86" width="186" height="110" rx="10" class="zone"/>
+  <text x="563" y="186" text-anchor="middle" class="label">高性能 + 高安全</text>
+
+  <!-- 坐标轴 -->
+  <line x1="80" y1="370" x2="664" y2="370" class="axis"/>
+  <line x1="80" y1="370" x2="80" y2="76" class="axis"/>
+  <text x="660" y="396" text-anchor="end" class="label">执行性能 →</text>
+  <text x="92" y="82" class="label">内存安全 ↑</text>
+
+  <!-- 各语言定位（定性示意） -->
+  <circle cx="631" cy="330" r="11" class="dot"/>
+  <text x="631" y="356" text-anchor="middle" class="lang">C</text>
+
+  <circle cx="586" cy="312" r="11" class="dot"/>
+  <text x="586" y="338" text-anchor="middle" class="lang">C++</text>
+
+  <circle cx="474" cy="146" r="11" class="dot"/>
+  <text x="474" y="172" text-anchor="middle" class="lang">Go</text>
+
+  <circle cx="399" cy="162" r="11" class="dot"/>
+  <text x="399" y="188" text-anchor="middle" class="lang">Java</text>
+
+  <circle cx="283" cy="174" r="11" class="dot"/>
+  <text x="283" y="200" text-anchor="middle" class="lang">JavaScript</text>
+
+  <circle cx="138" cy="190" r="11" class="dot"/>
+  <text x="138" y="216" text-anchor="middle" class="lang">Python</text>
+
+  <circle cx="590" cy="104" r="13" class="dot-rust"/>
+  <text x="590" y="132" text-anchor="middle" class="lang">Rust</text>
+
+  <text x="360" y="410" text-anchor="middle" class="label">定性示意：GC 语言靠运行时回收保障安全，C/C++ 把安全交给程序员，Rust 用编译期检查兼得两者</text>
+</svg>
