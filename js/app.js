@@ -1,5 +1,5 @@
 import { createApp, ref, computed, onMounted, watch, nextTick } from "vue";
-import { EditorView, basicSetup, rust, oneDark, keymap, syntaxHighlighting, HighlightStyle, tags } from "../libs/codemirror-bundle.js?v=3";
+import { EditorView, basicSetup, rust, oneDark, keymap, syntaxHighlighting, HighlightStyle, tags, indentUnit } from "../libs/codemirror-bundle.js?v=4";
 
 const { marked } = window;
 
@@ -206,6 +206,8 @@ createApp({
       const extensions = [
         basicSetup,
         rust(),
+        // 回车自动缩进与 Tab 保持一致的 4 空格（CodeMirror 默认 indentUnit 为 2 空格）
+        indentUnit.of(TAB_INDENT),
         themeExtension,
         isDark ? oneDark : syntaxHighlighting(lightHighlight, { fallback: true }),
         keymap.of([

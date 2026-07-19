@@ -24696,6 +24696,7 @@ export {
   EditorView,
   HighlightStyle,
   basicSetup,
+  indentUnit,
   keymap,
   oneDark,
   rust,
