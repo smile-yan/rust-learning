@@ -23,15 +23,15 @@
   <text x="360" y="50" text-anchor="middle" class="title">module0-functions</text>
   
   <rect x="60" y="80" width="600" height="100" rx="8" class="box"/>
-  <text x="80" y="115" class="code">fn add(a: i32, b: i32) -&gt; i32 { a + b }</text>
-  <text x="88" y="145" text-anchor="middle" class="label">fn 关键字</text>
-  <text x="198" y="145" text-anchor="middle" class="label">参数列表</text>
-  <text x="291" y="145" text-anchor="middle" class="label">返回类型</text>
-  <text x="371" y="145" text-anchor="middle" class="label">函数体/表达式</text>
-  <line x1="88" y1="120" x2="88" y2="135" class="arrow"/>
-  <line x1="198" y1="120" x2="198" y2="135" class="arrow"/>
-  <line x1="291" y1="120" x2="291" y2="135" class="arrow"/>
-  <line x1="371" y1="120" x2="371" y2="135" class="arrow"/>
+  <text x="195.6" y="115" class="code">fn add(a: i32, b: i32) -&gt; i32 { a + b }</text>
+  <text x="208.2" y="145" text-anchor="middle" class="label">fn 关键字</text>
+  <text x="313.6" y="145" text-anchor="middle" class="label">参数列表</text>
+  <text x="410.5" y="145" text-anchor="middle" class="label">返回类型</text>
+  <text x="488.5" y="145" text-anchor="middle" class="label">函数体/表达式</text>
+  <line x1="208.2" y1="120" x2="208.2" y2="135" class="arrow"/>
+  <line x1="313.6" y1="120" x2="313.6" y2="135" class="arrow"/>
+  <line x1="410.5" y1="120" x2="410.5" y2="135" class="arrow"/>
+  <line x1="488.5" y1="120" x2="488.5" y2="135" class="arrow"/>
   
   <rect x="120" y="240" width="180" height="80" rx="8" class="box2"/>
   <text x="210" y="275" text-anchor="middle" class="text">调用方</text>
@@ -41,7 +41,7 @@
   <text x="510" y="275" text-anchor="middle" class="text">函数</text>
   <text x="510" y="300" text-anchor="middle" class="label">返回 5</text>
   
-  <line x1="300" y1="280" x2="420" y2="280" class="arrow"/>
-  <line x1="420" y1="310" x2="300" y2="310" class="arrow"/>
+  <line x1="300" y1="272" x2="420" y2="272" class="arrow"/>
+  <line x1="420" y1="288" x2="300" y2="288" class="arrow"/>
 
 </svg>
