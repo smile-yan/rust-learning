@@ -25,8 +25,12 @@ Host frontend-deploy
 EOF
 chmod 600 ~/.ssh/config
 
-# 替换生产环境 evaluateUrl
-sed -i.bak "s|evaluateUrl: \"http://localhost:9001/evaluate.json\"|evaluateUrl: \"$EVALUATE_URL\"|" index.html
+# 替换生产环境 evaluateUrl，并注入当前 git tag 作为页面版本号
+VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "unknown")
+sed -i.bak \
+    -e "s|evaluateUrl: \"http://localhost:9001/evaluate.json\"|evaluateUrl: \"$EVALUATE_URL\"|" \
+    -e "s|v0.0.0-dev|$VERSION|" \
+    index.html
 rm -f index.html.bak
 
 # 上传静态文件（使用 scp，不依赖服务器端 rsync），带超时和重试

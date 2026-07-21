@@ -16,6 +16,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      - name: Show deploy version
+        run: |
+          echo "Deploying version: ${{ github.ref_name }}"
+
       - name: Deploy frontend
         env:
           SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
