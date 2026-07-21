@@ -7,11 +7,12 @@
 
 ## 特性
 
-- 📚 **四大模块，53 个章节**：基础入门、中等应用、高级应用、Q \& A 常见问题
+- 📚 **四大模块，53 个章节**：基础入门、中等应用、高级应用、Q & A 常见问题
 - 📝 **在线编辑器**：基于 CodeMirror 6，支持 Rust 语法高亮、行号、括号匹配、自动补全
 - 🌙 **深色/浅色主题**：自动跟随系统偏好，支持手动切换并持久化
 - 📱 **响应式布局**：适配桌面端与移动端，左侧边栏按模块分组
 - ⌨️ **快捷键支持**：`Ctrl/Cmd + Enter` 快速运行代码（需配合后端接口）
+- 🧩 **章节练习**：每个章节均配有 1–3 道简单编程题，点击即可加载到编辑器中练习
 - 🚀 **无外部 CDN 依赖**：Vue、CodeMirror、Tailwind CSS、Marked.js 全部本地化
 - ⚡ **Vue 3 Composition API**：响应式状态管理与模板渲染
 
@@ -46,6 +47,15 @@ python3 -m http.server 8080
 
 然后访问 `http://localhost:8080`。
 
+## 运行 Rust 代码
+
+编辑器中的「运行」按钮默认调用 `/evaluate.json` 接口执行 Rust 代码。**本仓库只包含前端页面**，如果需要在线执行代码，需要搭配后端服务：
+
+- 推荐后端（与本项目配套）：[smile-yan/rust-playground-backend](https://github.com/smile-yan/rust-playground-backend)
+- 或自行部署后端，并将 `js/app.js` 中的 `evaluateUrl` 修改为可用的后端地址
+
+部署时也可通过 `index.html` 底部的 `window.RUST_PLAYGROUND.evaluateUrl` 配置后端接口地址。
+
 ## 部署
 
 将项目根目录下的 `index.html`、`css/`、`js/`、`libs/`、`images/` 上传到任意静态托管服务即可，例如 Nginx、Caddy、GitHub Pages、Vercel、Netlify 或对象存储 CDN。
@@ -65,11 +75,7 @@ server {
 }
 ```
 
-## 运行代码说明
-
-编辑器中的「运行」按钮默认调用同源的 `/evaluate.json` 接口。本仓库目前**仅包含前端**，如果需要在线执行 Rust 代码，需要自行部署后端，或将 `js/app.js` 中的请求地址改为可用的后端地址（例如 Rust 官方 Playground）。
-
-## 自动部署
+### 自动部署
 
 推送 `v*` 标签时，GitHub Actions 会自动通过 `scripts/deploy-frontend.sh` 将前端静态文件部署到服务器：
 
@@ -78,7 +84,7 @@ git tag v0.1.0
 git push origin v0.1.0
 ```
 
-### 前置条件
+#### 前置条件
 
 1. 在 GitHub 仓库 **Settings → Secrets and variables → Actions** 中配置 Secrets：
    - `SSH_PRIVATE_KEY`：用于登录前端服务器的 SSH 私钥
@@ -104,10 +110,10 @@ npm run build:codemirror
 | [Vue 3](https://cn.vuejs.org/) | 本地 `libs/vue.esm-browser.prod.js` | 响应式 UI 与状态管理（生产构建） |
 | [Tailwind CSS](https://www.tailwindcss.cn/) | 本地 `libs/tailwindcss.js` | 原子化 CSS 样式 |
 | [CodeMirror 6](https://codemirror.net/) | 本地 `libs/codemirror-bundle.js` | Rust 代码在线编辑器 |
-| [Marked.js](https://marked.js.org/) | 本地 `libs/marked.min.js` | Markdown 理论内容渲染 |
+| [Marked.js](https://marked.js.org/) | 本地 `marked.min.js` | Markdown 理论内容渲染 |
 
 ## 许可证
 
-MIT
+本项目采用 [MIT 许可证](LICENSE) 开源。
 
 Copyright (c) 2026 Rust 学习之旅贡献者

@@ -251,7 +251,7 @@ createApp({
       let lastErr = null;
       for (let attempt = 0; attempt < 3; attempt++) {
         try {
-          const res = await fetch("./js/chapters.json?v=17");
+          const res = await fetch("./js/chapters.json?v=18");
           if (!res.ok) {
             throw new Error(`无法加载章节数据: HTTP ${res.status}`);
           }
@@ -389,6 +389,23 @@ createApp({
       outputClass.value = "text-gray-400";
     }
 
+    function loadExercise(ex) {
+      if (editor && ex && typeof ex.code_template === "string") {
+        editor.dispatch({
+          changes: {
+            from: 0,
+            to: editor.state.doc.length,
+            insert: ex.code_template
+          }
+        });
+        clearOutput();
+        // 移动端滚动到编辑器，桌面端由面板自然可见
+        if (window.innerWidth < 768 && editorEl.value) {
+          editorEl.value.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }
+    }
+
     function toggleTheme() {
       const next = theme.value === "light" ? "dark" : "light";
       localStorage.setItem(THEME_KEY, next);
@@ -476,6 +493,7 @@ createApp({
       loadChapter,
       runCode,
       clearOutput,
+      loadExercise,
       toggleTheme,
       toggleMenu,
       closeMenu,

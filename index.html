@@ -38,7 +38,7 @@
     }
   }
   </script>
-  <link rel="stylesheet" href="css/style.css?v=8">
+  <link rel="stylesheet" href="css/style.css?v=9">
   <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
   <!-- Prism 代码高亮 -->
   <link rel="stylesheet" href="css/prism-theme.css">
@@ -140,6 +140,31 @@
                 <strong class="text-blue-300">💡 提示：</strong>
                 <span v-html="currentChapter.hint"></span>
               </div>
+
+              <div v-if="currentChapter?.exercises?.length" id="chapter-exercises" class="mt-8 p-5 rounded-lg border">
+                <h2 class="text-lg font-bold mb-4 flex items-center gap-2">📝 章节练习</h2>
+                <div class="space-y-4">
+                  <div
+                    v-for="(ex, idx) in currentChapter.exercises"
+                    :key="idx"
+                    class="exercise-card p-4 rounded-lg border"
+                  >
+                    <div class="flex items-start justify-between gap-4">
+                      <div class="flex-1 min-w-0">
+                        <h3 class="font-semibold text-sm mb-1">{{ idx + 1 }}. {{ ex.title }}</h3>
+                        <p class="text-sm opacity-90">{{ ex.description }}</p>
+                      </div>
+                      <button
+                        @click="loadExercise(ex)"
+                        class="exercise-load-btn flex-shrink-0 px-3 py-1.5 text-xs font-medium rounded transition-colors whitespace-nowrap"
+                        title="把练习代码加载到右侧编辑器"
+                      >
+                        在编辑器中练习
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </template>
           </div>
         </section>
@@ -190,6 +215,6 @@
       evaluateUrl: "http://localhost:9001/evaluate.json"
     };
   </script>
-  <script type="module" src="js/app.js?v=29"></script>
+  <script type="module" src="js/app.js?v=30"></script>
 </body>
 </html>

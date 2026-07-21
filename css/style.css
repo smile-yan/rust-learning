@@ -50,6 +50,12 @@ body {
   --hint-border: #93c5fd;
   --hint-text: #1e3a8a;
 
+  /* 练习题 */
+  --exercise-bg: #ffffff;
+  --exercise-border: #e2e8f0;
+  --exercise-title: #0f172a;
+  --exercise-text: #475569;
+
   /* 按钮 */
   --chapter-btn-text: #475569;
   --chapter-btn-hover-bg: #f1f5f9;
@@ -98,6 +104,11 @@ body {
   --hint-bg: rgba(30, 64, 175, 0.3);
   --hint-border: rgba(29, 78, 216, 0.5);
   --hint-text: #dbeafe;
+
+  --exercise-bg: #1f2937;
+  --exercise-border: #374151;
+  --exercise-title: #f9fafb;
+  --exercise-text: #d1d5db;
 
   --chapter-btn-text: #d1d5db;
   --chapter-btn-hover-bg: #374151;
@@ -388,6 +399,39 @@ section:has(> #editor) > div:last-child {
   background: var(--hint-bg);
   border-color: var(--hint-border) !important;
   color: var(--hint-text);
+}
+
+/* 练习题区域 */
+#chapter-exercises {
+  background: var(--exercise-bg);
+  border-color: var(--exercise-border);
+  color: var(--exercise-text);
+}
+
+#chapter-exercises h2 {
+  color: var(--exercise-title);
+}
+
+.exercise-card {
+  background: var(--bg-theory);
+  border-color: var(--exercise-border);
+}
+
+.exercise-card h3 {
+  color: var(--exercise-title);
+}
+
+.exercise-load-btn {
+  background: var(--accent);
+  color: #fff;
+}
+
+.exercise-load-btn:hover {
+  background: var(--accent-hover);
+}
+
+.exercise-load-btn:active {
+  background: var(--accent-active);
 }
 
 /* 输出面板 */
