@@ -22,15 +22,15 @@
   <rect x="16" y="16" width="688" height="348" rx="12" class="card"/>
   <text x="360" y="50" text-anchor="middle" class="title">module0-error-handling</text>
   
-  <rect x="60" y="80" width="240" height="120" rx="8" class="box"/>
-  <text x="80" y="115" class="text">Result&lt;T, E&gt;</text>
-  <text x="80" y="150" class="code">Ok(value)</text>
-  <text x="80" y="180" class="code">Err(error)</text>
+  <rect x="90" y="80" width="240" height="120" rx="8" class="box"/>
+  <text x="110" y="115" class="text">Result&lt;T, E&gt;</text>
+  <text x="110" y="150" class="code">Ok(value)</text>
+  <text x="110" y="180" class="code">Err(error)</text>
   
-  <rect x="360" y="80" width="240" height="120" rx="8" class="box2"/>
-  <text x="380" y="115" class="text">Option&lt;T&gt;</text>
-  <text x="380" y="150" class="code">Some(value)</text>
-  <text x="380" y="180" class="code">None</text>
+  <rect x="390" y="80" width="240" height="120" rx="8" class="box2"/>
+  <text x="410" y="115" class="text">Option&lt;T&gt;</text>
+  <text x="410" y="150" class="code">Some(value)</text>
+  <text x="410" y="180" class="code">None</text>
   
   <text x="360" y="250" text-anchor="middle" class="text">🔧 ? 运算符：遇到 Err/None 时提前返回</text>
   <text x="360" y="290" text-anchor="middle" class="code">let f = File::open(&quot;a.txt&quot;)?;</text>
