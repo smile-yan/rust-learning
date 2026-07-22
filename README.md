@@ -5,6 +5,11 @@
 ![Vue](https://img.shields.io/badge/Vue-3-4FC08D?logo=vue.js&logoColor=white)
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
+<img alt="image" src="https://github.com/user-attachments/assets/f4c41da8-9a57-40ce-99b1-4ed493f110a9" />
+
+欢迎访问 rust 学习 playground: [https://rust.smileyan.cn/](https://rust.smileyan.cn/)
+
+
 ## 特性
 
 - 📚 **四大模块，53 个章节**：基础入门、中等应用、高级应用、Q & A 常见问题
