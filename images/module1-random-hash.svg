@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+  <rect width="100%" height="100%" fill="#fff8f0" rx="12"/>
+  <text x="320" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#4a3b2a">随机数与哈希 rand / 哈希函数</text>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#5c4b37"/>
+    </marker>
+  </defs>
+  <rect x="40" y="55" width="560" height="250" fill="#fff3e0" stroke="#d4a76a" stroke-width="2" rx="8"/>
+  <text x="320" y="85" font-size="14" font-weight="bold" fill="#3d3229" text-anchor="middle">随机数生成与哈希</text>
+  <rect x="80" y="110" width="160" height="75" fill="#e8f5e9" stroke="#66bb6a" stroke-width="2" rx="8"/>
+  <text x="160" y="138" font-size="13" font-weight="bold" fill="#3d3229" text-anchor="middle">rand crate</text>
+  <text x="160" y="158" font-size="12" fill="#666" text-anchor="middle">thread_rng()</text>
+  <text x="160" y="173" font-size="12" fill="#666" text-anchor="middle">uniform / range</text>
+  <text x="160" y="188" font-size="12" fill="#666" text-anchor="middle">gen / gen_bool</text>
+  <line x1="240" y1="147" x2="280" y2="147" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="290" y="110" width="160" height="75" fill="#e3f2fd" stroke="#42a5f5" stroke-width="2" rx="8"/>
+  <text x="370" y="138" font-size="13" font-weight="bold" fill="#3d3229" text-anchor="middle">可重复序列</text>
+  <text x="370" y="158" font-size="12" fill="#666" text-anchor="middle">StdRng / SeedableRng</text>
+  <text x="370" y="173" font-size="12" fill="#666" text-anchor="middle">固定种子</text>
+  <text x="370" y="188" font-size="12" fill="#666" text-anchor="middle">测试可复现</text>
+  <line x1="370" y1="185" x2="370" y2="215" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="220" y="220" width="300" height="55" fill="#fce4ec" stroke="#ec407a" stroke-width="2" rx="8"/>
+  <text x="370" y="245" font-size="13" font-weight="bold" fill="#3d3229" text-anchor="middle">哈希函数 std::hash / sha2 / blake3</text>
+  <text x="370" y="265" font-size="12" fill="#666" text-anchor="middle">HashMap 默认 SipHash · 快速哈希 blake3 · 密码学哈希 sha2</text>
+  <text x="320" y="318" font-size="13" fill="#5c4b37" text-anchor="middle">rand 提供安全随机数，std::hash 提供通用哈希 trait</text>
+</svg>

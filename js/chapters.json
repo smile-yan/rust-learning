@@ -439,6 +439,159 @@
             "code_template": "use std::fs;\n\nfn main() {\n    // let content = fs::read_to_string(\"hello.txt\").unwrap();\n    // println!(\"{} bytes\", content.len());\n}"
           }
         ]
+      },
+      {
+        "title": "正则表达式 regex",
+        "theory": "# 正则表达式 regex 🦀\n\n正则表达式是文本处理的瑞士军刀。Rust 的 `regex` crate 提供了基于**有限自动机**的高性能正则引擎，不需要回溯，因此天然免疫 ReDoS（正则拒绝服务攻击），同时保持 API 简洁易用。\n\n## 从生活类比开始 💡\n\n正则表达式就像在图书馆的书架上按索引找书：你不需要逐本翻阅（逐字符比较），只需要告诉管理员「找包含 'rust' 且以数字结尾的书」（模式），管理员会按规则快速定位。\n\n![正则表达式工作流程](images/module1-regex-basics.svg)\n\n## 深入讲解\n\n### 基本用法\n\n```rust\nlet re = Regex::new(r\"\\d+\").unwrap();\n```\n\n### 常用方法\n\n- `is_match`：判断字符串是否包含匹配\n- `find`：返回第一个匹配及位置\n- `captures`：提取捕获组\n- `replace` / `replace_all`：替换匹配内容\n- `split`：按分隔符切分字符串\n\n### 捕获组\n\n```rust\nlet re = Regex::new(r\"(\\w+)@(\\w+)\\.(\\w+)\").unwrap();\nfor caps in re.captures_iter(text) {\n    println!(\"用户: {}, 域名: {}, 后缀: {}\", &caps[1], &caps[2], &caps[3]);\n}\n```\n\n### 性能特点\n\n`regex` crate 使用 **DFA（确定有限自动机）** 实现，保证线性时间复杂度和无回溯特性。\n\n## 常见误区 ⚠️\n\n- 匹配中文字符时忘记使用 `\\p{Script=CJK}` 或 Unicode 模式\n- 捕获组索引从 1 开始，0 是整个匹配\n- 正则表达式不要过度复杂化\n\n## 一句话总结 🦀\n\n> `regex` 用有限自动机提供安全、线性时间、易用的文本匹配能力，是 Rust 文本处理的标配。\n",
+        "code": "use regex::Regex;\n\nfn main() {\n    let re = Regex::new(r\"\\d{3}-\\d{4}\").unwrap();\n    let text = \"客服: 010-1234, 电话: 021-5678\";\n\n    println!(\"包含号码: {}\", re.is_match(text));\n\n    if let Some(m) = re.find(text) {\n        println!(\"第一个号码: {} (位置 {}-{})\", m.as_str(), m.start(), m.end());\n    }\n\n    let email_re = Regex::new(r\"(\\w+)@(\\w+)\\.(\\w+)\").unwrap();\n    if let Some(caps) = email_re.captures(\"请联系 alice@example.com\") {\n        println!(\"用户名: {}, 域名: {}, 后缀: {}\", &caps[1], &caps[2], &caps[3]);\n    }\n\n    let hidden = re.replace_all(text, \"***-****\");\n    println!(\"脱敏后: {}\", hidden);\n}\n",
+        "hint": "Regex::new 编译后应复用。捕获组 caps[0] 是整个匹配，caps[1] 开始是分组。",
+        "exercises": [
+          {
+            "title": "提取手机号",
+            "description": "用 regex 提取文本中所有形如 1xx-xxxx 的号码。",
+            "code_template": "fn main() {\n    let text = \"手机: 138-1234, 固话: 010-5678\";\n    // let re = Regex::new(r\"...\").unwrap();\n}"
+          },
+          {
+            "title": "替换敏感词",
+            "description": "将文本中的 \"rust\" 替换为 \"RUST\"（不区分大小写）。",
+            "code_template": "fn main() {\n    let text = \"I love rust and RUST\";\n    // let re = Regex::new(r\"(?i)rust\").unwrap();\n}"
+          }
+        ]
+      },
+      {
+        "title": "命令行参数解析 clap",
+        "theory": "# 命令行参数解析 clap 🦀\n\n几乎所有实用的命令行工具都需要解析参数。`clap` 是 Rust 生态中最流行的命令行参数解析库，它把参数定义变成**类型安全的声明式结构**，并自动生成 `--help`、错误提示、子命令、环境变量绑定等能力。\n\n## 从生活类比开始 💡\n\nclap 就像咖啡店的 POS 机：你提前定义好菜单，它自动识别每笔订单。\n\n![clap 参数流转](images/module1-clap-args.svg)\n\n## 深入讲解\n\n### derive 宏\n\n```rust\n#[derive(Parser)]\nstruct Args {\n    #[arg(short, long)]\n    name: String,\n}\n```\n\n### 常用参数类型\n\n- 标志位 `--flag`：`bool`\n- 值参数 `--key VALUE`：`String`、`i32`\n- 多值 `--files <PATH>`：`Vec<String>`\n- 子命令 `add / remove`：嵌套 enum\n\n## 一句话总结 🦀\n\n> clap 用声明式定义把命令行参数变成类型安全的 Rust 代码，自动生成帮助文档并校验输入。\n",
+        "code": "use clap::Parser;\n\n#[derive(Parser)]\n#[command(name = \"greet\")]\nstruct Cli {\n    #[arg(short, long, default_value = \"World\")]\n    name: String,\n\n    #[arg(short, long, default_value_t = 1)]\n    count: u32,\n\n    #[arg(short, long)]\n    shout: bool,\n}\n\nfn main() {\n    let args = Cli::parse();\n    for _ in 0..args.count {\n        let mut msg = format!(\"Hello, {}!\", args.name);\n        if args.shout { msg = msg.to_uppercase(); }\n        println!(\"{}\", msg);\n    }\n}\n",
+        "hint": "clap derive 宏会自动生成 help、校验和错误提示。",
+        "exercises": [
+          {
+            "title": "计算器 CLI",
+            "description": "用 clap 定义一个 calc 程序，接受 add <a> <b> 子命令并打印结果。",
+            "code_template": "use clap::{Parser, Subcommand};\n\n#[derive(Parser)]\nstruct Cli {\n    #[command(subcommand)]\n    command: Commands,\n}\n\n#[derive(Subcommand)]\nenum Commands { Add { a: i32, b: i32 } }\n\nfn main() {}\n"
+          }
+        ]
+      },
+      {
+        "title": "日志系统 log / tracing",
+        "theory": "# 日志系统 log / tracing 🦀\n\n任何有生命周期的应用都需要日志：排查 bug、追踪请求、监控异常。Rust 提供了分层、可插拔的日志生态：`log` 是轻量级 facade，`tracing` 是结构化可观测方案。\n\n## 从生活类比开始 💡\n\n日志就像飞机的黑匣子：正常时你不觉得它重要，出问题时它能告诉你每一秒发生了什么。\n\n![日志分层架构](images/module1-log-tracing.svg)\n\n## 深入讲解\n\n### log facade\n\n`log` crate 定义了一套统一的宏接口：`trace!`、`debug!`、`info!`、`warn!`、`error!`。应用代码调用宏，实际输出由 subscriber 决定。\n\n### tracing\n\n`tracing` 提供 `span`（一段有开始和结束的操作）和 `event`（事件点），支持结构化字段（key-value）和异步上下文传播。\n\n### 常用组合\n\n- `log` + `env_logger`：简单快速启用\n- `tracing` + `tracing_subscriber`：生产级可观测\n\n## 一句话总结 🦀\n\n> 日志是把程序运行过程「录音」的能力；log 是轻量 facade，tracing 是结构化可观测。\n",
+        "code": "fn main() {\n    env_logger::init();\n    log::info!(\"应用启动\");\n    log::warn!(\"磁盘空间不足\");\n    log::error!(\"数据库连接失败\");\n\n    tracing::info!(\n        user_id = 42,\n        action = \"login\",\n        \"用户登录成功\"\n    );\n}\n",
+        "hint": "log 是 facade，需要配合 env_logger 等 subscriber 输出。生产环境推荐 tracing 生态。",
+        "exercises": [
+          {
+            "title": "添加不同级别日志",
+            "description": "用 log::info! / warn! / error! 输出不同级别的日志。",
+            "code_template": "fn main() {\n    env_logger::init();\n    // log::info!(...);\n}"
+          }
+        ]
+      },
+      {
+        "title": "环境变量与配置 dotenv / config",
+        "theory": "# 环境变量与配置 dotenv / config 🦀\n\n真实应用不会把数据库密码、API 密钥硬编码在代码里。Rust 通过 `std::env` 原生支持环境变量，再配合 `dotenv` 和 config crate 实现优雅的多环境配置管理。\n\n## 从生活类比开始 💡\n\n环境变量就像餐厅的「今日特价」小黑板：厨房（代码）不需要改动，只要换个黑板（环境变量）就能改变今天做什么菜。\n\n![配置加载流程](images/module1-dotenv-config.svg)\n\n## 深入讲解\n\n### std::env\n\n```rust\nlet host = std::env::var(\"HOST\").unwrap_or(\"127.0.0.1\".to_string());\n```\n\n### dotenv\n\n将 `.env` 文件中的键值对加载到进程环境变量中，优先级**低于**系统环境变量。\n\n### config crate\n\n支持从多种来源（文件、环境变量、命令行参数）加载配置，并自动合并。\n\n### 分层策略\n\n1. 默认值写在代码里\n2. `.env` 覆盖开发环境\n3. 系统环境变量覆盖生产环境\n4. 命令行参数优先级最高\n\n## 一句话总结 🦀\n\n> 配置管理是应用启动的第一步；dotenv 隔离开发环境，config crate 管理多环境配置。\n",
+        "code": "fn main() {\n    dotenv::dotenv().ok();\n\n    let host = std::env::var(\"HOST\").unwrap_or(\"127.0.0.1\".to_string());\n    let port: u16 = std::env::var(\"PORT\")\n        .unwrap_or(\"8080\".to_string())\n        .parse()\n        .expect(\"PORT 必须是数字\");\n\n    println!(\"服务启动: http://{}:{}\", host, port);\n}\n",
+        "hint": "dotenv 仅用于开发，生产环境通过系统环境变量注入机密。",
+        "exercises": [
+          {
+            "title": "读取配置",
+            "description": "创建 .env 文件，在 Rust 中读取 APP_NAME 并打印。",
+            "code_template": "fn main() {\n    dotenv::dotenv().ok();\n    // let app = std::env::var(\"APP_NAME\").unwrap();\n}"
+          }
+        ]
+      },
+      {
+        "title": "更多集合类型 HashMap / HashSet / BTreeMap",
+        "theory": "# 更多集合类型 HashMap / HashSet / BTreeMap 🦀\n\n`Vec` 是最常用的集合，但真实场景中还有许多其他数据结构各司其职。Rust 标准库提供了 `HashMap`、`HashSet`、`BTreeMap`、`BTreeSet`、`BinaryHeap` 等集合，覆盖了去重、检索、排序、优先级队列等常见需求。\n\n## 从生活类比开始 💡\n\nVec 是一排按顺序排队的储物柜，HashMap 是电话簿（按名字找号码），HashSet 是点名册（只关心谁来了），BTreeMap 是按字母顺序排列的单词表。\n\n![集合类型对比](images/module1-more-collections.svg)\n\n## 深入讲解\n\n### HashMap<K, V>\n\n- 键值对映射，查找平均 O(1)\n- 键必须实现 `Eq` + `Hash`\n- 遍历顺序不保证固定\n\n### HashSet<T>\n\n- 基于 HashMap，只存键不存值\n- 快速去重、成员检查\n\n### BTreeMap<K, V> / BTreeSet<T>\n\n- 基于 B 树，按键排序\n- 查找 O(log n)\n- 稳定迭代顺序\n\n## 一句话总结 🦀\n\n> 集合是数据结构的宝库：Vec 管顺序，HashMap 管查找，HashSet 管去重，BTreeMap 管有序。\n",
+        "code": "use std::collections::{HashMap, HashSet, BTreeMap};\n\nfn main() {\n    // HashMap：词频统计\n    let text = \"hello rust hello world\";\n    let mut map = HashMap::new();\n    for word in text.split_whitespace() {\n        *map.entry(word).or_insert(0) += 1;\n    }\n    println!(\"词频: {:?}\", map);\n\n    // HashSet：去重\n    let nums = vec![1, 2, 2, 3, 3, 3];\n    let unique: HashSet<_> = nums.iter().collect();\n    println!(\"去重: {:?}\", unique);\n\n    // BTreeMap：按键排序\n    let mut tree = BTreeMap::new();\n    tree.insert(\"zebra\", 3);\n    tree.insert(\"apple\", 1);\n    tree.insert(\"mango\", 2);\n    println!(\"有序: {:?}\", tree);\n}\n",
+        "hint": "HashMap 平均 O(1) 查找，BTreeMap 有序但 O(log n)。按场景选择。",
+        "exercises": [
+          {
+            "title": "统计字符频率",
+            "description": "用 HashMap 统计 \"abracadabra\" 中每个字符的频率。",
+            "code_template": "fn main() {\n    let s = \"abracadabra\";\n    let mut freq = std::collections::HashMap::new();\n    // for c in s.chars() { ... }\n}"
+          },
+          {
+            "title": "集合交集",
+            "description": "给定两个 HashSet，打印它们的交集。",
+            "code_template": "fn main() {\n    let a: HashSet<_> = [1,2,3].iter().collect();\n    let b: HashSet<_> = [2,3,4].iter().collect();\n    // let inter: Vec<_> = a.intersection(&b).collect();\n}"
+          }
+        ]
+      },
+      {
+        "title": "常用设计模式（Rust 风格）",
+        "theory": "# 常用设计模式（Rust 风格）🦀\n\n设计模式是解决特定问题的可复用方案。Rust 没有类继承，因此经典 GoF 模式在这里被重新诠释：策略模式用 trait 表达，状态机用 enum + match 表达，观察者用闭包表达，构建者用方法链表达。\n\n## 从生活类比开始 💡\n\n设计模式就像乐高积木的标准接口：你不需要 reinvent the wheel，只需选合适的积木块拼装。Rust 的设计模式强调组合优于继承、枚举穷尽、闭包灵活。\n\n![Rust 风格设计模式](images/module1-design-patterns.svg)\n\n## 深入讲解\n\n### 策略模式 Strategy\n\n用 trait 定义算法契约，运行时用 `Box<dyn Strategy>` 替换具体实现。\n\n### 状态机 State Machine\n\n用 enum 表示所有状态，用 match 穷尽处理。编译期保证状态不可随意组合。\n\n### 观察者 Observer\n\n用 `Vec<Box<dyn Fn()>>` 维护回调列表，事件触发时调用所有观察者。\n\n### 构建者 Builder\n\nRust 的标准库广泛使用构建者模式：`std::process::Command`、`http::Request::builder()`。\n\n## 一句话总结 🦀\n\n> Rust 用 trait、枚举和闭包重新诠释经典模式：策略可插拔、状态机编译期穷尽、观察者用闭包、构建者链式组装。\n",
+        "code": "// 策略模式：Box<dyn Trait> 实现运行时多态\ntrait Payment {\n    fn pay(&self, amount: u64);\n}\n\nstruct Alipay;\nstruct WechatPay;\n\nimpl Payment for Alipay {\n    fn pay(&self, amount: u64) { println!(\"支付宝支付 {}\", amount); }\n}\nimpl Payment for WechatPay {\n    fn pay(&self, amount: u64) { println!(\"微信支付 {}\", amount); }\n}\n\nstruct ShoppingCart {\n    payment: Box<dyn Payment>,\n}\n\nimpl ShoppingCart {\n    fn checkout(&self, amount: u64) {\n        self.payment.pay(amount);\n    }\n}\n\nfn main() {\n    let cart = ShoppingCart { payment: Box::new(Alipay) };\n    cart.checkout(100);\n}\n",
+        "hint": "Rust 的设计模式强调组合优于继承。策略用 trait + dyn，状态机用 enum + match。",
+        "exercises": [
+          {
+            "title": "实现策略模式",
+            "description": "定义 Payment trait，为 Alipay 和 WechatPay 实现，在 checkout 中调用。",
+            "code_template": "trait Payment { fn pay(&self, amount: u64); }\nstruct Alipay;\nstruct WechatPay;\n\nfn main() {\n    // impl Payment for ...\n}"
+          }
+        ]
+      },
+      {
+        "title": "网络编程基础 TcpListener / TcpStream",
+        "theory": "# 网络编程基础 TcpListener / TcpStream 🦀\n\n网络编程是理解 Web 后端、微服务、分布式系统的基础。Rust 标准库的 `std::net` 模块提供了零依赖、零成本抽象的 TCP 通信能力，是迈向 tokio/axum 异步网络的第一步。\n\n## 从生活类比开始 💡\n\n网络通信就像打电话：一方拨号（connect），一方等铃响（bind + listen）。接通后，双方轮流说话（read / write），说完挂断（drop）。\n\n![TCP 通信流程](images/module1-networking-tcp.svg)\n\n## 深入讲解\n\n### TcpListener\n\n绑定地址并监听连接：\n```rust\nlet listener = TcpListener::bind(\"127.0.0.1:8080\").unwrap();\n```\n\n### TcpStream\n\n- 客户端：`TcpStream::connect(\"127.0.0.1:8080\")`\n- 服务端：`listener.accept()` 返回 `(TcpStream, SocketAddr)`\n\n### 读写数据\n\n- `stream.read(&mut buf)` / `stream.write(&buf)`\n- 配合 `BufReader` / `BufWriter` 提高效率\n\n## 一句话总结 🦀\n\n> std::net 提供零成本抽象的 TCP 通信，是理解异步网络框架（tokio/axum）的基石。\n",
+        "code": "use std::io::{Read, Write};\nuse std::net::{TcpListener, TcpStream};\n\nfn main() {\n    let _listener = TcpListener::bind(\"127.0.0.1:8080\");\n    println!(\"TCP 监听已准备\");\n\n    match TcpStream::connect(\"127.0.0.1:8080\") {\n        Ok(mut stream) => {\n            let msg = \"Hello, TCP!\";\n            stream.write_all(msg.as_bytes()).unwrap();\n            let mut buf = [0u8; 1024];\n            let n = stream.read(&mut buf).unwrap();\n            println!(\"收到 {} 字节\", n);\n        }\n        Err(e) => {\n            println!(\"连接失败: {}（服务器可能未启动）\", e);\n        }\n    }\n}\n",
+        "hint": "TcpListener::bind 和 TcpStream::connect 都返回 Result，需要错误处理。",
+        "exercises": [
+          {
+            "title": "TCP Echo 服务端",
+            "description": "编写一个简单的 echo server，读取客户端发来的数据并原样返回。",
+            "code_template": "use std::io::{Read, Write};\nuse std::net::TcpListener;\n\nfn main() {\n    let listener = TcpListener::bind(\"127.0.0.1:8080\").unwrap();\n    for stream in listener.incoming() {\n        // let mut stream = stream.unwrap();\n    }\n}"
+          }
+        ]
+      },
+      {
+        "title": "进程管理 std::process::Command",
+        "theory": "# 进程管理 std::process::Command 🦀\n\n很多工具需要调用外部程序：Git、Python 脚本、系统命令。Rust 标准库的 `std::process` 模块提供了安全、灵活的进程管理能力，无需任何外部依赖。\n\n## 从生活类比开始 💡\n\n`Command` 就像你给助理的指令清单：你想让助理帮你执行一个程序、传参数、指定环境变量，然后选择是盯着做完（output）还是先忙别的（spawn）。\n\n![Command 调用外部进程](images/module1-process-command.svg)\n\n## 深入讲解\n\n### Command::new\n\n设置要执行的程序名称，然后链式 `.arg()` 添加参数、`.env()` 设置环境变量。\n\n### spawn vs output\n\n- `spawn()`：异步启动子进程，立即返回 `Child`\n- `output()`：等待子进程完成，一次性返回 `Output`\n\n### 管道\n\n父进程可以用 `stdin()` 向子进程写入数据，子进程的 stdout 可被父进程读取。\n\n## 一句话总结 🦀\n\n> std::process::Command 让 Rust 安全地创建、管理和与子进程交互，是构建 CLI 工具和工作流的基础。\n",
+        "code": "use std::process::Command;\n\nfn main() {\n    let output = Command::new(\"rustc\")\n        .arg(\"--version\")\n        .output()\n        .expect(\"找不到 rustc\");\n\n    if output.status.success() {\n        let version = String::from_utf8_lossy(&output.stdout);\n        println!(\"Rust 版本: {}\", version.trim());\n    } else {\n        let err = String::from_utf8_lossy(&output.stderr);\n        println!(\"错误: {}\", err);\n    }\n\n    let mut child = Command::new(\"sleep\")\n        .arg(\"2\")\n        .spawn()\n        .expect(\"spawn 失败\");\n\n    println!(\"子进程已启动，PID: {:?}\", child.id());\n    let status = child.wait().expect(\"wait 失败\");\n    println!(\"子进程退出: {}\", status);\n}\n",
+        "hint": "Command::new + .arg() 链式配置。spawn 异步，output 同步等待完成。",
+        "exercises": [
+          {
+            "title": "获取当前工作目录",
+            "description": "用 Command::new(\"pwd\") 执行命令并打印输出。",
+            "code_template": "fn main() {\n    let output = Command::new(\"pwd\").output().unwrap();\n    println!(\"{}\", String::from_utf8_lossy(&output.stdout));\n}"
+          }
+        ]
+      },
+      {
+        "title": "错误处理进阶 anyhow / thiserror",
+        "theory": "# 错误处理进阶 anyhow / thiserror 🦀\n\nRust 内置的 `Result` 和 `Option` 已经提供了强大的错误表达能力。但在真实项目中，你还需要统一的错误类型、易读的错误链和格式化输出。`thiserror` 和 `anyhow` 是 Rust 生态中处理错误的两大神器。\n\n## 从生活类比开始 💡\n\n错误处理就像快递的「异常登记簿」：`thiserror` 是物流公司的标准异常标签（精确分类），`anyhow` 是你的客服统一答复（给用户看，并附原始标签）。\n\n![错误处理分层](images/module1-error-handling-anyhow.svg)\n\n## 深入讲解\n\n### thiserror：库的视角\n\n在库（library）中，你需要定义**结构化的错误类型**，让调用者可以根据错误类型做精确处理：\n```rust\n#[derive(thiserror::Error, Debug)]\nenum MyError {\n    #[error(\"io error: {0}\")]\n    Io(#[from] std::io::Error),\n}\n```\n\n### anyhow：应用的视角\n\n在应用（application）中，你关心的是**快速传播和渲染**，不需要区分每个错误细节：\n```rust\nfn main() -> anyhow::Result<()> {\n    let content = std::fs::read_to_string(\"file.txt\")?;\n    Ok(())\n}\n```\n\n## 分层选择\n\n- **库代码**：用 `thiserror` 定义结构化错误，精确到变体\n- **应用代码**：用 `anyhow::Result` 统一错误类型，`.context()` 追加上下文\n\n## 一句话总结 🦀\n\n> thiserror 在库中定义结构化错误，anyhow 在应用中统一处理并追加上下文；两者结合构成 Rust 错误处理的最佳实践。\n",
+        "code": "use thiserror::Error;\nuse anyhow::{Context, Result};\n\n#[derive(Error, Debug)]\nenum DataError {\n    #[error(\"字段缺失: {0}\")]\n    MissingField(String),\n    #[error(\"类型不匹配\")]\n    TypeMismatch,\n}\n\nfn parse_age(data: &str) -> Result<u32> {\n    let age = data\n        .parse::<u32>()\n        .context(\"age 不是有效数字\")?;\n    Ok(age)\n}\n\nfn main() -> Result<()> {\n    let content = std::fs::read_to_string(\"user.json\")\n        .context(\"无法打开 user.json\")?;\n    let age = parse_age(&content)?;\n    println!(\"年龄: {}\", age);\n    Ok(())\n}\n",
+        "hint": "库用 thiserror，应用用 anyhow。.context() 是最常用的追加上下文方法。",
+        "exercises": [
+          {
+            "title": "用 anyhow 传播错误",
+            "description": "写一个返回 anyhow::Result 的函数，使用 ? 和 .context()。",
+            "code_template": "use anyhow::Result;\n\nfn read_config(path: &str) -> Result<String> {\n    std::fs::read_to_string(path)\n        .context(\"读取配置失败\")\n}\n\nfn main() -> Result<()> {\n    let s = read_config(\"config.toml\")?;\n    println!(\"{}\", s.len());\n    Ok(())\n}"
+          }
+        ]
+      },
+      {
+        "title": "定时器与时间处理",
+        "theory": "# 定时器与时间处理 🦀\n\n处理时间戳、计算耗时、延迟执行、定时任务——这些需求在 CLI 工具、Web 服务和测试中无处不在。Rust 标准库的 `std::time` 已经覆盖了大部分场景，tokio 等异步运行时提供了更丰富的定时能力。\n\n## 从生活类比开始 💡\n\n时间就像河里的秒表：你可以问「现在几点」（SystemTime），可以按「过去多久」（Duration），可以在「X 毫秒后响铃」（sleep / timeout）。\n\n![时间 API 速览](images/module1-timer-time.svg)\n\n## 深入讲解\n\n### std::time::Instant\n\n高精度单调时钟，适合测量耗时：\n```rust\nlet start = Instant::now();\nlet elapsed = start.elapsed();\n```\n\n### std::time::SystemTime\n\n获取当前系统时间，可转换为 `UNIX_EPOCH` 时间戳。\n\n### Duration\n\n表示时间段，支持 `as_secs()`、`as_millis()`、`as_nanos()` 等转换。\n\n### sleep\n\n阻塞当前线程：`std::thread::sleep(Duration::from_secs(1));`\n\n### tokio::time::sleep\n\n异步非阻塞：`tokio::time::sleep(Duration::from_secs(1)).await;`\n\n## 一句话总结 🦀\n\n> std::time 提供耗时测量和系统时间，async 场景交给 tokio::time 做非阻塞定时和超时控制。\n",
+        "code": "use std::time::{Duration, Instant, SystemTime, UNIX_EPOCH};\n\nfn main() {\n    let start = Instant::now();\n    for _ in 0..1_000_000 { let _ = 1 + 1; }\n    println!(\"耗时: {:?}\", start.elapsed());\n\n    let now = SystemTime::now();\n    let ts = now.duration_since(UNIX_EPOCH).unwrap().as_secs();\n    println!(\"当前时间戳: {}\", ts);\n\n    std::thread::sleep(Duration::from_millis(500));\n    println!(\"已睡眠 500ms\");\n}\n",
+        "hint": "测量耗时用 Instant，获取当前时间用 SystemTime。异步环境用 tokio::time::sleep。",
+        "exercises": [
+          {
+            "title": "计时循环",
+            "description": "用 Instant 测量 1..=1_000_000 循环的耗时并打印。",
+            "code_template": "use std::time::Instant;\n\nfn main() {\n    let start = Instant::now();\n    let mut sum = 0u64;\n    for i in 1..=1_000_000 { sum += i; }\n    println!(\"sum={} time={:?}\", sum, start.elapsed());\n}"
+          }
+        ]
+      },
+      {
+        "title": "随机数与哈希 rand / 哈希函数",
+        "theory": "# 随机数与哈希 rand / 哈希函数 🦀\n\n随机数和哈希函数在游戏中、安全中和数据结构中都有广泛应用。Rust 的 `rand` crate 提供了安全、高质量的随机数生成，标准库的 `std::hash` 提供了通用哈希 trait，第三方的 `blake3` / `sha2` 则覆盖密码学场景。\n\n## 从生活类比开始 💡\n\n掷骰子就是「真随机」：每次结果不可预测。哈希函数则像指纹机：无论输入多大，输出固定长度，而且输入微变输出大变。\n\n![随机数生成与哈希](images/module1-random-hash.svg)\n\n## 深入讲解\n\n### rand crate\n\n- `thread_rng()`：线程本地随机数生成器\n- `gen()`：生成指定范围的随机值\n- `SeedableRng`：固定种子的可重复生成器（适合测试）\n\n### 哈希函数\n\n- `std::hash::Hash`：通用哈希 trait\n- `std::collections::hash_map::DefaultHasher`：快速非加密哈希\n- `sha2` / `blake3`：密码学/高速哈希\n\n### HashMap 的随机性\n\nRust 的 HashMap 使用 `SipHash`（密钥哈希），随机化种子可防御哈希碰撞攻击。\n\n## 一句话总结 🦀\n\n> rand 提供安全随机数，std::hash 提供通用哈希 trait，密码学场景用 blake3 / sha2。\n",
+        "code": "use rand::Rng;\n\nfn main() {\n    let mut rng = rand::thread_rng();\n    println!(\"随机数: {}\", rng.gen_range(1..100));\n    println!(\"布尔: {}\", rng.gen_bool(0.5));\n\n    let chars: String = std::iter::repeat(|| {\n        rng.sample(rand::distributions::Alphabetic)\n    }).take(8).collect();\n    println!(\"随机字符串: {}\", chars);\n}\n",
+        "hint": "thread_rng 是线程本地的，性能好。测试时用 SeedableRng 保证结果可复现。",
+        "exercises": [
+          {
+            "title": "生成随机密码",
+            "description": "生成一个 8 位的随机字母数字字符串。",
+            "code_template": "fn main() {\n    let mut rng = rand::thread_rng();\n    // let password: String = ...;\n}"
+          }
+        ]
       }
     ]
   },
