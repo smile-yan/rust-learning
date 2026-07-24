@@ -25,7 +25,8 @@
 
 ```
 .
-├── index.html                # Vue 3 应用挂载点
+├── index.html                # 封面页（根入口，全屏动态封面）
+├── app.html                  # Vue 3 应用挂载点（学习应用）
 ├── css/
 │   └── style.css             # 自定义样式与主题变量
 ├── js/
@@ -59,11 +60,11 @@ python3 -m http.server 8080
 - 推荐后端（与本项目配套）：[smile-yan/rust-playground-backend](https://github.com/smile-yan/rust-playground-backend)
 - 或自行部署后端，并将 `js/app.js` 中的 `evaluateUrl` 修改为可用的后端地址
 
-部署时也可通过 `index.html` 底部的 `window.RUST_PLAYGROUND.evaluateUrl` 配置后端接口地址。
+部署时也可通过 `app.html` 底部的 `window.RUST_PLAYGROUND.evaluateUrl` 配置后端接口地址。
 
 ## 部署
 
-将项目根目录下的 `index.html`、`css/`、`js/`、`libs/`、`images/` 上传到任意静态托管服务即可，例如 Nginx、Caddy、GitHub Pages、Vercel、Netlify 或对象存储 CDN。
+将项目根目录下的 `index.html`、`app.html`、`css/`、`js/`、`libs/`、`images/` 上传到任意静态托管服务即可，例如 Nginx、Caddy、GitHub Pages、Vercel、Netlify 或对象存储 CDN。访问根目录 `/` 将看到封面页，点击「开始学习」进入 `app.html` 学习应用。
 
 ### Nginx 示例
 

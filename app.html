@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rust 学习之旅</title>
+  <script>
+    // 尽早设置主题，避免首屏主题闪烁（与 js/app.js 中 getPreferredTheme 保持一致）
+    (function () {
+      var saved = localStorage.getItem("rust-learning-theme");
+      var dark = saved === "dark" || (saved !== "light" && window.matchMedia("(prefers-color-scheme: dark)").matches);
+      document.documentElement.setAttribute("data-theme", dark ? "dark" : "light");
+    })();
+  </script>
+  <style>
+    /* 启动加载动画：在 app.js 下载与章节数据加载完成前展示 */
+    #boot-loader {
+      position: fixed; inset: 0; z-index: 50;
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 16px;
+      background: #f8fafc; color: #334155;
+    }
+    [data-theme="dark"] #boot-loader { background: #111827; color: #cbd5e1; }
+    #boot-loader .boot-spinner {
+      width: 42px; height: 42px; border-radius: 50%;
+      border: 4px solid rgba(249, 115, 22, 0.25); border-top-color: #f97316;
+      animation: boot-spin 0.9s linear infinite;
+    }
+    #boot-loader .boot-text { font-size: 14px; letter-spacing: 0.05em; animation: boot-pulse 1.6s ease-in-out infinite; }
+    @keyframes boot-spin { to { transform: rotate(360deg); } }
+    @keyframes boot-pulse { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
+  </style>
+  <script src="./libs/tailwindcss.js"></script>
+  <script src="./libs/marked.min.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "vue": "./libs/vue.esm-browser.prod.js"
+    }
+  }
+  </script>
+  <link rel="stylesheet" href="css/style.css?v=9">
+  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <!-- Prism 代码高亮 -->
+  <link rel="stylesheet" href="css/prism-theme.css">
+  <script src="libs/prism.js"></script>
+  <script src="libs/prism-rust.js"></script>
+  <script src="libs/prism-toml.js"></script>
+  <script src="libs/prism-bash.js"></script>
+</head>
+<body>
+  <!-- 启动加载动画：Vue 挂载前展示，挂载时由 js/app.js 移除 -->
+  <div id="boot-loader" role="status" aria-label="加载中">
+    <div class="boot-spinner"></div>
+    <div class="boot-text">正在加载 Rust 学习之旅…</div>
+  </div>
+
+  <div id="app" v-cloak class="h-screen flex flex-col overflow-hidden w-full">
+    <!-- Vue 挂载后的章节数据加载动画（与启动动画视觉一致） -->
+    <div v-if="loading" class="fixed inset-0 z-30 flex flex-col items-center justify-center gap-4" style="background: var(--bg-body); color: var(--text-primary);">
+      <div class="w-10 h-10 rounded-full border-4 border-orange-500/25 border-t-orange-500 animate-spin"></div>
+      <p class="text-sm tracking-wide animate-pulse">正在加载章节内容…</p>
+    </div>
+
+    <header class="h-14 border-b flex items-center px-4 justify-between flex-shrink-0">
+      <a href="./" class="flex items-center gap-3" title="回到根目录">
+        <svg class="w-7 h-7 text-orange-500" viewBox="0 0 32 32" fill="currentColor">
+          <path d="M16 2C8.268 2 2 8.268 2 16s6.268 14 14 14 14-6.268 14-14S23.732 2 16 2zm0 4a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm-6 8a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm12 0a2 2 0 1 1 0 4 2 2 0 0 1 0-4zm-9.5 8h7a1 1 0 0 1 0 2h-7a1 1 0 0 1 0-2z"/>
+        </svg>
+        <div>
+          <h1 class="font-bold text-lg leading-tight">Rust 学习之旅</h1>
+          <p class="text-xs opacity-70">理论与实践结合的交互式教程</p>
+        </div>
+      </a>
+
+      <div class="flex items-center gap-2">
+        <span class="text-xs opacity-60 hidden sm:inline">v0.0.0-dev</span>
+        <a id="github-link" href="https://github.com/smile-yan/rust-learning" target="_blank" rel="noopener noreferrer" class="p-2 rounded-md border transition-colors" aria-label="GitHub 仓库" title="GitHub 仓库">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+          </svg>
+        </a>
+
+        <button id="theme-toggle" @click="toggleTheme" class="p-2 rounded-md border transition-colors" aria-label="切换主题" title="切换主题">
+          <svg id="theme-icon-sun" :class="['w-5 h-5', theme !== 'dark' ? 'hidden' : 'block']" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+          </svg>
+          <svg id="theme-icon-moon" :class="['w-5 h-5', theme === 'dark' ? 'hidden' : 'block']" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+          </svg>
+        </button>
+
+        <button id="menu-toggle" @click="toggleMenu" class="md:hidden p-2 rounded transition-colors" aria-label="切换菜单">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <div class="flex-1 flex overflow-hidden">
+      <aside id="sidebar" :class="['fixed inset-y-0 left-0 z-20 w-72 border-r flex-shrink-0 overflow-y-auto pt-14 md:pt-0 md:static transform transition-transform duration-200', sidebarCollapsed ? 'md:w-0 md:overflow-hidden md:border-r-0' : 'md:w-1/5', menuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0']">
+        <nav id="chapter-list" class="p-3">
+          <div v-for="(mod, moduleIdx) in modules" :key="moduleIdx" class="mb-4">
+            <h3 class="px-3 py-1 text-xs font-semibold text-orange-400 uppercase tracking-wider mb-1">{{ mod.name }}</h3>
+            <div class="space-y-1">
+              <button
+                v-for="(ch, chapterIdxInModule) in mod.chapters"
+                :key="chapterIdxInModule"
+                @click="loadChapter(getGlobalIdx(moduleIdx, chapterIdxInModule))"
+                :class="['chapter-btn w-full text-left px-3 py-2 rounded-md text-sm transition-colors flex items-center gap-2', { active: currentGlobalIdx === getGlobalIdx(moduleIdx, chapterIdxInModule) }]"
+              >
+                <span class="chapter-num inline-flex items-center justify-center w-5 h-5 rounded-full text-xs">{{ chapterIdxInModule + 1 }}</span>
+                <span class="truncate">{{ ch.title }}</span>
+              </button>
+            </div>
+          </div>
+        </nav>
+      </aside>
+
+      <button id="sidebar-collapse-btn" @click="toggleSidebar" class="collapse-toggle hidden md:flex w-4 flex-shrink-0 items-center justify-center" :title="sidebarCollapsed ? '展开目录' : '收起目录'">
+        <span class="collapse-knob">
+          <svg class="w-3.5 h-3.5 transition-transform duration-200" :class="{ 'rotate-180': sidebarCollapsed }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/>
+          </svg>
+        </span>
+      </button>
+
+      <div id="sidebar-overlay" @click="closeMenu" :class="['fixed inset-0 z-10 md:hidden', menuOpen ? 'block' : 'hidden']"></div>
+
+      <main ref="mainEl" class="flex-1 flex flex-col md:flex-row overflow-y-auto md:overflow-hidden min-w-0">
+        <section id="theory" ref="theoryEl" class="md:flex-1 md:min-w-0 md:overflow-y-auto border-b md:border-b-0 md:border-r">
+          <div class="max-w-3xl mx-auto p-6">
+            <div v-if="loadError" class="p-4 bg-red-900/30 border border-red-700 rounded text-red-100">
+              <h2 class="font-bold text-lg mb-2">加载失败</h2>
+              <p>{{ loadError }}</p>
+              <button @click="retryLoad" class="mt-3 px-4 py-1.5 bg-orange-600 hover:bg-orange-500 text-white text-sm rounded transition-colors">重新加载</button>
+            </div>
+            <template v-else>
+              <div id="theory-content" class="theory-content" v-html="renderedTheory"></div>
+              <div v-if="currentChapter?.hint" id="chapter-hint" class="mt-6 p-4 rounded-lg text-sm">
+                <strong class="text-blue-300">💡 提示：</strong>
+                <span v-html="currentChapter.hint"></span>
+              </div>
+
+              <div v-if="currentChapter?.exercises?.length" id="chapter-exercises" class="mt-8 p-5 rounded-lg border">
+                <h2 class="text-lg font-bold mb-4 flex items-center gap-2">📝 章节练习</h2>
+                <div class="space-y-4">
+                  <div
+                    v-for="(ex, idx) in currentChapter.exercises"
+                    :key="idx"
+                    class="exercise-card p-4 rounded-lg border"
+                  >
+                    <div class="flex items-start justify-between gap-4">
+                      <div class="flex-1 min-w-0">
+                        <h3 class="font-semibold text-sm mb-1">{{ idx + 1 }}. {{ ex.title }}</h3>
+                        <p class="text-sm opacity-90">{{ ex.description }}</p>
+                      </div>
+                      <button
+                        @click="loadExercise(ex)"
+                        class="exercise-load-btn flex-shrink-0 px-3 py-1.5 text-xs font-medium rounded transition-colors whitespace-nowrap"
+                        title="把练习代码加载到右侧编辑器"
+                      >
+                        在编辑器中练习
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </section>
+
+        <section id="editor-panel" :class="['md:min-w-0 flex flex-col md:min-h-[50vh]', editorCollapsed ? 'md:flex-none md:w-0 md:overflow-hidden' : 'md:flex-1']">
+          <div class="h-11 border-b flex items-center px-4 justify-between flex-shrink-0">
+            <div class="flex items-center gap-2 text-sm">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+              </svg>
+              <span>实践代码</span>
+            </div>
+            <button id="run-btn" @click="runCode" class="flex items-center gap-1.5 px-4 py-1.5 text-white text-sm font-medium rounded transition-colors">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"/>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+              运行
+            </button>
+          </div>
+          <div id="editor" ref="editorEl" class="h-[45vh] md:h-auto md:flex-1 md:min-h-0"></div>
+          <div class="h-56 border-t flex flex-col flex-shrink-0">
+            <div class="h-8 px-4 flex items-center justify-between text-xs border-b">
+              <span>输出面板</span>
+              <button id="clear-output" @click="clearOutput" class="transition-colors">清空</button>
+            </div>
+            <pre id="output" :class="['flex-1 p-4 overflow-auto text-sm font-mono', outputClass]">{{ outputText }}</pre>
+          </div>
+        </section>
+
+        <button id="editor-collapse-btn" @click="toggleEditor" class="collapse-toggle hidden md:flex w-4 flex-shrink-0 items-center justify-center" :title="editorCollapsed ? '展开代码编辑器' : '收起代码编辑器'">
+          <span class="collapse-knob">
+            <svg class="w-3.5 h-3.5 transition-transform duration-200" :class="{ 'rotate-180': editorCollapsed }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/>
+            </svg>
+          </span>
+        </button>
+      </main>
+    </div>
+  </div>
+
+  <script>
+    // 配置后端执行接口。可选项：
+    //   "/evaluate.json"                          -> 与前端同域名（由后端统一提供静态资源时使用）
+    //   "http://localhost:9001/evaluate.json"       -> 本地前后端分离开发
+    //   "https://play.rust-lang.org/evaluate.json"  -> Rust 官方 Playground
+    window.RUST_PLAYGROUND = {
+      evaluateUrl: "http://localhost:9001/evaluate.json"
+    };
+  </script>
+  <script type="module" src="js/app.js?v=30"></script>
+</body>
+</html>

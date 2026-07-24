@@ -15,5 +15,8 @@ codemirror-entry.js
 # OS
 .DS_Store
 
+# IDE
+.idea/
+
 # Logs
 *.log

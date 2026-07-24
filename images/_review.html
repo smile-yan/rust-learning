@@ -1,0 +1,327 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SVG 审批工具</title>
+<style>
+  :root {
+    --bg: #f5f3ef;
+    --card: #ffffff;
+    --border: #d8d2c7;
+    --accent: #b5651d;
+    --muted: #6b6358;
+    --selected: #fff4e6;
+    --selected-border: #e8943a;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: #2e2a23;
+    font: 14px/1.5 -apple-system, "PingFang SC", "Segoe UI", sans-serif;
+    padding-bottom: 90px;
+  }
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--card);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 20px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.04);
+  }
+  header h1 { margin: 0 0 4px; font-size: 18px; }
+  header p { margin: 0; color: var(--muted); font-size: 13px; }
+  .toolbar {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+    align-items: center;
+  }
+  .toolbar button {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 13px;
+  }
+  .toolbar button:hover { border-color: var(--accent); color: var(--accent); }
+  .toolbar .spacer { flex: 1; }
+  .toolbar label {
+    font-size: 13px;
+    color: var(--muted);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  main { padding: 16px 20px; }
+  .group {
+    margin-bottom: 28px;
+  }
+  .group-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--border);
+  }
+  .group-head h2 {
+    margin: 0;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: .04em;
+  }
+  .group-head .count {
+    color: var(--muted);
+    font-size: 13px;
+  }
+  .group-head .gbtns { margin-left: auto; display: flex; gap: 6px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
+  .card {
+    background: var(--card);
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    transition: border-color .12s, background .12s;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .card:hover { border-color: var(--accent); }
+  .card.selected {
+    background: var(--selected);
+    border-color: var(--selected-border);
+  }
+  .card-top {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-top input[type=checkbox] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: var(--accent);
+    flex: none;
+  }
+  .card-top .name {
+    font-family: ui-monospace, "SF Mono", Menlo, monospace;
+    font-size: 12px;
+    word-break: break-all;
+  }
+  .preview {
+    background: #fff;
+    border: 1px solid #ece8e0;
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 140px;
+  }
+  .preview img {
+    width: 100%;
+    height: auto;
+    max-height: 260px;
+    object-fit: contain;
+    display: block;
+  }
+  .preview.actual img {
+    width: auto;
+    max-width: 100%;
+    max-height: none;
+  }
+  footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--card);
+    border-top: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 -1px 6px rgba(0,0,0,.06);
+  }
+  footer .sel-count {
+    font-weight: bold;
+    color: var(--accent);
+  }
+  footer button.primary {
+    background: var(--accent);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 18px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-left: auto;
+  }
+  footer button.primary:hover { filter: brightness(1.08); }
+  footer button.primary:disabled {
+    background: #c9b9a4;
+    cursor: not-allowed;
+  }
+  .toast {
+    position: fixed;
+    bottom: 100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #2e7d32;
+    color: #fff;
+    padding: 8px 18px;
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity .25s;
+    pointer-events: none;
+  }
+  .toast.show { opacity: 1; }
+</style>
+</head>
+<body>
+<header>
+  <h1>SVG 审批工具</h1>
+  <p>勾选需要优化的图片，点击底部「复制选中文件名」按钮，把列表贴回对话，我将逐个优化（修复文字越框、间距、箭头等问题）。</p>
+  <div class="toolbar">
+    <button onclick="selectAll(true)">全选</button>
+    <button onclick="selectAll(false)">取消全选</button>
+    <button onclick="invert()">反选</button>
+    <span class="spacer"></span>
+    <label><input type="checkbox" id="actualSize" onchange="toggleActual()"> 缩略图按原始尺寸显示</label>
+  </div>
+</header>
+<main id="main"></main>
+<footer>
+  <span>已选 <span class="sel-count" id="selCount">0</span> 张</span>
+  <button class="primary" id="copyBtn" onclick="copySelected()" disabled>复制选中文件名</button>
+</footer>
+<div class="toast" id="toast">已复制到剪贴板</div>
+
+<script>
+const groups = [
+  { name: "favicon", files: ["favicon.svg"] },
+  { name: "module0", files: ["module0-collections.svg","module0-control-flow.svg","module0-enums.svg","module0-error-handling.svg","module0-functions.svg","module0-iterators.svg","module0-modules.svg","module0-ownership.svg","module0-result-option.svg","module0-scalar-compound.svg","module0-slices.svg","module0-structs.svg"] },
+  { name: "module1", files: ["module1-clap-args.svg","module1-closure-capture.svg","module1-concurrency-arc-mutex.svg","module1-concurrency-channel.svg","module1-concurrency-threads.svg","module1-design-patterns.svg","module1-dotenv-config.svg","module1-error-handling-anyhow.svg","module1-generics-function.svg","module1-generics-struct.svg","module1-iterator-lazy.svg","module1-lifetime-annotation.svg","module1-lifetime-borrowing.svg","module1-log-tracing.svg","module1-more-collections.svg","module1-networking-tcp.svg","module1-process-command.svg","module1-random-hash.svg","module1-regex-basics.svg","module1-smartpointer-box.svg","module1-smartpointer-rc.svg","module1-smartpointer-refcell.svg","module1-trait-bounds.svg","module1-trait-interface.svg"] },
+  { name: "module2", files: ["module2-axum-request-flow.svg","module2-concurrent-patterns.svg","module2-future-state-machine.svg","module2-middleware-stack.svg","module2-raw-pointer.svg","module2-rwlock.svg","module2-tokio-runtime.svg","module2-unsafe-boundary.svg"] },
+  { name: "module3", files: ["module3-ai-four-strengths.svg","module3-ai-infra-map.svg","module3-channel-ownership.svg","module3-compile-time-defense.svg","module3-compile-vs-runtime.svg","module3-data-race.svg","module3-explicit-error.svg","module3-explicit-mut.svg","module3-inheritance-vs-composition.svg","module3-lifetime.svg","module3-memory-leak.svg","module3-ownership-borrow.svg","module3-ownership-move.svg","module3-ownership.svg","module3-raii.svg","module3-stack-heap.svg","module3-trait-contract.svg","module3-unsafe-boundary.svg","module3-unsafe-scope.svg"] },
+  { name: "module4", files: ["module4-compiler-error-flow.svg","module4-drop-flow.svg","module4-inheritance-alternatives.svg","module4-language-map.svg","module4-language-speed.svg","module4-scope-drop.svg","module4-string-str-memory.svg","module4-unwrap-question.svg"] }
+];
+
+const selected = new Set();
+const main = document.getElementById('main');
+
+groups.forEach(g => {
+  const sec = document.createElement('section');
+  sec.className = 'group';
+  sec.innerHTML = `
+    <div class="group-head">
+      <h2>${g.name}</h2>
+      <span class="count">${g.files.length} 张</span>
+      <div class="gbtns">
+        <button onclick="selectGroup('${g.name}', true)">全选</button>
+        <button onclick="selectGroup('${g.name}', false)">取消</button>
+      </div>
+    </div>
+    <div class="grid" id="grid-${g.name}"></div>
+  `;
+  main.appendChild(sec);
+  const grid = sec.querySelector(`#grid-${g.name}`);
+  g.files.forEach(f => {
+    const card = document.createElement('div');
+    card.className = 'card';
+    card.dataset.file = f;
+    card.dataset.group = g.name;
+    card.innerHTML = `
+      <div class="card-top">
+        <input type="checkbox" data-file="${f}">
+        <span class="name">${f}</span>
+      </div>
+      <div class="preview"><img src="${f}" loading="lazy" alt="${f}"></div>
+    `;
+    const cb = card.querySelector('input');
+    const toggle = (e) => {
+      if (e.target === cb) return; // checkbox 自己处理
+      cb.checked = !cb.checked;
+      cb.dispatchEvent(new Event('change'));
+    };
+    card.addEventListener('click', toggle);
+    cb.addEventListener('change', () => {
+      if (cb.checked) { selected.add(f); card.classList.add('selected'); }
+      else { selected.delete(f); card.classList.remove('selected'); }
+      updateCount();
+    });
+    // 点击 checkbox 时也阻止冒泡到 card（避免双触发）
+    cb.addEventListener('click', e => e.stopPropagation());
+    grid.appendChild(card);
+  });
+});
+
+function updateCount() {
+  const n = selected.size;
+  document.getElementById('selCount').textContent = n;
+  document.getElementById('copyBtn').disabled = n === 0;
+}
+
+function selectAll(on) {
+  document.querySelectorAll('.card').forEach(card => {
+    const cb = card.querySelector('input');
+    cb.checked = on;
+    cb.dispatchEvent(new Event('change'));
+  });
+}
+
+function invert() {
+  document.querySelectorAll('.card').forEach(card => {
+    const cb = card.querySelector('input');
+    cb.checked = !cb.checked;
+    cb.dispatchEvent(new Event('change'));
+  });
+}
+
+function selectGroup(name, on) {
+  document.querySelectorAll(`.card[data-group="${name}"]`).forEach(card => {
+    const cb = card.querySelector('input');
+    cb.checked = on;
+    cb.dispatchEvent(new Event('change'));
+  });
+}
+
+function toggleActual() {
+  const on = document.getElementById('actualSize').checked;
+  document.querySelectorAll('.preview').forEach(p => p.classList.toggle('actual', on));
+}
+
+function copySelected() {
+  const list = [...selected].sort().join('\n');
+  navigator.clipboard.writeText(list).then(() => {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 1600);
+  }).catch(() => {
+    // 降级方案
+    const ta = document.createElement('textarea');
+    ta.value = list;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 1600);
+  });
+}
+
+updateCount();
+</script>
+</body>
+</html>
