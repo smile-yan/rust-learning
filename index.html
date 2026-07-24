@@ -97,6 +97,14 @@
     color:#7a6f60;font-size:12px;letter-spacing:.1em;animation:bob 2.4s ease-in-out infinite}
   @keyframes bob{50%{transform:translate(-50%,6px)}}
   @media (prefers-reduced-motion:reduce){*{animation:none!important}}
+  @media (max-width:640px){
+    .glow{transform:scale(.6);transform-origin:top left}
+    .glow[style*="bottom"]{transform-origin:bottom right}
+    #gear1{top:-35px!important;left:-35px!important}
+    #gear2{bottom:-35px!important;right:-25px!important}
+    #gear3{display:none}
+    h1{font-size:clamp(34px,9vw,52px)!important}
+  }
 </style>
 </head>
 <body>
@@ -234,9 +242,11 @@ function makeGear(size,teeth,color){
   const hole=document.createElementNS(NS,'circle');hole.setAttribute('r','13');hole.setAttribute('fill','#0f0d0c');svg.appendChild(hole);
   return svg;
 }
-document.getElementById('gear1').appendChild(makeGear(360,10,'#f74c00'));
-document.getElementById('gear2').appendChild(makeGear(280,8,'#ce422b'));
-document.getElementById('gear3').appendChild(makeGear(150,12,'#ffb89a'));
+const mq=window.matchMedia('(max-width:640px)');
+const s1=mq.matches?180:360, s2=mq.matches?140:280, s3=mq.matches?90:150;
+document.getElementById('gear1').appendChild(makeGear(s1,10,'#f74c00'));
+document.getElementById('gear2').appendChild(makeGear(s2,8,'#ce422b'));
+document.getElementById('gear3').appendChild(makeGear(s3,12,'#ffb89a'));
 </script>
 </body>
 </html>
