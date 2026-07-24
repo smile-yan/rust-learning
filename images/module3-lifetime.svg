@@ -54,11 +54,11 @@
   <!-- r 超出 b 的部分：悬垂引用 -->
   <rect x="510" y="272" width="30" height="32" rx="8" class="bar-bad"/>
 
-  <text x="605" y="176" text-anchor="middle" class="lane-b">b</text>
-  <rect x="590" y="184" width="30" height="88" rx="8" class="bar-b"/>
+  <text x="625" y="176" text-anchor="middle" class="lane-b">b</text>
+  <rect x="610" y="184" width="30" height="88" rx="8" class="bar-b"/>
 
-  <line x1="542" y1="272" x2="588" y2="272" class="bad-line"/>
-  <text x="565" y="264" text-anchor="middle" class="note">b 已释放</text>
+  <line x1="542" y1="272" x2="608" y2="272" class="bad-line"/>
+  <text x="575" y="264" text-anchor="middle" class="note">b 已释放</text>
 
   <!-- 底部图例 -->
   <rect x="56" y="322" width="14" height="14" rx="3" class="chip-a"/>

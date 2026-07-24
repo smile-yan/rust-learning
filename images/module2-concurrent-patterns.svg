@@ -16,14 +16,14 @@
   <text x="515" y="120" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">任务队列 per thread</text>
   <text x="515" y="145" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">空闲线程窃取任务</text>
   <text x="515" y="170" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">负载自动均衡</text>
-  <rect x="40" y="240" width="280" height="120" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2" rx="8"/>
-  <text x="180" y="270" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">读写锁 RwLock</text>
-  <text x="180" y="300" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">多个 reader 或一个 writer</text>
-  <text x="180" y="325" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">适合读多写少场景</text>
-  <text x="180" y="350" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">避免 Mutex 读竞争</text>
-  <rect x="350" y="240" width="250" height="120" fill="#ffebee" stroke="#c62828" stroke-width="2" rx="8"/>
-  <text x="475" y="270" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#b71c1c">背压 Backpressure</text>
-  <text x="475" y="300" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">生产快于消费时</text>
-  <text x="475" y="325" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">有界 channel 阻塞发送</text>
-  <text x="475" y="350" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">防止内存无限增长</text>
+  <rect x="40" y="240" width="270" height="120" fill="#f3e5f5" stroke="#7b1fa2" stroke-width="2" rx="8"/>
+  <text x="175" y="270" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#4a148c">读写锁 RwLock</text>
+  <text x="175" y="295" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">多个 reader 或一个 writer</text>
+  <text x="175" y="317" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">适合读多写少场景</text>
+  <text x="175" y="339" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">避免 Mutex 读竞争</text>
+  <rect x="330" y="240" width="270" height="120" fill="#ffebee" stroke="#c62828" stroke-width="2" rx="8"/>
+  <text x="465" y="270" font-family="system-ui, sans-serif" font-size="14" font-weight="bold" text-anchor="middle" fill="#b71c1c">背压 Backpressure</text>
+  <text x="465" y="295" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">生产快于消费时</text>
+  <text x="465" y="317" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">有界 channel 阻塞发送</text>
+  <text x="465" y="339" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#333">防止内存无限增长</text>
 </svg>

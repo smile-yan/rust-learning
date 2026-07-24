@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="420" viewBox="0 0 640 420">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="448" viewBox="0 0 640 448">
   <rect width="100%" height="100%" fill="#fff8f0" rx="12"/>
   <text x="320" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#4a3b2a">迭代器：惰性求值链</text>
   <defs>
@@ -7,7 +7,7 @@
       <path d="M0,0 L0,6 L9,3 z" fill="#5c4b37"/>
     </marker>
   </defs>
-  <rect x="40" y="56" width="560" height="340" fill="#fff3e0" stroke="#d4a76a" stroke-width="2" rx="8"/>
+  <rect x="40" y="56" width="560" height="368" fill="#fff3e0" stroke="#d4a76a" stroke-width="2" rx="8"/>
   <text x="320" y="86" font-size="14" font-weight="bold" fill="#3d3229" text-anchor="middle">惰性链：适配器串联，消费时才执行</text>
   <!-- 第一行：vec! → iter() → map() -->
   <rect x="70" y="120" width="130" height="80" fill="#e8f5e9" stroke="#66bb6a" stroke-width="2" rx="8"/>
@@ -31,5 +31,5 @@
   <rect x="255" y="280" width="130" height="80" fill="#ffebee" stroke="#ef5350" stroke-width="2" rx="8"/>
   <text x="320" y="320" font-size="12" font-weight="bold" fill="#3d3229" text-anchor="middle">sum()</text>
   <text x="320" y="342" font-size="11" fill="#666" text-anchor="middle">消费触发执行</text>
-  <text x="320" y="385" font-size="12" fill="#5c4b37" text-anchor="middle">中间步骤只产生 Iterator 适配器，不分配新集合</text>
+  <text x="320" y="402" font-size="12" fill="#5c4b37" text-anchor="middle">中间步骤只产生 Iterator 适配器，不分配新集合</text>
 </svg>

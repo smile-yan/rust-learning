@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="360" viewBox="0 0 640 360">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="384" viewBox="0 0 640 384">
   <rect width="100%" height="100%" fill="#fff8f0" rx="12"/>
   <text x="320" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#4a3b2a">并发：创建线程</text>
   <defs>
@@ -7,7 +7,7 @@
       <path d="M0,0 L0,6 L9,3 z" fill="#5c4b37"/>
     </marker>
   </defs>
-  <rect x="40" y="56" width="560" height="270" fill="#fff3e0" stroke="#d4a76a" stroke-width="2" rx="8"/>
+  <rect x="40" y="56" width="560" height="294" fill="#fff3e0" stroke="#d4a76a" stroke-width="2" rx="8"/>
   <text x="320" y="84" font-size="14" font-weight="bold" fill="#3d3229" text-anchor="middle">std::thread::spawn 创建并发执行单元</text>
   <!-- 主线程框，居中 -->
   <rect x="220" y="100" width="200" height="70" fill="#fff3e0" stroke="#fb8c00" stroke-width="2" rx="8"/>
@@ -24,5 +24,5 @@
   <text x="320" y="260" font-size="14" font-weight="bold" fill="#3d3229" text-anchor="middle">线程 B</text>
   <rect x="420" y="225" width="120" height="60" fill="#f3e5f5" stroke="#ab47bc" stroke-width="2" rx="8"/>
   <text x="480" y="260" font-size="14" font-weight="bold" fill="#3d3229" text-anchor="middle">线程 C</text>
-  <text x="320" y="315" font-size="13" fill="#5c4b37" text-anchor="middle">Rust 在线程创建时就检查数据所有权，防止数据竞争</text>
+  <text x="320" y="324" font-size="13" fill="#5c4b37" text-anchor="middle">Rust 在线程创建时就检查数据所有权，防止数据竞争</text>
 </svg>

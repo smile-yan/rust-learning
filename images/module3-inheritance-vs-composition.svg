@@ -36,22 +36,22 @@
   <line x1="200" y1="141" x2="250" y2="185" class="arrow"/>
   <line x1="115" y1="221" x2="115" y2="265" class="arrow"/>
   <text x="185" y="330" text-anchor="middle" class="label">❌ 改基类，全部子类遭殃</text>
-  <text x="535" y="90" text-anchor="middle" class="text">组合：按需拼装</text>
-  <rect x="420" y="100" width="85" height="26" rx="13" class="highlight"/>
-  <text x="462" y="117" text-anchor="middle" class="label">Flyable</text>
-  <rect x="520" y="100" width="85" height="26" rx="13" class="highlight"/>
-  <text x="562" y="117" text-anchor="middle" class="label">Drivable</text>
-  <line x1="462" y1="126" x2="480" y2="140" class="arrow"/>
-  <line x1="562" y1="126" x2="540" y2="140" class="arrow"/>
-  <rect x="420" y="140" width="230" height="150" rx="10" class="box2"/>
-  <text x="445" y="165" class="code">Robot</text>
-  <rect x="445" y="180" width="60" height="30" rx="6" class="box"/>
-  <text x="475" y="200" text-anchor="middle" class="label">引擎</text>
-  <rect x="520" y="180" width="60" height="30" rx="6" class="box"/>
-  <text x="550" y="200" text-anchor="middle" class="label">轮子</text>
-  <rect x="445" y="230" width="90" height="30" rx="6" class="box"/>
-  <text x="490" y="250" text-anchor="middle" class="label">传感器</text>
-  <rect x="550" y="230" width="80" height="30" rx="6" class="box"/>
-  <text x="590" y="250" text-anchor="middle" class="label">电池</text>
+  <text x="535" y="80" text-anchor="middle" class="text">组合：按需拼装</text>
+  <rect x="420" y="88" width="85" height="26" rx="13" class="highlight"/>
+  <text x="462" y="105" text-anchor="middle" class="label">Flyable</text>
+  <rect x="520" y="88" width="85" height="26" rx="13" class="highlight"/>
+  <text x="562" y="105" text-anchor="middle" class="label">Drivable</text>
+  <line x1="462" y1="114" x2="462" y2="150" class="arrow"/>
+  <line x1="562" y1="114" x2="562" y2="150" class="arrow"/>
+  <rect x="420" y="150" width="230" height="150" rx="10" class="box2"/>
+  <text x="445" y="175" class="code">Robot</text>
+  <rect x="445" y="190" width="60" height="30" rx="6" class="box"/>
+  <text x="475" y="210" text-anchor="middle" class="label">引擎</text>
+  <rect x="520" y="190" width="60" height="30" rx="6" class="box"/>
+  <text x="550" y="210" text-anchor="middle" class="label">轮子</text>
+  <rect x="445" y="240" width="90" height="30" rx="6" class="box"/>
+  <text x="490" y="260" text-anchor="middle" class="label">传感器</text>
+  <rect x="550" y="240" width="80" height="30" rx="6" class="box"/>
+  <text x="590" y="260" text-anchor="middle" class="label">电池</text>
   <text x="535" y="330" text-anchor="middle" class="label">✅ 能力像积木一样插拔</text>
 </svg>
