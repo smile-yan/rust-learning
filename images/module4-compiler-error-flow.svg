@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="370" viewBox="0 0 720 370">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="424" viewBox="0 0 720 424">
   <defs>
     <style>
       .bg { fill: #fff8f0; }
@@ -18,20 +18,20 @@
       <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
     </marker>
   </defs>
-  <rect width="720" height="370" class="bg"/>
-  <rect x="16" y="16" width="688" height="338" rx="12" class="card"/>
+  <rect width="720" height="424" class="bg"/>
+  <rect x="16" y="16" width="688" height="392" rx="12" class="card"/>
   <text x="360" y="50" text-anchor="middle" class="title">遇到编译错误怎么办</text>
   <!-- CONTENT -->
   <rect x="180" y="85" width="360" height="42" rx="8" class="box"/>
   <text x="360" y="113" text-anchor="middle" class="text">先看错误类型（如 error[E0308]）</text>
-  <line x1="360" y1="129" x2="360" y2="141" class="arrow"/>
-  <rect x="180" y="145" width="360" height="42" rx="8" class="box"/>
-  <text x="360" y="173" text-anchor="middle" class="text">看编译器高亮的代码位置</text>
-  <line x1="360" y1="189" x2="360" y2="201" class="arrow"/>
-  <rect x="180" y="205" width="360" height="42" rx="8" class="box"/>
-  <text x="360" y="233" text-anchor="middle" class="text">阅读编译器给出的修复建议</text>
-  <line x1="360" y1="249" x2="360" y2="261" class="arrow"/>
-  <rect x="180" y="265" width="360" height="42" rx="8" class="box"/>
-  <text x="360" y="293" text-anchor="middle" class="text">从上到下逐个修复</text>
-  <text x="360" y="330" text-anchor="middle" class="label">把编译器当老师：它的建议通常直接告诉你怎么改</text>
+  <line x1="360" y1="131" x2="360" y2="156" class="arrow"/>
+  <rect x="180" y="160" width="360" height="42" rx="8" class="box"/>
+  <text x="360" y="188" text-anchor="middle" class="text">看编译器高亮的代码位置</text>
+  <line x1="360" y1="206" x2="360" y2="231" class="arrow"/>
+  <rect x="180" y="235" width="360" height="42" rx="8" class="box"/>
+  <text x="360" y="263" text-anchor="middle" class="text">阅读编译器给出的修复建议</text>
+  <line x1="360" y1="281" x2="360" y2="306" class="arrow"/>
+  <rect x="180" y="310" width="360" height="42" rx="8" class="box"/>
+  <text x="360" y="338" text-anchor="middle" class="text">从上到下逐个修复</text>
+  <text x="360" y="388" text-anchor="middle" class="label">把编译器当老师：它的建议通常直接告诉你怎么改</text>
 </svg>

@@ -39,13 +39,13 @@
   <rect x="495" y="255" width="180" height="48" rx="8" class="box2"/>
   <text x="510" y="276" class="text">边缘与浏览器</text>
   <text x="510" y="296" class="label">wasm-bindgen</text>
-  <rect x="300" y="165" width="120" height="60" rx="30" class="highlight"/>
-  <text x="360" y="202" text-anchor="middle" class="text">Rust 🦀</text>
-  <line x1="225" y1="119" x2="305" y2="180" class="arrow"/>
-  <line x1="225" y1="199" x2="295" y2="195" class="arrow"/>
-  <line x1="225" y1="279" x2="305" y2="210" class="arrow"/>
-  <line x1="495" y1="119" x2="415" y2="180" class="arrow"/>
-  <line x1="495" y1="199" x2="425" y2="195" class="arrow"/>
-  <line x1="495" y1="279" x2="415" y2="210" class="arrow"/>
+  <rect x="300" y="110" width="120" height="180" rx="30" class="highlight"/>
+  <text x="360" y="205" text-anchor="middle" class="text">Rust 🦀</text>
+  <line x1="225" y1="119" x2="295" y2="119" class="arrow"/>
+  <line x1="225" y1="199" x2="295" y2="199" class="arrow"/>
+  <line x1="225" y1="279" x2="295" y2="279" class="arrow"/>
+  <line x1="495" y1="119" x2="425" y2="119" class="arrow"/>
+  <line x1="495" y1="199" x2="425" y2="199" class="arrow"/>
+  <line x1="495" y1="279" x2="425" y2="279" class="arrow"/>
   <text x="360" y="350" text-anchor="middle" class="label">从推理、检索到部署，Rust 正在覆盖 AI 链路的每个环节</text>
 </svg>

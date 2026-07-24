@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="412" viewBox="0 0 720 412">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="432" viewBox="0 0 720 432">
   <defs>
     <style>
       .bg { fill: #fff8f0; }
@@ -18,27 +18,27 @@
       <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
     </marker>
   </defs>
-  <rect width="720" height="412" class="bg"/>
-  <rect x="16" y="16" width="688" height="380" rx="12" class="card"/>
+  <rect width="720" height="432" class="bg"/>
+  <rect x="16" y="16" width="688" height="400" rx="12" class="card"/>
   <text x="360" y="50" text-anchor="middle" class="title">String 与 &amp;str 的内存布局</text>
   <rect x="45" y="85" width="260" height="120" rx="10" class="box"/>
-  <text x="60" y="110" class="label">栈 Stack</text>
-  <rect x="65" y="122" width="160" height="70" rx="6" class="card"/>
-  <text x="75" y="142" class="code">String</text>
-  <text x="75" y="162" class="label">len: 11</text>
-  <text x="75" y="182" class="label">cap: 11</text>
-  <rect x="415" y="85" width="260" height="120" rx="10" class="highlight"/>
-  <text x="430" y="110" class="label">堆 Heap（拥有所有权）</text>
-  <text x="430" y="145" class="code">"hello world"</text>
-  <line x1="225" y1="157" x2="410" y2="145" class="arrow"/>
+  <text x="175" y="108" text-anchor="middle" class="label">栈 Stack</text>
+  <rect x="85" y="122" width="160" height="70" rx="6" class="card"/>
+  <text x="165" y="144" text-anchor="middle" class="code">String</text>
+  <text x="165" y="164" text-anchor="middle" class="label">len: 11</text>
+  <text x="165" y="184" text-anchor="middle" class="label">cap: 11</text>
+  <rect x="415" y="112" width="260" height="90" rx="10" class="highlight"/>
+  <text x="545" y="138" text-anchor="middle" class="label">堆 Heap（拥有所有权）</text>
+  <text x="545" y="175" text-anchor="middle" class="code">"hello world"</text>
+  <line x1="245" y1="157" x2="410" y2="157" class="arrow"/>
   <rect x="45" y="240" width="260" height="100" rx="10" class="box2"/>
-  <text x="60" y="265" class="label">栈上的 &amp;str（借用）</text>
-  <rect x="65" y="278" width="160" height="50" rx="6" class="card"/>
-  <text x="75" y="298" class="code">&amp;str</text>
-  <text x="75" y="316" class="label">len: 5</text>
-  <rect x="415" y="240" width="260" height="100" rx="10" class="box2"/>
-  <text x="430" y="265" class="label">字符串数据（不拥有，只借用）</text>
-  <text x="430" y="300" class="code">"hello"</text>
-  <line x1="225" y1="303" x2="410" y2="290" class="arrow"/>
-  <text x="360" y="372" text-anchor="middle" class="label">String 拥有堆上的数据并可增长，&amp;str 只是借用一段已有字符</text>
+  <text x="175" y="263" text-anchor="middle" class="label">栈上的 &amp;str（借用）</text>
+  <rect x="85" y="278" width="160" height="50" rx="6" class="card"/>
+  <text x="165" y="300" text-anchor="middle" class="code">&amp;str</text>
+  <text x="165" y="320" text-anchor="middle" class="label">len: 5</text>
+  <rect x="415" y="268" width="260" height="70" rx="10" class="box2"/>
+  <text x="545" y="292" text-anchor="middle" class="label">字符串数据（不拥有，只借用）</text>
+  <text x="545" y="322" text-anchor="middle" class="code">"hello"</text>
+  <line x1="245" y1="303" x2="410" y2="303" class="arrow"/>
+  <text x="360" y="388" text-anchor="middle" class="label">String 拥有堆上的数据并可增长，&amp;str 只是借用一段已有字符</text>
 </svg>

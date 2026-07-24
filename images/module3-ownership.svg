@@ -14,7 +14,7 @@
   <rect x="290" y="110" width="140" height="50" fill="#ffffff" stroke="#c17817" stroke-width="1.5" rx="4"/>
   <text x="360" y="142" text-anchor="middle" font-family="monospace" font-size="13" fill="#333">&quot;hello&quot;</text>
 
-  <path d="M 190 130 L 290 135" stroke="#d9534f" stroke-width="2.5" marker-end="url(#arrow-red)" fill="none"/>
+  <path d="M 190 130 L 290 130" stroke="#d9534f" stroke-width="2.5" marker-end="url(#arrow-red)" fill="none"/>
   <text x="240" y="120" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#d9534f">指向</text>
 
   <rect x="500" y="60" width="180" height="200" fill="#e8f4e8" stroke="#4a7c59" stroke-width="2" rx="8"/>
@@ -22,8 +22,8 @@
   <rect x="530" y="110" width="120" height="40" fill="#ffffff" stroke="#4a7c59" stroke-width="1.5" rx="4"/>
   <text x="590" y="135" text-anchor="middle" font-family="monospace" font-size="13" fill="#333">s2: String</text>
   <text x="590" y="166" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#555">ptr / len / cap</text>
-  <path d="M 650 135 L 710 135" stroke="#d9534f" stroke-width="2.5" marker-end="url(#arrow-red)" fill="none"/>
-  <text x="695" y="125" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#d9534f">移动</text>
+  <path d="M 460 135 L 525 135" stroke="#d9534f" stroke-width="2.5" marker-end="url(#arrow-red)" fill="none"/>
+  <text x="492" y="125" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#d9534f">移动</text>
 
   <rect x="290" y="190" width="140" height="40" fill="#fff8f0" stroke="#d9534f" stroke-width="2" stroke-dasharray="5,3" rx="4"/>
   <text x="360" y="216" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#d9534f">s1 不再有效</text>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="440" viewBox="0 0 720 440">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="468" viewBox="0 0 720 468">
   <defs>
     <style>
       .bg { fill: #fff8f0; }
@@ -16,8 +16,8 @@
       <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
     </marker>
   </defs>
-  <rect width="720" height="440" class="bg"/>
-  <rect x="16" y="16" width="688" height="408" rx="12" class="card"/>
+  <rect width="720" height="468" class="bg"/>
+  <rect x="16" y="16" width="688" height="436" rx="12" class="card"/>
   <text x="360" y="52" text-anchor="middle" class="title">性能 × 内存安全：各语言大致定位</text>
 
   <!-- 理想区域：右上象限 -->
@@ -52,5 +52,5 @@
   <circle cx="590" cy="104" r="13" class="dot-rust"/>
   <text x="590" y="132" text-anchor="middle" class="lang">Rust</text>
 
-  <text x="360" y="410" text-anchor="middle" class="label">定性示意：GC 语言靠运行时回收保障安全，C/C++ 把安全交给程序员，Rust 用编译期检查兼得两者</text>
+  <text x="360" y="432" text-anchor="middle" class="label">定性示意：GC 语言靠运行时回收保障安全，C/C++ 把安全交给程序员，Rust 用编译期检查兼得两者</text>
 </svg>

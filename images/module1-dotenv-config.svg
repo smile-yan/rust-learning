@@ -7,25 +7,25 @@
       <path d="M0,0 L0,6 L9,3 z" fill="#5c4b37"/>
     </marker>
   </defs>
-  <rect x="40" y="55" width="560" height="250" fill="#fff3e0" stroke="#d4a76a" stroke-width="2" rx="8"/>
-  <text x="320" y="85" font-size="14" font-weight="bold" fill="#3d3229" text-anchor="middle">应用配置加载流程</text>
+  <rect x="40" y="56" width="560" height="262" fill="#fff3e0" stroke="#d4a76a" stroke-width="2" rx="8"/>
+  <text x="320" y="86" font-size="14" font-weight="bold" fill="#3d3229" text-anchor="middle">应用配置加载流程</text>
   <rect x="60" y="110" width="130" height="65" fill="#e8f5e9" stroke="#66bb6a" stroke-width="2" rx="8"/>
-  <text x="125" y="138" font-size="13" font-weight="bold" fill="#3d3229" text-anchor="middle">.env 文件</text>
+  <text x="125" y="135" font-size="13" font-weight="bold" fill="#3d3229" text-anchor="middle">.env 文件</text>
   <text x="125" y="155" font-size="11" fill="#666" text-anchor="middle">DATABASE_URL=...</text>
   <text x="125" y="170" font-size="11" fill="#666" text-anchor="middle">PORT=8080</text>
-  <line x1="190" y1="142" x2="240" y2="142" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/>
-  <rect x="250" y="110" width="140" height="65" fill="#e3f2fd" stroke="#42a5f5" stroke-width="2" rx="8"/>
-  <text x="320" y="138" font-size="13" font-weight="bold" fill="#3d3229" text-anchor="middle">dotenv::dotenv</text>
-  <text x="320" y="155" font-size="12" fill="#666" text-anchor="middle">加载到 std::env</text>
-  <text x="320" y="170" font-size="12" fill="#666" text-anchor="middle">优先级低于系统环境变量</text>
-  <line x1="390" y1="142" x2="440" y2="142" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/>
-  <rect x="450" y="110" width="150" height="65" fill="#fce4ec" stroke="#ec407a" stroke-width="2" rx="8"/>
-  <text x="525" y="138" font-size="13" font-weight="bold" fill="#3d3229" text-anchor="middle">Config 结构体</text>
-  <text x="525" y="155" font-size="12" fill="#666" text-anchor="middle">env::var("PORT")</text>
-  <text x="525" y="170" font-size="12" fill="#666" text-anchor="middle">unwrap_or("8080")</text>
-  <line x1="320" y1="175" x2="320" y2="215" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/>
-  <rect x="180" y="220" width="280" height="50" fill="#e8f5e9" stroke="#66bb6a" stroke-width="2" rx="8"/>
-  <text x="320" y="243" font-size="13" font-weight="bold" fill="#3d3229" text-anchor="middle">config crate（可选）</text>
-  <text x="320" y="263" font-size="12" fill="#666" text-anchor="middle">YAML / TOML / JSON 多层配置合并</text>
-  <text x="320" y="318" font-size="13" fill="#5c4b37" text-anchor="middle">dotenv 隔离开发环境，config crate 管理多环境配置</text>
+  <line x1="190" y1="142" x2="230" y2="142" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="240" y="110" width="140" height="65" fill="#e3f2fd" stroke="#42a5f5" stroke-width="2" rx="8"/>
+  <text x="310" y="135" font-size="13" font-weight="bold" fill="#3d3229" text-anchor="middle">dotenv::dotenv</text>
+  <text x="310" y="155" font-size="12" fill="#666" text-anchor="middle">加载到 std::env</text>
+  <text x="310" y="170" font-size="12" fill="#666" text-anchor="middle">优先级低于系统 env</text>
+  <line x1="380" y1="142" x2="420" y2="142" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="430" y="110" width="150" height="65" fill="#fce4ec" stroke="#ec407a" stroke-width="2" rx="8"/>
+  <text x="505" y="135" font-size="13" font-weight="bold" fill="#3d3229" text-anchor="middle">Config 结构体</text>
+  <text x="505" y="155" font-size="12" fill="#666" text-anchor="middle">env::var("PORT")</text>
+  <text x="505" y="170" font-size="12" fill="#666" text-anchor="middle">unwrap_or("8080")</text>
+  <line x1="310" y1="175" x2="310" y2="215" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="170" y="220" width="280" height="50" fill="#e8f5e9" stroke="#66bb6a" stroke-width="2" rx="8"/>
+  <text x="310" y="243" font-size="13" font-weight="bold" fill="#3d3229" text-anchor="middle">config crate（可选）</text>
+  <text x="310" y="263" font-size="12" fill="#666" text-anchor="middle">YAML / TOML / JSON 多层配置合并</text>
+  <text x="320" y="298" font-size="13" fill="#5c4b37" text-anchor="middle">dotenv 隔离开发环境，config crate 管理多环境配置</text>
 </svg>

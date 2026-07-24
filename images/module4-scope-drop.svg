@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="340" viewBox="0 0 720 340">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="360" viewBox="0 0 720 360">
   <defs>
     <style>
       .bg { fill: #fff8f0; }
@@ -18,19 +18,19 @@
       <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
     </marker>
   </defs>
-  <rect width="720" height="340" class="bg"/>
-  <rect x="16" y="16" width="688" height="308" rx="12" class="card"/>
+  <rect width="720" height="360" class="bg"/>
+  <rect x="16" y="16" width="688" height="328" rx="12" class="card"/>
   <text x="360" y="50" text-anchor="middle" class="title">不需要手动 free</text>
   <rect x="45" y="85" width="340" height="160" rx="10" class="box"/>
   <text x="65" y="115" class="code">let s = String::from("Rust");</text>
   <text x="65" y="145" class="code">println!("{}", s);</text>
   <text x="65" y="175" class="code">}</text>
   <text x="90" y="175" class="label">← s 离开作用域</text>
-  <line x1="385" y1="165" x2="435" y2="150" class="arrow"/>
+  <line x1="385" y1="145" x2="435" y2="145" class="arrow"/>
   <rect x="440" y="120" width="235" height="50" rx="8" class="highlight"/>
   <text x="557" y="150" text-anchor="middle" class="text">自动调用 drop(s)</text>
   <line x1="557" y1="170" x2="557" y2="205" class="arrow"/>
   <rect x="440" y="205" width="235" height="50" rx="8" class="box2"/>
   <text x="557" y="235" text-anchor="middle" class="text">堆内存被释放</text>
-  <text x="360" y="300" text-anchor="middle" class="label">C/C++ 要手动 free，Rust 由所有权在编译期安排好释放</text>
+  <text x="360" y="312" text-anchor="middle" class="label">C/C++ 要手动 free，Rust 由所有权在编译期安排好释放</text>
 </svg>

@@ -20,17 +20,20 @@
   </defs>
   <rect width="720" height="360" class="bg"/>
   <rect x="16" y="16" width="688" height="328" rx="12" class="card"/>
-  <text x="360" y="50" text-anchor="middle" class="title">module0-slices</text>
-  
-  <rect x="40" y="80" width="640" height="70" rx="8" class="box"/>
-  <text x="60" y="115" class="code">[10, 20, 30, 40, 50]</text>
-  <text x="60" y="140" class="label">原始数组 / Vec</text>
-  
-  <rect x="40" y="180" width="380" height="70" rx="8" class="box2"/>
-  <text x="60" y="215" class="code">&amp;arr[1..4]</text>
-  <text x="60" y="240" class="label">切片：只包含长度 + 指向首元素的引用</text>
-  
-  <text x="60" y="290" class="text">🔧 切片不拥有数据，只是对连续序列的“视图”</text>
-  <text x="60" y="320" class="text">⚠️ 字符串切片 &amp;str 必须位于有效的 UTF-8 边界</text>
+  <text x="360" y="50" text-anchor="middle" class="title">切片 &amp;str / &amp;[T]：对连续序列的视图</text>
+
+  <!-- 原始数组框，居中 -->
+  <rect x="140" y="80" width="440" height="70" rx="8" class="box"/>
+  <text x="360" y="113" text-anchor="middle" class="code">[10, 20, 30, 40, 50]</text>
+  <text x="360" y="138" text-anchor="middle" class="label">原始数组 / Vec</text>
+
+  <!-- 切片框，与上框同宽居中，下方对齐 -->
+  <rect x="140" y="180" width="440" height="70" rx="8" class="box2"/>
+  <text x="360" y="213" text-anchor="middle" class="code">&amp;arr[1..4]  →  [20, 30, 40]</text>
+  <text x="360" y="238" text-anchor="middle" class="label">切片：只含长度 + 指向首元素的引用</text>
+
+  <!-- 底部说明，居中 -->
+  <text x="360" y="290" text-anchor="middle" class="text">🔧 切片不拥有数据，只是对连续序列的“视图”</text>
+  <text x="360" y="320" text-anchor="middle" class="text">⚠️ 字符串切片 &amp;str 必须位于有效的 UTF-8 边界</text>
 
 </svg>

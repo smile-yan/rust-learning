@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="368" viewBox="0 0 720 368">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="392" viewBox="0 0 720 392">
   <defs>
     <style>
       .bg { fill: #fff8f0; }
@@ -18,8 +18,8 @@
       <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
     </marker>
   </defs>
-  <rect width="720" height="368" class="bg"/>
-  <rect x="16" y="16" width="688" height="336" rx="12" class="card"/>
+  <rect width="720" height="392" class="bg"/>
+  <rect x="16" y="16" width="688" height="360" rx="12" class="card"/>
   <text x="360" y="50" text-anchor="middle" class="title">四大优势 × AI 场景</text>
   <rect x="60" y="85" width="170" height="44" rx="8" class="box"/>
   <text x="145" y="113" text-anchor="middle" class="text">极致性能</text>
@@ -41,5 +41,5 @@
   <line x1="230" y1="287" x2="330" y2="287" class="arrow"/>
   <rect x="340" y="265" width="330" height="44" rx="8" class="box2"/>
   <text x="505" y="293" text-anchor="middle" class="text">容器化、WASM、边缘与 IoT 设备</text>
-  <text x="360" y="328" text-anchor="middle" class="label">大模型时代拼的不只是 GPU，还有 CPU 侧基础设施的效率</text>
+  <text x="360" y="346" text-anchor="middle" class="label">大模型时代拼的不只是 GPU，还有 CPU 侧基础设施的效率</text>
 </svg>

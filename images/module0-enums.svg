@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="340" viewBox="0 0 720 340">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="364" viewBox="0 0 720 364">
   <defs>
     <style>
       .bg { fill: #fff8f0; }
@@ -18,8 +18,8 @@
       <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
     </marker>
   </defs>
-  <rect width="720" height="340" class="bg"/>
-  <rect x="16" y="16" width="688" height="308" rx="12" class="card"/>
+  <rect width="720" height="364" class="bg"/>
+  <rect x="16" y="16" width="688" height="332" rx="12" class="card"/>
   <text x="360" y="50" text-anchor="middle" class="title">module0-enums</text>
 
   <rect x="40" y="80" width="300" height="198" rx="8" class="box"/>
@@ -38,6 +38,6 @@
   <text x="420" y="240" class="code">_ =&gt; ...,</text>
   <text x="400" y="265" class="code">}</text>
 
-  <text x="360" y="300" text-anchor="middle" class="text">💡 枚举让“一个类型的不同形态”在类型系统中显式表达</text>
+  <text x="360" y="320" text-anchor="middle" class="text">💡 枚举让“一个类型的不同形态”在类型系统中显式表达</text>
 
 </svg>
