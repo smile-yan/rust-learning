@@ -23,6 +23,7 @@ createApp({
     const editorCollapsed = ref(false);
     const outputText = ref("点击「运行」按钮查看输出结果");
     const outputClass = ref("text-gray-400");
+    const elapsedTime = ref(null);
     const loadError = ref("");
     const loading = ref(true);
     const editorEl = ref(null);
@@ -317,6 +318,7 @@ createApp({
     async function runCode() {
       outputText.value = "⏳ 正在编译运行，请稍候...";
       outputClass.value = "text-gray-200";
+      const startTime = performance.now();
 
       const code = editor.state.doc.toString();
       const evaluateUrl = (window.RUST_PLAYGROUND && window.RUST_PLAYGROUND.evaluateUrl) || "/evaluate.json";
@@ -355,6 +357,8 @@ createApp({
           outputText.value = `❌ 运行失败: ${err.message}`;
         }
         outputClass.value = "text-red-400";
+      } finally {
+        elapsedTime.value = (performance.now() - startTime) / 1000;
       }
     }
 
@@ -387,6 +391,7 @@ createApp({
     function clearOutput() {
       outputText.value = "点击「运行」按钮查看输出结果";
       outputClass.value = "text-gray-400";
+      elapsedTime.value = null;
     }
 
     function loadExercise(ex) {
@@ -481,6 +486,7 @@ createApp({
       menuOpen,
       outputText,
       outputClass,
+      elapsedTime,
       loadError,
       loading,
       retryLoad,
