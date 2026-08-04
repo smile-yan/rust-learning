@@ -4,8 +4,7 @@ backend/Cargo.lock
 
 # Node.js
 node_modules/
-package-lock.json
-package.json
+dist/
 
 # Tailwind build helpers
 tailwind-input.css

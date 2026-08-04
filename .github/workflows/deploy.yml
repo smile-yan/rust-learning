@@ -16,6 +16,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
       - name: Show deploy version
         run: |
           echo "Deploying version: ${{ github.ref_name }}"

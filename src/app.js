@@ -1,7 +1,13 @@
 import { createApp, ref, computed, onMounted, watch, nextTick } from "vue";
-import { EditorView, basicSetup, rust, oneDark, keymap, syntaxHighlighting, HighlightStyle, tags, indentUnit } from "../libs/codemirror-bundle.js?v=__VERSION__";
-
-const { marked } = window;
+import { EditorView, keymap } from "@codemirror/view";
+import { basicSetup } from "codemirror";
+import { rust } from "@codemirror/lang-rust";
+import { oneDark } from "@codemirror/theme-one-dark";
+import { syntaxHighlighting, HighlightStyle, indentUnit } from "@codemirror/language";
+import { tags } from "@lezer/highlight";
+import { marked } from "marked";
+import "./style.css";
+import chaptersData from "../js/chapters.json";
 
 const THEME_KEY = "rust-learning-theme";
 
@@ -252,24 +258,8 @@ createApp({
     }
 
     async function loadData() {
-      // 首次加载可能遇到瞬时的网络/CDN 抖动，自动重试两次，避免直接展示「加载失败」
-      let lastErr = null;
-      for (let attempt = 0; attempt < 3; attempt++) {
-        try {
-          const res = await fetch("./js/chapters.json?v=__VERSION__");
-          if (!res.ok) {
-            throw new Error(`无法加载章节数据: HTTP ${res.status}`);
-          }
-          modules.value = await res.json();
-          return;
-        } catch (err) {
-          lastErr = err;
-          if (attempt < 2) {
-            await new Promise((resolve) => setTimeout(resolve, 700 * (attempt + 1)));
-          }
-        }
-      }
-      throw lastErr;
+      // 章节数据在构建时直接打包进产物，无需网络请求
+      modules.value = chaptersData;
     }
 
     function loadChapter(globalIdx) {

@@ -3,6 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>Rust 学习之旅</title>
   <script>
     // 尽早设置主题，避免首屏主题闪烁（与 js/app.js 中 getPreferredTheme 保持一致）
@@ -29,23 +32,14 @@
     @keyframes boot-spin { to { transform: rotate(360deg); } }
     @keyframes boot-pulse { 0%, 100% { opacity: 0.55; } 50% { opacity: 1; } }
   </style>
-  <script src="./libs/tailwindcss.js"></script>
-  <script src="./libs/marked.min.js"></script>
-  <script type="importmap">
-  {
-    "imports": {
-      "vue": "./libs/vue.esm-browser.prod.js"
-    }
-  }
-  </script>
-  <link rel="stylesheet" href="css/style.css?v=__VERSION__">
-  <link rel="icon" href="images/favicon.svg" type="image/svg+xml">
+  <script src="/libs/tailwindcss.js"></script>
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
   <!-- Prism 代码高亮 -->
-  <link rel="stylesheet" href="css/prism-theme.css">
-  <script src="libs/prism.js"></script>
-  <script src="libs/prism-rust.js"></script>
-  <script src="libs/prism-toml.js"></script>
-  <script src="libs/prism-bash.js"></script>
+  <link rel="stylesheet" href="/css/prism-theme.css">
+  <script src="/libs/prism.js"></script>
+  <script src="/libs/prism-rust.js"></script>
+  <script src="/libs/prism-toml.js"></script>
+  <script src="/libs/prism-bash.js"></script>
 </head>
 <body>
   <!-- 启动加载动画：Vue 挂载前展示，挂载时由 js/app.js 移除 -->
@@ -244,6 +238,6 @@
       evaluateUrl: "http://localhost:9001/evaluate.json"
     };
   </script>
-  <script type="module" src="js/app.js?v=__VERSION__"></script>
+  <script type="module" src="/src/app.js"></script>
 </body>
 </html>

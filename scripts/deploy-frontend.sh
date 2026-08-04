@@ -10,6 +10,27 @@ cd "$PROJECT_ROOT"
 : "${FRONTEND_WEB_ROOT:?missing FRONTEND_WEB_ROOT}"
 : "${EVALUATE_URL:?missing EVALUATE_URL}"
 
+VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "unknown")
+
+echo "部署版本: $VERSION"
+
+# 安装依赖并构建
+npm ci
+npm run build
+
+# 把版本号注入到 HTML（页面右上角显示用）
+sed -i.bak \
+    -e "s|__VERSION__|$VERSION|g" \
+    dist/app.html \
+    dist/index.html
+rm -f dist/app.html.bak dist/index.html.bak
+
+# 替换生产环境 evaluateUrl
+sed -i.bak \
+    -e "s|evaluateUrl: \"http://localhost:9001/evaluate.json\"|evaluateUrl: \"$EVALUATE_URL\"|" \
+    dist/app.html
+rm -f dist/app.html.bak
+
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
 printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
@@ -25,19 +46,10 @@ Host frontend-deploy
 EOF
 chmod 600 ~/.ssh/config
 
-# 注入当前 git tag 作为静态资源缓存版本号，并替换生产环境 evaluateUrl
-# 注意：学习应用现已改名为 app.html；index.html 为封面页
-VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "unknown")
-python3 scripts/bump_version.py
-sed -i.bak \
-    -e "s|evaluateUrl: \"http://localhost:9001/evaluate.json\"|evaluateUrl: \"$EVALUATE_URL\"|" \
-    app.html
-rm -f app.html.bak
-
-# 上传静态文件（使用 scp，不依赖服务器端 rsync），带超时和重试
+# 上传 dist/ 目录（使用 scp，不依赖服务器端 rsync），带超时和重试
 upload_files() {
     scp -o ConnectTimeout=30 -o ServerAliveInterval=30 -o ServerAliveCountMax=3 \
-        -r index.html app.html css js libs images frontend-deploy:"$FRONTEND_WEB_ROOT/"
+        -r dist/* frontend-deploy:"$FRONTEND_WEB_ROOT/"
 }
 
 retry=0
