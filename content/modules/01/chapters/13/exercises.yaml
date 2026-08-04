@@ -1,0 +1,7 @@
+- title: 读取配置
+  description: 创建 .env 文件，在 Rust 中读取 APP_NAME 并打印。
+  code_template: |-
+    fn main() {
+        dotenv::dotenv().ok();
+        // let app = std::env::var("APP_NAME").unwrap();
+    }

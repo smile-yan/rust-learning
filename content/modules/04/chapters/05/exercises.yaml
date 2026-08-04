@@ -1,0 +1,11 @@
+- title: 处理 Option
+  description: 用 if let 从 Some(7) 中取值，否则打印 none。
+  code_template: |-
+    fn main() {
+        let x = Some(7);
+        if let Some(v) = x {
+            println!("{}", v);
+        } else {
+            println!("none");
+        }
+    }

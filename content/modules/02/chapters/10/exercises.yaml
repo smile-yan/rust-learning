@@ -1,0 +1,13 @@
+- title: 用 Instant 计时
+  description: 用 std::time::Instant 测量一次循环 1..=1_000_000 的耗时。
+  code_template: |-
+    use std::time::Instant;
+
+    fn main() {
+        let start = Instant::now();
+        let mut sum = 0u64;
+        for i in 1..=1_000_000 {
+            sum += i;
+        }
+        println!("sum={} time={:?}", sum, start.elapsed());
+    }

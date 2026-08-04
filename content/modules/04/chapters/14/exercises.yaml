@@ -1,0 +1,14 @@
+- title: 实现简单的 Drop
+  description: 为一个 Guard 结构体实现 Drop，观察它离开作用域时的输出。
+  code_template: |-
+    struct Guard(&'static str);
+
+    impl Drop for Guard {
+        fn drop(&mut self) {
+            println!("drop {}", self.0);
+        }
+    }
+
+    fn main() {
+        let _g = Guard("A");
+    }

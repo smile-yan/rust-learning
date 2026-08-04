@@ -1,0 +1,16 @@
+- title: 累加器
+  description: 声明一个可变的 counter，循环 5 次每次加 1，最后打印结果。
+  code_template: |-
+    fn main() {
+        let mut counter = 0;
+        // 使用 for 循环累加
+        println!("{}", counter);
+    }
+- title: 常量计算圆面积
+  description: '定义 const PI: f64 = 3.14，给定半径 r = 5，打印圆面积。'
+  code_template: |-
+    fn main() {
+        const PI: f64 = 3.14;
+        let r = 5.0;
+        // area = PI * r * r
+    }

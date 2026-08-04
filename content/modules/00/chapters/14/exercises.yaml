@@ -1,0 +1,16 @@
+- title: 用 unwrap_or 给默认值
+  description: '定义 score: Option<u32> = None，用 unwrap_or 得到默认值 60。'
+  code_template: |-
+    fn main() {
+        let score: Option<u32> = None;
+        // let final_score = ...
+        println!("{}", final_score);
+    }
+- title: Option 的 map 练习
+  description: 对 Some(5) 使用 map 使其值翻倍。
+  code_template: |-
+    fn main() {
+        let x = Some(5);
+        // let y = x.map(...);
+        println!("{:?}", y);
+    }

@@ -1,0 +1,21 @@
+- title: 取前 N 个字符
+  description: '编写函数 first_n(s: &str, n: usize) -> &str，返回字符串前 n 个字符（按字节）。'
+  code_template: |-
+    fn first_n(s: &str, n: usize) -> &str {
+        &s[..n]
+    }
+
+    fn main() {
+        println!("{}", first_n("Hello Rust", 5));
+    }
+- title: 数组切片求和
+  description: '编写函数 sum_slice(nums: &[i32]) -> i32，并调用它计算数组子区间的和。'
+  code_template: |-
+    fn sum_slice(nums: &[i32]) -> i32 {
+        // 补全
+    }
+
+    fn main() {
+        let arr = [1, 2, 3, 4, 5];
+        println!("{}", sum_slice(&arr[1..4]));
+    }

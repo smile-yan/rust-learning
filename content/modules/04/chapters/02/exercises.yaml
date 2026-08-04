@@ -1,0 +1,9 @@
+- title: String 与 &str 转换
+  description: 把 String 转成 &str，再把 &str 转成 String。
+  code_template: |-
+    fn main() {
+        let s = String::from("hello");
+        let slice: &str = &s;
+        let owned: String = slice.to_string();
+        println!("{}", owned);
+    }

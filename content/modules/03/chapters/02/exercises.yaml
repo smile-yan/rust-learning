@@ -1,0 +1,9 @@
+- title: 观察所有权移动
+  description: 把 String 赋值给新变量后尝试使用旧变量，查看编译错误。
+  code_template: |-
+    fn main() {
+        let s1 = String::from("Rust");
+        let s2 = s1;
+        // println!("{}", s1); // 取消注释看看错误
+        println!("{}", s2);
+    }

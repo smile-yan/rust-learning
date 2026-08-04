@@ -1,0 +1,13 @@
+- title: 使用 Rc 并观察计数
+  description: 创建 Rc，clone 后打印 strong_count，离开作用域后再打印。
+  code_template: |-
+    use std::rc::Rc;
+
+    fn main() {
+        let r = Rc::new(1);
+        {
+            let _r2 = Rc::clone(&r);
+            println!("count = {}", Rc::strong_count(&r));
+        }
+        println!("count = {}", Rc::strong_count(&r));
+    }

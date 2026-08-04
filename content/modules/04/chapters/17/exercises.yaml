@@ -1,0 +1,10 @@
+- title: 组合代替继承
+  description: 用 Engine 组合成 Car，并实现 start 方法。
+  code_template: |-
+    struct Engine;
+    struct Car { engine: Engine }
+
+    impl Engine { fn start(&self) { println!("vroom"); } }
+    impl Car { fn start(&self) { self.engine.start(); } }
+
+    fn main() { Car { engine: Engine }.start(); }

@@ -1,0 +1,12 @@
+- title: 定义 say! 宏
+  description: 定义一个 say! 宏，接收一个表达式并打印它及其结果。
+  code_template: |-
+    macro_rules! say {
+        ($e:expr) => {
+            println!("{} = {}", stringify!($e), $e);
+        };
+    }
+
+    fn main() {
+        say!(1 + 2);
+    }

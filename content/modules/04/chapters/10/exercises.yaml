@@ -1,0 +1,8 @@
+- title: 修复借用错误
+  description: 把 println!("{}", s) 移到 _s2 = s 之前，避免使用已移动的值。
+  code_template: |-
+    fn main() {
+        let s = String::from("hello");
+        println!("{}", s);
+        let _s2 = s;
+    }

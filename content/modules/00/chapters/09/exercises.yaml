@@ -1,0 +1,24 @@
+- title: 安全的除法
+  description: '实现 fn safe_divide(a: i32, b: i32) -> Result<i32, String>，除零返回错误。'
+  code_template: |-
+    fn safe_divide(a: i32, b: i32) -> Result<i32, String> {
+        // 补全
+    }
+
+    fn main() {
+        match safe_divide(10, 0) {
+            Ok(v) => println!("{}", v),
+            Err(e) => println!("{}", e),
+        }
+    }
+- title: 使用 ? 传播错误
+  description: 写一个 compute 函数，内部调用 safe_divide 并用 ? 传播错误。
+  code_template: |-
+    fn compute(a: i32, b: i32) -> Result<i32, String> {
+        let x = safe_divide(a, b)?;
+        Ok(x * 2)
+    }
+
+    fn main() {
+        println!("{:?}", compute(10, 2));
+    }

@@ -1,0 +1,10 @@
+- title: 显式处理 Option
+  description: 对 Some(5) 和 None 分别用 match 处理。
+  code_template: |-
+    fn main() {
+        let x: Option<i32> = Some(5);
+        match x {
+            Some(v) => println!("{}", v),
+            None => println!("none"),
+        }
+    }

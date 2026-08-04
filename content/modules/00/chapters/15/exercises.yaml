@@ -1,0 +1,11 @@
+- title: 创建简单模块
+  description: 定义 math 模块，包含 pub fn add 和 pub fn sub，在 main 中调用。
+  code_template: |-
+    mod math {
+        pub fn add(a: i32, b: i32) -> i32 { a + b }
+        pub fn sub(a: i32, b: i32) -> i32 { a - b }
+    }
+
+    fn main() {
+        println!("{}", math::add(2, 3));
+    }

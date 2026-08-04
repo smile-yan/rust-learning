@@ -1,0 +1,11 @@
+- title: async 函数与 await
+  description: 定义 async fn hello()，在 tokio main 中 await 它。
+  code_template: |-
+    #[tokio::main]
+    async fn main() {
+        hello().await;
+    }
+
+    async fn hello() {
+        println!("Hello, async!");
+    }

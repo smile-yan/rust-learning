@@ -4,13 +4,20 @@ backend/Cargo.lock
 
 # Node.js
 node_modules/
-package-lock.json
-package.json
+
+# Vite build output
+dist/
+
+# Generated content
+public/chapters/
+
+# Local env files
+.env.development
+.env.production
 
 # Tailwind build helpers
 tailwind-input.css
 tailwind.config.js
-codemirror-entry.js
 
 # OS
 .DS_Store

@@ -1,0 +1,23 @@
+- title: 借用计算长度
+  description: 定义 String s，编写一个函数接收 &String 返回长度，调用后仍可使用 s。
+  code_template: |-
+    fn len(s: &String) -> usize {
+        s.len()
+    }
+
+    fn main() {
+        let s = String::from("Rust");
+        // 调用 len 并打印，s 之后还能使用
+    }
+- title: 可变借用拼接字符串
+  description: 定义 mut String，用可变借用给它追加内容，最后打印。
+  code_template: |-
+    fn append(s: &mut String) {
+        s.push_str("!");
+    }
+
+    fn main() {
+        let mut s = String::from("Hello");
+        // 调用 append
+        println!("{}", s);
+    }

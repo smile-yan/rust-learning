@@ -1,0 +1,8 @@
+- title: 打印对比表格
+  description: 用格式化输出打印一个简单的 Rust 与其他语言对比表。
+  code_template: |-
+    fn main() {
+        println!("{:<10} {}", "语言", "特点");
+        println!("{:<10} {}", "Rust", "无 GC 内存安全");
+        println!("{:<10} {}", "Go", "简单但有 GC");
+    }

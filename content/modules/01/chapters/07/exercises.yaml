@@ -1,0 +1,16 @@
+- title: 实现 From<&str> for String
+  description: 使用 to_string 实现 From<&str> 转换（String 已内置，练习手写自定义 From）。
+  code_template: |-
+    #[derive(Debug)]
+    struct Name(String);
+
+    impl From<&str> for Name {
+        fn from(s: &str) -> Self {
+            Name(s.to_string())
+        }
+    }
+
+    fn main() {
+        let n: Name = "Rust".into();
+        println!("{:?}", n);
+    }

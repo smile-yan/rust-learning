@@ -1,0 +1,13 @@
+- title: 用 channel 传所有权
+  description: 在线程间通过 mpsc 发送 String 的所有权。
+  code_template: |-
+    use std::sync::mpsc;
+    use std::thread;
+
+    fn main() {
+        let (tx, rx) = mpsc::channel();
+        thread::spawn(move || {
+            tx.send(String::from("hello")).unwrap();
+        });
+        println!("{}", rx.recv().unwrap());
+    }

@@ -1,0 +1,15 @@
+- title: 打印个人信息
+  description: 定义姓名、年龄两个变量，用一行 println! 输出『我叫 XXX，今年 XX 岁』。
+  code_template: |-
+    fn main() {
+        // 在这里定义 name 和 age
+        // println!("...");
+    }
+- title: 格式化输出坐标
+  description: '给定 x = 3, y = 4，用占位符输出『坐标: (3, 4)』。'
+  code_template: |-
+    fn main() {
+        let x = 3;
+        let y = 4;
+        // 使用 println! 输出
+    }

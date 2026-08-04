@@ -1,0 +1,37 @@
+- title: 为自定义类型实现 Display
+  description: '为 struct Person { name: String } 实现 std::fmt::Display。'
+  code_template: |-
+    use std::fmt;
+
+    struct Person {
+        name: String,
+    }
+
+    impl fmt::Display for Person {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            // write!(f, "...")
+        }
+    }
+
+    fn main() {
+        let p = Person { name: String::from("Alice") };
+        println!("{}", p);
+    }
+- title: Greetable trait
+  description: 定义 Greetable trait 含 greet 方法，为 Person 实现。
+  code_template: |-
+    trait Greetable {
+        fn greet(&self);
+    }
+
+    struct Person { name: String }
+
+    impl Greetable for Person {
+        fn greet(&self) {
+            println!("Hello, {}!", self.name);
+        }
+    }
+
+    fn main() {
+        Person { name: String::from("Bob") }.greet();
+    }

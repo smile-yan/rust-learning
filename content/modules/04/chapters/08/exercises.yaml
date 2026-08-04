@@ -1,0 +1,9 @@
+- title: 打印学习计划
+  description: 用 enumerate 打印 1..N 的学习步骤。
+  code_template: |-
+    fn main() {
+        let steps = vec!["看书", "做题", "写项目"];
+        for (i, s) in steps.iter().enumerate() {
+            println!("{}. {}", i + 1, s);
+        }
+    }

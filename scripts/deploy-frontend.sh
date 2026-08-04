@@ -25,19 +25,18 @@ Host frontend-deploy
 EOF
 chmod 600 ~/.ssh/config
 
-# 替换生产环境 evaluateUrl，并注入当前 git tag 作为页面版本号
-# 注意：学习应用现已改名为 app.html，evaluateUrl 与版本号均在其中；index.html 为封面页
+# 注入生产环境配置并构建
 VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "unknown")
-sed -i.bak \
-    -e "s|evaluateUrl: \"http://localhost:9001/evaluate.json\"|evaluateUrl: \"$EVALUATE_URL\"|" \
-    -e "s|v0.0.0-dev|$VERSION|" \
-    app.html
-rm -f app.html.bak
+export VITE_EVALUATE_URL="$EVALUATE_URL"
+export VITE_APP_VERSION="$VERSION"
+
+npm ci --cache ./node_modules/.cache/npm
+npm run build
 
 # 上传静态文件（使用 scp，不依赖服务器端 rsync），带超时和重试
 upload_files() {
     scp -o ConnectTimeout=30 -o ServerAliveInterval=30 -o ServerAliveCountMax=3 \
-        -r index.html app.html css js libs images frontend-deploy:"$FRONTEND_WEB_ROOT/"
+        -r dist/* frontend-deploy:"$FRONTEND_WEB_ROOT/"
 }
 
 retry=0

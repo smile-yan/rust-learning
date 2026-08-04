@@ -1,0 +1,16 @@
+- title: 统计字符频率
+  description: 用 HashMap 统计 "abracadabra" 中每个字符的频率。
+  code_template: |-
+    fn main() {
+        let s = "abracadabra";
+        let mut freq = std::collections::HashMap::new();
+        // for c in s.chars() { ... }
+    }
+- title: 集合交集
+  description: 给定两个 HashSet，打印它们的交集。
+  code_template: |-
+    fn main() {
+        let a: HashSet<_> = [1,2,3].iter().collect();
+        let b: HashSet<_> = [2,3,4].iter().collect();
+        // let inter: Vec<_> = a.intersection(&b).collect();
+    }

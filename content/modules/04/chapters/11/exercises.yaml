@@ -1,0 +1,9 @@
+- title: 观察自动释放
+  description: 在作用域内创建 String，离开作用域后它会被自动 drop。
+  code_template: |-
+    fn main() {
+        {
+            let s = String::from("Rust");
+            println!("{}", s);
+        } // s 在这里释放
+    }

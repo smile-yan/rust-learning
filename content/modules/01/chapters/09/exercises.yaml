@@ -1,0 +1,9 @@
+- title: 读取文件内容
+  description: 用 fs::read_to_string 读取一个文本文件并打印其长度。
+  code_template: |-
+    use std::fs;
+
+    fn main() {
+        // let content = fs::read_to_string("hello.txt").unwrap();
+        // println!("{} bytes", content.len());
+    }
