@@ -17,6 +17,12 @@ export default defineConfig({
   plugins: [vue(), removeCrossorigin()],
   base: "./",
   publicDir: "public",
+  resolve: {
+    alias: {
+      // 页面模板直接写在 HTML 中，需要带编译器的 Vue 版本
+      vue: "vue/dist/vue.esm-bundler.js",
+    },
+  },
   build: {
     outDir: "dist",
     emptyOutDir: true,
