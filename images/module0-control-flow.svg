@@ -20,23 +20,23 @@
   </defs>
   <rect width="720" height="360" class="bg"/>
   <rect x="16" y="16" width="688" height="328" rx="12" class="card"/>
-  <text x="360" y="50" text-anchor="middle" class="title">module0-control-flow</text>
+  <text x="360" y="62" text-anchor="middle" class="title">module0-control-flow</text>
   
-  <rect x="50" y="80" width="170" height="90" rx="8" class="box"/>
-  <text x="135" y="115" text-anchor="middle" class="text">if / else</text>
-  <text x="135" y="145" text-anchor="middle" class="label">条件分支</text>
+  <rect x="50" y="95" width="170" height="90" rx="8" class="box"/>
+  <text x="135" y="130" text-anchor="middle" class="text">if / else</text>
+  <text x="135" y="160" text-anchor="middle" class="label">条件分支</text>
   
-  <rect x="275" y="80" width="170" height="90" rx="8" class="box2"/>
-  <text x="360" y="115" text-anchor="middle" class="text">for / while</text>
-  <text x="360" y="145" text-anchor="middle" class="label">循环遍历</text>
+  <rect x="275" y="95" width="170" height="90" rx="8" class="box2"/>
+  <text x="360" y="130" text-anchor="middle" class="text">for / while</text>
+  <text x="360" y="160" text-anchor="middle" class="label">循环遍历</text>
   
-  <rect x="500" y="80" width="170" height="90" rx="8" class="box3"/>
-  <text x="585" y="115" text-anchor="middle" class="text">match</text>
-  <text x="585" y="145" text-anchor="middle" class="label">穷尽模式</text>
+  <rect x="500" y="95" width="170" height="90" rx="8" class="box3"/>
+  <text x="585" y="130" text-anchor="middle" class="text">match</text>
+  <text x="585" y="160" text-anchor="middle" class="label">穷尽模式</text>
   
-  <text x="360" y="230" text-anchor="middle" class="text">💡 Rust 中 if 是表达式，可直接返回值</text>
-  <text x="360" y="260" text-anchor="middle" class="code">let x = if cond { 1 } else { 2 };</text>
+  <text x="360" y="245" text-anchor="middle" class="text">💡 Rust 中 if 是表达式，可直接返回值</text>
+  <text x="360" y="275" text-anchor="middle" class="code">let x = if cond { 1 } else { 2 };</text>
   
-  <text x="360" y="310" text-anchor="middle" class="text">⚠️ loop 可用 break value; 返回一个值</text>
+  <text x="360" y="325" text-anchor="middle" class="text">⚠️ loop 可用 break value; 返回一个值</text>
 
 </svg>

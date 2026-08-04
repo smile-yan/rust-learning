@@ -16,8 +16,8 @@
   </defs>
   <rect width="720" height="470" class="bg"/>
   <rect x="16" y="16" width="688" height="438" rx="12" class="card"/>
-  <text x="360" y="52" text-anchor="middle" class="title">不同语言执行速度对比（示意量级）</text>
-  <text x="360" y="78" text-anchor="middle" class="label">相对执行时间：以 C 为 1×，越短越好</text>
+  <text x="360" y="62" text-anchor="middle" class="title">不同语言执行速度对比（示意量级）</text>
+  <text x="360" y="88" text-anchor="middle" class="label">相对执行时间：以 C 为 1×，越短越好</text>
 
   <!-- C -->
   <text x="110" y="124" text-anchor="end" class="lang">C</text>

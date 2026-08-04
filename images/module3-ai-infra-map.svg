@@ -20,7 +20,7 @@
   </defs>
   <rect width="720" height="390" class="bg"/>
   <rect x="16" y="16" width="688" height="358" rx="12" class="card"/>
-  <text x="360" y="50" text-anchor="middle" class="title">Rust 在 AI 基础设施中的位置</text>
+  <text x="360" y="62" text-anchor="middle" class="title">Rust 在 AI 基础设施中的位置</text>
   <rect x="45" y="95" width="180" height="48" rx="8" class="box"/>
   <text x="60" y="116" class="text">模型推理</text>
   <text x="60" y="136" class="label">candle · tract</text>

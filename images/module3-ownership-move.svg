@@ -20,7 +20,7 @@
   </defs>
   <rect width="720" height="340" class="bg"/>
   <rect x="16" y="16" width="688" height="308" rx="12" class="card"/>
-  <text x="360" y="50" text-anchor="middle" class="title">移动语义：所有权从 s1 转移到 s2</text>
+  <text x="360" y="62" text-anchor="middle" class="title">移动语义：所有权从 s1 转移到 s2</text>
   <text x="140" y="100" text-anchor="middle" class="text">栈</text>
   <text x="560" y="100" text-anchor="middle" class="text">堆</text>
   <rect x="70" y="115" width="140" height="56" rx="8" class="box3"/>

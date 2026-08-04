@@ -20,7 +20,7 @@
   </defs>
   <rect width="720" height="432" class="bg"/>
   <rect x="16" y="16" width="688" height="400" rx="12" class="card"/>
-  <text x="360" y="50" text-anchor="middle" class="title">String 与 &amp;str 的内存布局</text>
+  <text x="360" y="62" text-anchor="middle" class="title">String 与 &amp;str 的内存布局</text>
   <rect x="45" y="85" width="260" height="120" rx="10" class="box"/>
   <text x="175" y="108" text-anchor="middle" class="label">栈 Stack</text>
   <rect x="85" y="122" width="160" height="70" rx="6" class="card"/>

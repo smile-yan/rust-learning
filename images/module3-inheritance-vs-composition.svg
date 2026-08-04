@@ -20,7 +20,7 @@
   </defs>
   <rect width="720" height="370" class="bg"/>
   <rect x="16" y="16" width="688" height="338" rx="12" class="card"/>
-  <text x="360" y="50" text-anchor="middle" class="title">继承树 vs 组合积木</text>
+  <text x="360" y="62" text-anchor="middle" class="title">继承树 vs 组合积木</text>
   <!-- CONTENT -->
   <text x="185" y="90" text-anchor="middle" class="text">继承：深层耦合</text>
   <rect x="115" y="105" width="140" height="36" rx="8" class="box3"/>

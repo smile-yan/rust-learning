@@ -20,7 +20,7 @@
   </defs>
   <rect width="720" height="340" class="bg"/>
   <rect x="16" y="16" width="688" height="308" rx="12" class="card"/>
-  <text x="360" y="50" text-anchor="middle" class="title">借用规则：读可共享，写必独占</text>
+  <text x="360" y="62" text-anchor="middle" class="title">借用规则：读可共享，写必独占</text>
   <text x="140" y="100" text-anchor="middle" class="text">不可变借用 &amp;T：多个共存 ✅</text>
   <text x="360" y="100" text-anchor="middle" class="text">可变借用 &amp;mut T：独占 ✅</text>
   <text x="580" y="100" text-anchor="middle" class="text">&amp;T 与 &amp;mut T 共存 ❌</text>

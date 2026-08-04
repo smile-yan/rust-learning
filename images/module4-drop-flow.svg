@@ -20,7 +20,7 @@
   </defs>
   <rect width="720" height="368" class="bg"/>
   <rect x="16" y="16" width="688" height="336" rx="12" class="card"/>
-  <text x="360" y="50" text-anchor="middle" class="title">没有 GC：离开作用域即释放</text>
+  <text x="360" y="62" text-anchor="middle" class="title">没有 GC：离开作用域即释放</text>
   <!-- CONTENT -->
   <rect x="210" y="85" width="300" height="44" rx="8" class="box"/>
   <text x="360" y="114" text-anchor="middle" class="text">值离开作用域</text>

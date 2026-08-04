@@ -20,7 +20,7 @@
   </defs>
   <rect width="720" height="392" class="bg"/>
   <rect x="16" y="16" width="688" height="360" rx="12" class="card"/>
-  <text x="360" y="50" text-anchor="middle" class="title">四大优势 × AI 场景</text>
+  <text x="360" y="62" text-anchor="middle" class="title">四大优势 × AI 场景</text>
   <rect x="60" y="85" width="170" height="44" rx="8" class="box"/>
   <text x="145" y="113" text-anchor="middle" class="text">极致性能</text>
   <line x1="230" y1="107" x2="330" y2="107" class="arrow"/>

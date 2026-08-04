@@ -20,7 +20,7 @@
   </defs>
   <rect width="720" height="385" class="bg"/>
   <rect x="16" y="16" width="688" height="353" rx="12" class="card"/>
-  <text x="360" y="50" text-anchor="middle" class="title">unsafe 关闭了什么，没关什么</text>
+  <text x="360" y="62" text-anchor="middle" class="title">unsafe 关闭了什么，没关什么</text>
   <rect x="40" y="85" width="310" height="230" rx="10" class="box3"/>
   <text x="60" y="115" class="text">可以做的事（检查被放宽）</text>
   <text x="60" y="150" class="label">· 解引用裸指针</text>

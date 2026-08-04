@@ -20,23 +20,23 @@
   </defs>
   <rect width="720" height="350" class="bg"/>
   <rect x="16" y="16" width="688" height="318" rx="12" class="card"/>
-  <text x="360" y="50" text-anchor="middle" class="title">module0-structs</text>
+  <text x="360" y="62" text-anchor="middle" class="title">module0-structs</text>
   
-  <rect x="60" y="80" width="320" height="170" rx="8" class="box"/>
-  <text x="80" y="115" class="code">struct User {</text>
-  <text x="100" y="145" class="code">  username: String,</text>
-  <text x="100" y="175" class="code">  email: String,</text>
-  <text x="100" y="205" class="code">  active: bool,</text>
-  <text x="80" y="235" class="code">}</text>
+  <rect x="60" y="95" width="320" height="170" rx="8" class="box"/>
+  <text x="80" y="130" class="code">struct User {</text>
+  <text x="100" y="160" class="code">  username: String,</text>
+  <text x="100" y="190" class="code">  email: String,</text>
+  <text x="100" y="220" class="code">  active: bool,</text>
+  <text x="80" y="250" class="code">}</text>
   
-  <rect x="420" y="80" width="240" height="170" rx="8" class="box2"/>
-  <text x="440" y="115" class="text">实例化</text>
-  <text x="440" y="150" class="code">User {</text>
-  <text x="460" y="180" class="code">username: ...</text>
-  <text x="460" y="210" class="code">..Default::default()</text>
-  <text x="440" y="235" class="code">}</text>
+  <rect x="420" y="95" width="240" height="170" rx="8" class="box2"/>
+  <text x="440" y="130" class="text">实例化</text>
+  <text x="440" y="165" class="code">User {</text>
+  <text x="460" y="195" class="code">username: ...</text>
+  <text x="460" y="225" class="code">..Default::default()</text>
+  <text x="440" y="250" class="code">}</text>
   
-  <text x="360" y="280" text-anchor="middle" class="text">🦀 结构体把相关数据打包成一个有意义的整体</text>
-  <text x="360" y="310" text-anchor="middle" class="label">Tuple struct / Unit struct 是另外两种变体</text>
+  <text x="360" y="295" text-anchor="middle" class="text">🦀 结构体把相关数据打包成一个有意义的整体</text>
+  <text x="360" y="325" text-anchor="middle" class="label">Tuple struct / Unit struct 是另外两种变体</text>
 
 </svg>

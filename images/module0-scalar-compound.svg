@@ -20,7 +20,7 @@
   </defs>
   <rect width="720" height="354" class="bg"/>
   <rect x="16" y="16" width="688" height="322" rx="12" class="card"/>
-  <text x="360" y="50" text-anchor="middle" class="title">Rust 数据类型总览</text>
+  <text x="360" y="62" text-anchor="middle" class="title">Rust 数据类型总览</text>
   <rect x="50" y="85" width="300" height="185" rx="10" class="box"/>
   <text x="200" y="115" text-anchor="middle" class="text">标量类型（Scalar）</text>
   <text x="70" y="148" class="label">· 整数：i8 ~ u64, isize</text>

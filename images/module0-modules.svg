@@ -20,24 +20,24 @@
   </defs>
   <rect width="720" height="350" class="bg"/>
   <rect x="16" y="16" width="688" height="318" rx="12" class="card"/>
-  <text x="360" y="50" text-anchor="middle" class="title">module0-modules</text>
+  <text x="360" y="62" text-anchor="middle" class="title">module0-modules</text>
   
-  <rect x="60" y="80" width="220" height="120" rx="8" class="box"/>
-  <text x="80" y="115" class="text">crate（包根）</text>
-  <text x="80" y="150" class="label">main.rs / lib.rs</text>
-  <text x="80" y="180" class="code">mod foo;</text>
+  <rect x="60" y="95" width="220" height="120" rx="8" class="box"/>
+  <text x="80" y="130" class="text">crate（包根）</text>
+  <text x="80" y="165" class="label">main.rs / lib.rs</text>
+  <text x="80" y="195" class="code">mod foo;</text>
   
-  <rect x="320" y="80" width="180" height="120" rx="8" class="box2"/>
-  <text x="340" y="115" class="text">module</text>
-  <text x="340" y="150" class="label">foo.rs 或 foo/mod.rs</text>
-  <text x="340" y="180" class="code">pub fn bar()</text>
+  <rect x="320" y="95" width="180" height="120" rx="8" class="box2"/>
+  <text x="340" y="130" class="text">module</text>
+  <text x="340" y="165" class="label">foo.rs 或 foo/mod.rs</text>
+  <text x="340" y="195" class="code">pub fn bar()</text>
   
-  <rect x="540" y="80" width="140" height="120" rx="8" class="box3"/>
-  <text x="560" y="115" class="text">可见性</text>
-  <text x="560" y="150" class="label">pub</text>
-  <text x="560" y="180" class="label">private</text>
+  <rect x="540" y="95" width="140" height="120" rx="8" class="box3"/>
+  <text x="560" y="130" class="text">可见性</text>
+  <text x="560" y="165" class="label">pub</text>
+  <text x="560" y="195" class="label">private</text>
   
-  <text x="360" y="260" text-anchor="middle" class="text">🦀 use 关键字创建快捷方式，避免写长路径</text>
-  <text x="360" y="300" text-anchor="middle" class="code">use crate::foo::bar;</text>
+  <text x="360" y="275" text-anchor="middle" class="text">🦀 use 关键字创建快捷方式，避免写长路径</text>
+  <text x="360" y="315" text-anchor="middle" class="code">use crate::foo::bar;</text>
 
 </svg>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="460" viewBox="0 0 640 460">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="490" viewBox="0 0 640 490">
   <rect width="100%" height="100%" fill="#fff8f0" rx="12"/>
   <text x="320" y="28" text-anchor="middle" font-size="18" font-weight="bold" fill="#4a3b2a">进程管理 std::process::Command</text>
   <defs>
@@ -7,7 +7,7 @@
       <path d="M0,0 L0,6 L9,3 z" fill="#5c4b37"/>
     </marker>
   </defs>
-  <rect x="40" y="56" width="560" height="374" fill="#fff3e0" stroke="#d4a76a" stroke-width="2" rx="8"/>
+  <rect x="40" y="56" width="560" height="404" fill="#fff3e0" stroke="#d4a76a" stroke-width="2" rx="8"/>
   <text x="320" y="86" font-size="14" font-weight="bold" fill="#3d3229" text-anchor="middle">Command 调用外部进程</text>
   <!-- Command::new -->
   <rect x="170" y="100" width="300" height="88" fill="#e8f5e9" stroke="#66bb6a" stroke-width="2" rx="8"/>
@@ -27,5 +27,5 @@
   <rect x="150" y="340" width="340" height="64" fill="#fce4ec" stroke="#ec407a" stroke-width="2" rx="8"/>
   <text x="320" y="364" font-size="13" font-weight="bold" fill="#3d3229" text-anchor="middle">Output 结果</text>
   <text x="320" y="384" font-size="12" fill="#666" text-anchor="middle">stdout · stderr · status（ExitStatus）</text>
-  <text x="320" y="422" font-size="13" fill="#5c4b37" text-anchor="middle">spawn 异步执行，output 等待完成并捕获输出</text>
+  <text x="320" y="442" font-size="13" fill="#5c4b37" text-anchor="middle">spawn 异步执行，output 等待完成并捕获输出</text>
 </svg>

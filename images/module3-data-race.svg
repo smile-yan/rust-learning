@@ -20,7 +20,7 @@
   </defs>
   <rect width="720" height="380" class="bg"/>
   <rect x="16" y="16" width="688" height="348" rx="12" class="card"/>
-  <text x="360" y="50" text-anchor="middle" class="title">数据竞争是如何被编译期拦截的</text>
+  <text x="360" y="62" text-anchor="middle" class="title">数据竞争是如何被编译期拦截的</text>
   <rect x="40" y="85" width="300" height="220" rx="10" class="box3"/>
   <text x="55" y="118" class="text">数据竞争三条件</text>
   <text x="55" y="150" class="label">① 多线程同时访问同一数据</text>

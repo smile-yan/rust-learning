@@ -20,7 +20,7 @@
   </defs>
   <rect width="720" height="380" class="bg"/>
   <rect x="16" y="16" width="688" height="348" rx="12" class="card"/>
-  <text x="360" y="50" text-anchor="middle" class="title">unsafe：被围起来的责任区</text>
+  <text x="360" y="62" text-anchor="middle" class="title">unsafe：被围起来的责任区</text>
   <rect x="45" y="80" width="630" height="230" rx="12" class="box2"/>
   <text x="65" y="108" class="text">Safe Rust 区域：借用 / 生命周期 / 类型检查全部生效</text>
   <rect x="70" y="170" width="110" height="44" rx="8" class="box"/>

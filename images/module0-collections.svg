@@ -20,23 +20,23 @@
   </defs>
   <rect width="720" height="320" class="bg"/>
   <rect x="16" y="16" width="688" height="288" rx="12" class="card"/>
-  <text x="360" y="50" text-anchor="middle" class="title">module0-collections</text>
+  <text x="360" y="62" text-anchor="middle" class="title">module0-collections</text>
   
-  <rect x="50" y="80" width="190" height="120" rx="8" class="box"/>
-  <text x="145" y="120" text-anchor="middle" class="text">Vec&lt;T&gt;</text>
-  <text x="145" y="150" text-anchor="middle" class="label">可变长数组</text>
-  <text x="145" y="180" text-anchor="middle" class="code">vec![1, 2, 3]</text>
+  <rect x="50" y="95" width="190" height="120" rx="8" class="box"/>
+  <text x="145" y="135" text-anchor="middle" class="text">Vec&lt;T&gt;</text>
+  <text x="145" y="165" text-anchor="middle" class="label">可变长数组</text>
+  <text x="145" y="195" text-anchor="middle" class="code">vec![1, 2, 3]</text>
   
-  <rect x="265" y="80" width="190" height="120" rx="8" class="box2"/>
-  <text x="360" y="120" text-anchor="middle" class="text">String</text>
-  <text x="360" y="150" text-anchor="middle" class="label">UTF-8 可变字符串</text>
-  <text x="360" y="180" text-anchor="middle" class="code">&quot;hello&quot;.to_string()</text>
+  <rect x="265" y="95" width="190" height="120" rx="8" class="box2"/>
+  <text x="360" y="135" text-anchor="middle" class="text">String</text>
+  <text x="360" y="165" text-anchor="middle" class="label">UTF-8 可变字符串</text>
+  <text x="360" y="195" text-anchor="middle" class="code">&quot;hello&quot;.to_string()</text>
   
-  <rect x="480" y="80" width="190" height="120" rx="8" class="box3"/>
-  <text x="575" y="120" text-anchor="middle" class="text">HashMap&lt;K,V&gt;</text>
-  <text x="575" y="150" text-anchor="middle" class="label">键值对集合</text>
-  <text x="575" y="180" text-anchor="middle" class="code">map.insert(k, v)</text>
+  <rect x="480" y="95" width="190" height="120" rx="8" class="box3"/>
+  <text x="575" y="135" text-anchor="middle" class="text">HashMap&lt;K,V&gt;</text>
+  <text x="575" y="165" text-anchor="middle" class="label">键值对集合</text>
+  <text x="575" y="195" text-anchor="middle" class="code">map.insert(k, v)</text>
   
-  <text x="360" y="260" text-anchor="middle" class="text">💡 集合都存储在堆上，容量会自动增长</text>
+  <text x="360" y="275" text-anchor="middle" class="text">💡 集合都存储在堆上，容量会自动增长</text>
 
 </svg>

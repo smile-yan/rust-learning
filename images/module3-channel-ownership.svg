@@ -20,7 +20,7 @@
   </defs>
   <rect width="720" height="360" class="bg"/>
   <rect x="16" y="16" width="688" height="328" rx="12" class="card"/>
-  <text x="360" y="50" text-anchor="middle" class="title">消息传递：所有权随消息转移</text>
+  <text x="360" y="62" text-anchor="middle" class="title">消息传递：所有权随消息转移</text>
   <text x="237" y="120" text-anchor="middle" class="code">tx.send(data)</text>
   <text x="477" y="120" text-anchor="middle" class="code">rx.recv()</text>
   <rect x="60" y="130" width="140" height="80" rx="8" class="box"/>

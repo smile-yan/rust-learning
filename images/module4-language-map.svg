@@ -18,7 +18,7 @@
   </defs>
   <rect width="720" height="468" class="bg"/>
   <rect x="16" y="16" width="688" height="436" rx="12" class="card"/>
-  <text x="360" y="52" text-anchor="middle" class="title">性能 × 内存安全：各语言大致定位</text>
+  <text x="360" y="62" text-anchor="middle" class="title">性能 × 内存安全：各语言大致定位</text>
 
   <!-- 理想区域：右上象限 -->
   <rect x="470" y="86" width="186" height="110" rx="10" class="zone"/>

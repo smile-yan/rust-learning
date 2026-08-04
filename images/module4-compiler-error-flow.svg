@@ -20,7 +20,7 @@
   </defs>
   <rect width="720" height="424" class="bg"/>
   <rect x="16" y="16" width="688" height="392" rx="12" class="card"/>
-  <text x="360" y="50" text-anchor="middle" class="title">遇到编译错误怎么办</text>
+  <text x="360" y="62" text-anchor="middle" class="title">遇到编译错误怎么办</text>
   <!-- CONTENT -->
   <rect x="180" y="85" width="360" height="42" rx="8" class="box"/>
   <text x="360" y="113" text-anchor="middle" class="text">先看错误类型（如 error[E0308]）</text>

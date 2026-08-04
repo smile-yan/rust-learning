@@ -20,7 +20,7 @@
   </defs>
   <rect width="720" height="340" class="bg"/>
   <rect x="16" y="16" width="688" height="308" rx="12" class="card"/>
-  <text x="360" y="50" text-anchor="middle" class="title">默认不可变，mut 显式开口</text>
+  <text x="360" y="62" text-anchor="middle" class="title">默认不可变，mut 显式开口</text>
   <rect x="60" y="95" width="240" height="50" rx="8" class="box2"/>
   <text x="80" y="126" class="code">let x = 5;</text>
   <text x="330" y="120" class="code">x = 6;</text>
