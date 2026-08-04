@@ -2,8 +2,19 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import { resolve } from "path";
 
+function removeCrossorigin() {
+  return {
+    name: "remove-crossorigin",
+    transformIndexHtml(html) {
+      return html
+        .replace(/<script([^>]*?)\s+crossorigin([^>]*)>/gi, "<script$1$2>")
+        .replace(/<link([^>]*?)\s+crossorigin([^>]*)>/gi, "<link$1$2>");
+    },
+  };
+}
+
 export default defineConfig({
-  plugins: [vue()],
+  plugins: [vue(), removeCrossorigin()],
   base: "./",
   publicDir: "public",
   build: {
