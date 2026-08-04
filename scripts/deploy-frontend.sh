@@ -25,12 +25,12 @@ Host frontend-deploy
 EOF
 chmod 600 ~/.ssh/config
 
-# 替换生产环境 evaluateUrl，并注入当前 git tag 作为页面版本号
-# 注意：学习应用现已改名为 app.html，evaluateUrl 与版本号均在其中；index.html 为封面页
+# 注入当前 git tag 作为静态资源缓存版本号，并替换生产环境 evaluateUrl
+# 注意：学习应用现已改名为 app.html；index.html 为封面页
 VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "unknown")
+python3 scripts/bump_version.py
 sed -i.bak \
     -e "s|evaluateUrl: \"http://localhost:9001/evaluate.json\"|evaluateUrl: \"$EVALUATE_URL\"|" \
-    -e "s|v0.0.0-dev|$VERSION|" \
     app.html
 rm -f app.html.bak
 

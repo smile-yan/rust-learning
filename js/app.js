@@ -1,5 +1,5 @@
 import { createApp, ref, computed, onMounted, watch, nextTick } from "vue";
-import { EditorView, basicSetup, rust, oneDark, keymap, syntaxHighlighting, HighlightStyle, tags, indentUnit } from "../libs/codemirror-bundle.js?v=4";
+import { EditorView, basicSetup, rust, oneDark, keymap, syntaxHighlighting, HighlightStyle, tags, indentUnit } from "../libs/codemirror-bundle.js?v=v0.2.0";
 
 const { marked } = window;
 
@@ -256,7 +256,7 @@ createApp({
       let lastErr = null;
       for (let attempt = 0; attempt < 3; attempt++) {
         try {
-          const res = await fetch("./js/chapters.json?v=18");
+          const res = await fetch("./js/chapters.json?v=v0.2.0");
           if (!res.ok) {
             throw new Error(`无法加载章节数据: HTTP ${res.status}`);
           }
