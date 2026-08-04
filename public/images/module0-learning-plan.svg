@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="470" viewBox="0 0 720 470">
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="450" viewBox="0 0 720 450">
   <defs>
     <style>
       .bg { fill: #fff8f0; }
@@ -21,8 +21,8 @@
       .c5 { fill: #ffaa55; }
     </style>
   </defs>
-  <rect width="720" height="470" class="bg"/>
-  <rect x="16" y="16" width="688" height="438" rx="12" class="card"/>
+  <rect width="720" height="450" class="bg"/>
+  <rect x="16" y="16" width="688" height="418" rx="12" class="card"/>
   <text x="360" y="58" text-anchor="middle" class="title">Rust 学习之旅 · 路线图</text>
 
   <line x1="70" y1="109" x2="70" y2="389" class="spine"/>
@@ -56,6 +56,4 @@
   <text x="70" y="394" text-anchor="middle" class="num">5</text>
   <text x="120" y="384" class="stage">Q &amp; A · 18 章</text>
   <text x="120" y="406" class="label">常见疑问集中答疑，学习过程中随时查阅</text>
-
-  <text x="360" y="444" text-anchor="middle" class="label">共 73 章 · 建议按阶段顺序学习，边学边练 💪</text>
 </svg>
