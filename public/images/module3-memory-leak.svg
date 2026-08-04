@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="720" height="360" viewBox="0 0 720 360" role="img" aria-label="Rc 循环引用导致内存泄漏">
+  <defs>
+    <style>
+      .bg { fill: #fff8f0; }
+      .card { fill: #ffffff; stroke: #e0d6cc; stroke-width: 2; }
+      .title { font: bold 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .text { font: 15px system-ui, -apple-system, sans-serif; fill: #2a2a2a; }
+      .code { font: 14px "SF Mono", Menlo, monospace; fill: #3a2a1a; }
+      .label { font: 13px system-ui, -apple-system, sans-serif; fill: #5a5a5a; }
+      .arrow { stroke: #7a6a5a; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .highlight { fill: #ffeacc; stroke: #ffaa55; stroke-width: 2; }
+      .box { fill: #e8f4ff; stroke: #3399ff; stroke-width: 2; }
+      .box2 { fill: #f0ffe8; stroke: #66bb33; stroke-width: 2; }
+      .box3 { fill: #fff0f5; stroke: #dd5599; stroke-width: 2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#d32f2f"/>
+    </marker>
+  </defs>
   <title>Rc 循环引用导致内存泄漏</title>
-  <rect width="100%" height="100%" fill="#fff8f0" rx="12"/>
-  <text x="360" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="bold" fill="#3d2b1f">⚠️ Rc 循环引用导致内存泄漏</text>
-
+  <rect width="720" height="360" class="bg"/>
+  <rect x="16" y="16" width="688" height="328" rx="12" class="card"/>
+  <text x="360" y="40" text-anchor="middle" class="title">⚠️ Rc 循环引用导致内存泄漏</text>
   <rect x="60" y="70" width="260" height="100" fill="#ffebee" stroke="#c62828" stroke-width="2" rx="8"/>
   <text x="190" y="100" text-anchor="middle" font-family="monospace" font-size="14" font-weight="bold" fill="#b71c1c">Rc&lt;A&gt;</text>
   <text x="190" y="125" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="12" fill="#333">strong_count = 1</text>
@@ -25,10 +46,4 @@
   <text x="360" y="268" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#333">两个 Rc 的 strong_count 永远不会归零</text>
   <text x="360" y="292" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#333">堆上内存无法被释放 → 内存泄漏</text>
   <text x="360" y="316" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#2e7d32">✅ 解法：使用 Weak&lt;T&gt; 打破循环，或改用借用</text>
-
-  <defs>
-    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#d32f2f"/>
-    </marker>
-  </defs>
 </svg>

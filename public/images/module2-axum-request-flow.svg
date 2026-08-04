@@ -1,6 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 340" width="600" height="340">
-  <rect width="600" height="340" fill="#fff8f0" rx="10"/>
-  <text x="300" y="30" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">🌐 Axum 请求处理流程</text>
+  <defs>
+    <style>
+      .bg { fill: #fff8f0; }
+      .card { fill: #ffffff; stroke: #e0d6cc; stroke-width: 2; }
+      .title { font: bold 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .text { font: 15px system-ui, -apple-system, sans-serif; fill: #2a2a2a; }
+      .code { font: 14px "SF Mono", Menlo, monospace; fill: #3a2a1a; }
+      .label { font: 13px system-ui, -apple-system, sans-serif; fill: #5a5a5a; }
+      .arrow { stroke: #7a6a5a; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .highlight { fill: #ffeacc; stroke: #ffaa55; stroke-width: 2; }
+      .box { fill: #e8f4ff; stroke: #3399ff; stroke-width: 2; }
+      .box2 { fill: #f0ffe8; stroke: #66bb33; stroke-width: 2; }
+      .box3 { fill: #fff0f5; stroke: #dd5599; stroke-width: 2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
+    </marker>
+    <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#666"/>
+    </marker>
+  </defs>
+  <rect width="600" height="340" class="bg"/>
+  <rect x="16" y="16" width="568" height="308" rx="12" class="card"/>
+  <text x="300" y="40" text-anchor="middle" class="title">🌐 Axum 请求处理流程</text>
   <rect x="40" y="80" width="100" height="60" fill="#e3f2fd" stroke="#1565c0" stroke-width="2" rx="8"/>
   <text x="90" y="115" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#0d47a1">HTTP Request</text>
   <rect x="180" y="80" width="100" height="60" fill="#fff3e0" stroke="#ef6c00" stroke-width="2" rx="8"/>
@@ -16,9 +39,4 @@
   <text x="520" y="235" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#1b5e20">Response</text>
   <path d="M 520 140 L 520 200" stroke="#2e7d32" stroke-width="2" marker-end="url(#a)"/>
   <text x="300" y="290" font-family="system-ui, sans-serif" font-size="12" text-anchor="middle" fill="#666">路由匹配 → 中间件预处理 → Handler 提取参数并返回 → 中间件后处理 → 响应</text>
-  <defs>
-    <marker id="a" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#666"/>
-    </marker>
-  </defs>
 </svg>

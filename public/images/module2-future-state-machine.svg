@@ -1,6 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 320" width="600" height="320">
-  <rect width="600" height="320" fill="#fff8f0" rx="10"/>
-  <text x="300" y="30" font-family="system-ui, sans-serif" font-size="18" font-weight="bold" text-anchor="middle" fill="#333">⏳ Future 状态机</text>
+  <defs>
+    <style>
+      .bg { fill: #fff8f0; }
+      .card { fill: #ffffff; stroke: #e0d6cc; stroke-width: 2; }
+      .title { font: bold 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .text { font: 15px system-ui, -apple-system, sans-serif; fill: #2a2a2a; }
+      .code { font: 14px "SF Mono", Menlo, monospace; fill: #3a2a1a; }
+      .label { font: 13px system-ui, -apple-system, sans-serif; fill: #5a5a5a; }
+      .arrow { stroke: #7a6a5a; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .highlight { fill: #ffeacc; stroke: #ffaa55; stroke-width: 2; }
+      .box { fill: #e8f4ff; stroke: #3399ff; stroke-width: 2; }
+      .box2 { fill: #f0ffe8; stroke: #66bb33; stroke-width: 2; }
+      .box3 { fill: #fff0f5; stroke: #dd5599; stroke-width: 2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
+    </marker>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#666"/>
+    </marker>
+  </defs>
+  <rect width="600" height="320" class="bg"/>
+  <rect x="16" y="16" width="568" height="288" rx="12" class="card"/>
+  <text x="300" y="40" text-anchor="middle" class="title">⏳ Future 状态机</text>
   <circle cx="90" cy="170" r="50" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2"/>
   <text x="90" y="165" font-family="system-ui, sans-serif" font-size="13" font-weight="bold" text-anchor="middle" fill="#1b5e20">Start</text>
   <text x="90" y="185" font-family="system-ui, sans-serif" font-size="11" text-anchor="middle" fill="#333">创建 Future</text>
@@ -18,9 +41,4 @@
   <text x="150" y="160" font-family="system-ui, sans-serif" font-size="11" fill="#666">poll</text>
   <text x="356" y="160" font-family="system-ui, sans-serif" font-size="11" fill="#666">wakeup</text>
   <text x="200" y="275" font-family="system-ui, sans-serif" font-size="11" fill="#666">async/await 自动展开</text>
-  <defs>
-    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#666"/>
-    </marker>
-  </defs>
 </svg>

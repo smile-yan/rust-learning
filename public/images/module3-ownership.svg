@@ -1,8 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="720" height="320" viewBox="0 0 720 320" role="img" aria-label="所有权移动示意">
+  <defs>
+    <style>
+      .bg { fill: #fff8f0; }
+      .card { fill: #ffffff; stroke: #e0d6cc; stroke-width: 2; }
+      .title { font: bold 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .text { font: 15px system-ui, -apple-system, sans-serif; fill: #2a2a2a; }
+      .code { font: 14px "SF Mono", Menlo, monospace; fill: #3a2a1a; }
+      .label { font: 13px system-ui, -apple-system, sans-serif; fill: #5a5a5a; }
+      .arrow { stroke: #7a6a5a; stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+      .highlight { fill: #ffeacc; stroke: #ffaa55; stroke-width: 2; }
+      .box { fill: #e8f4ff; stroke: #3399ff; stroke-width: 2; }
+      .box2 { fill: #f0ffe8; stroke: #66bb33; stroke-width: 2; }
+      .box3 { fill: #fff0f5; stroke: #dd5599; stroke-width: 2; }
+    </style>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#7a6a5a"/>
+    </marker>
+    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L0,6 L9,3 z" fill="#d9534f"/>
+    </marker>
+  </defs>
   <title>所有权移动示意</title>
-  <rect width="100%" height="100%" fill="#fff8f0" rx="12"/>
-  <text x="360" y="34" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="18" font-weight="bold" fill="#3d2b1f">🦀 所有权移动示意</text>
+  <rect width="720" height="320" class="bg"/>
+  <rect x="16" y="16" width="688" height="288" rx="12" class="card"/>
+  <text x="360" y="40" text-anchor="middle" class="title">🦀 所有权移动示意</text>
   <rect x="40" y="60" width="180" height="200" fill="#e8f4e8" stroke="#4a7c59" stroke-width="2" rx="8"/>
   <text x="130" y="88" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="14" font-weight="bold" fill="#2f4f3f">栈 stack</text>
   <rect x="70" y="110" width="120" height="40" fill="#ffffff" stroke="#4a7c59" stroke-width="1.5" rx="4"/>
@@ -27,10 +49,4 @@
 
   <rect x="290" y="190" width="140" height="40" fill="#fff8f0" stroke="#d9534f" stroke-width="2" stroke-dasharray="5,3" rx="4"/>
   <text x="360" y="216" text-anchor="middle" font-family="system-ui, -apple-system, sans-serif" font-size="13" fill="#d9534f">s1 不再有效</text>
-
-  <defs>
-    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-      <path d="M0,0 L0,6 L9,3 z" fill="#d9534f"/>
-    </marker>
-  </defs>
 </svg>
