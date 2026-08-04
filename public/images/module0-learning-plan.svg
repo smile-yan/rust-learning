@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="470" viewBox="0 0 720 470">
+  <defs>
+    <style>
+      .bg { fill: #fff8f0; }
+      .card { fill: #ffffff; stroke: #e0d6cc; stroke-width: 2; }
+      .title { font: bold 22px system-ui, -apple-system, sans-serif; fill: #1a1a1a; }
+      .stage { font: bold 16px system-ui, -apple-system, sans-serif; fill: #2a2a2a; }
+      .label { font: 13px system-ui, -apple-system, sans-serif; fill: #5a5a5a; }
+      .num { font: bold 14px system-ui, -apple-system, sans-serif; fill: #ffffff; }
+      .spine { stroke: #e0d6cc; stroke-width: 3; }
+      .box1 { fill: #e8f4ff; stroke: #3399ff; stroke-width: 2; }
+      .box2 { fill: #f0ffe8; stroke: #66bb33; stroke-width: 2; }
+      .box3 { fill: #fff0f5; stroke: #dd5599; stroke-width: 2; }
+      .box4 { fill: #f5f0ff; stroke: #8855dd; stroke-width: 2; }
+      .box5 { fill: #ffeacc; stroke: #ffaa55; stroke-width: 2; }
+      .c1 { fill: #3399ff; }
+      .c2 { fill: #66bb33; }
+      .c3 { fill: #dd5599; }
+      .c4 { fill: #8855dd; }
+      .c5 { fill: #ffaa55; }
+    </style>
+  </defs>
+  <rect width="720" height="470" class="bg"/>
+  <rect x="16" y="16" width="688" height="438" rx="12" class="card"/>
+  <text x="360" y="58" text-anchor="middle" class="title">Rust 学习之旅 · 路线图</text>
+
+  <line x1="70" y1="109" x2="70" y2="389" class="spine"/>
+
+  <rect x="100" y="80" width="560" height="58" rx="8" class="box1"/>
+  <circle cx="70" cy="109" r="16" class="c1"/>
+  <text x="70" y="114" text-anchor="middle" class="num">1</text>
+  <text x="120" y="104" class="stage">基础入门 · 17 章</text>
+  <text x="120" y="126" class="label">变量与数据类型 · 控制流 · 所有权 · 结构体与枚举 · Cargo</text>
+
+  <rect x="100" y="150" width="560" height="58" rx="8" class="box2"/>
+  <circle cx="70" cy="179" r="16" class="c2"/>
+  <text x="70" y="184" text-anchor="middle" class="num">2</text>
+  <text x="120" y="174" class="stage">中等应用 · 20 章</text>
+  <text x="120" y="196" class="label">泛型 · Trait · 生命周期 · 智能指针 · 并发基础 · 常用三方库</text>
+
+  <rect x="100" y="220" width="560" height="58" rx="8" class="box3"/>
+  <circle cx="70" cy="249" r="16" class="c3"/>
+  <text x="70" y="254" text-anchor="middle" class="num">3</text>
+  <text x="120" y="244" class="stage">高级应用 · 11 章</text>
+  <text x="120" y="266" class="label">unsafe · 宏编程 · 异步 async/await · Web 开发 · WASM · 性能优化</text>
+
+  <rect x="100" y="290" width="560" height="58" rx="8" class="box4"/>
+  <circle cx="70" cy="319" r="16" class="c4"/>
+  <text x="70" y="324" text-anchor="middle" class="num">4</text>
+  <text x="120" y="314" class="stage">Rust 哲学 · 7 章</text>
+  <text x="120" y="336" class="label">安全优先 · 所有权哲学 · fearless 并发 · 组合优于继承 · 显式优于隐式</text>
+
+  <rect x="100" y="360" width="560" height="58" rx="8" class="box5"/>
+  <circle cx="70" cy="389" r="16" class="c5"/>
+  <text x="70" y="394" text-anchor="middle" class="num">5</text>
+  <text x="120" y="384" class="stage">Q &amp; A · 18 章</text>
+  <text x="120" y="406" class="label">常见疑问集中答疑，学习过程中随时查阅</text>
+
+  <text x="360" y="444" text-anchor="middle" class="label">共 73 章 · 建议按阶段顺序学习，边学边练 💪</text>
+</svg>
