@@ -39,7 +39,7 @@
   <text x="505" y="182" font-size="12" font-weight="bold" fill="#3d3229" text-anchor="middle">map(|x| x*x)</text>
   <text x="505" y="204" font-size="11" fill="#666" text-anchor="middle">惰性变换</text>
   <!-- 换行连接：从 map 底部绕到 filter 顶部 -->
-  <path d="M 505 200 L 505 232 L 135 232 L 135 270" fill="none" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/>
+  <path d="M 505 222 L 505 262 L 135 262 L 135 302" fill="none" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/>
   <!-- 第二行：filter() → sum() -->
   <rect x="70" y="302" width="130" height="80" fill="#f3e5f5" stroke="#ab47bc" stroke-width="2" rx="8"/>
   <text x="135" y="342" font-size="12" font-weight="bold" fill="#3d3229" text-anchor="middle">filter(|x| *x&gt;5)</text>
