@@ -1,9 +1,0 @@
-- title: 打印 Rust 适用领域
-  description: 用一个 Vec<&str> 存储几个 Rust 适用领域并打印。
-  code_template: |-
-    fn main() {
-        let domains = vec!["系统编程", "Web 后端", "CLI"];
-        for d in domains {
-            println!("{}", d);
-        }
-    }

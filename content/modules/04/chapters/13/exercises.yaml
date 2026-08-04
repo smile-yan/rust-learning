@@ -1,9 +1,0 @@
-- title: 栈与堆的变量
-  description: 创建栈上的整数和堆上的 String/Box，分别打印。
-  code_template: |-
-    fn main() {
-        let x = 5;
-        let s = String::from("heap");
-        let b = Box::new(10);
-        println!("{} {} {}", x, s, b);
-    }

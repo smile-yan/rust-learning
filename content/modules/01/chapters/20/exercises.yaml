@@ -1,7 +1,0 @@
-- title: 生成随机密码
-  description: 生成一个 8 位的随机字母数字字符串。
-  code_template: |-
-    fn main() {
-        let mut rng = rand::thread_rng();
-        // let password: String = ...;
-    }

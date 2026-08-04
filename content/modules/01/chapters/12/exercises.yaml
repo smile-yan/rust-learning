@@ -1,7 +1,0 @@
-- title: 添加不同级别日志
-  description: 用 log::info! / warn! / error! 输出不同级别的日志。
-  code_template: |-
-    fn main() {
-        env_logger::init();
-        // log::info!(...);
-    }

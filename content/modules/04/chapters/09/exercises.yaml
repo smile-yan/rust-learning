@@ -1,9 +1,0 @@
-- title: 输出示例 Cargo.toml
-  description: 用 println! 输出一段示例 Cargo.toml 配置。
-  code_template: |-
-    fn main() {
-        println!("[package]");
-        println!("name = \"my-app\"");
-        println!("version = \"0.1.0\"");
-        println!("edition = \"2021\"");
-    }

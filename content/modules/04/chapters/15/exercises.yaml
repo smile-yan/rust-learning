@@ -1,7 +1,0 @@
-- title: 不需要 free
-  description: 创建 String，使用它，然后让 Rust 自动释放。
-  code_template: |-
-    fn main() {
-        let s = String::from("auto");
-        println!("{}", s);
-    } // 自动 drop

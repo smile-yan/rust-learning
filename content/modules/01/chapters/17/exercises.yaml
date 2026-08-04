@@ -1,7 +1,0 @@
-- title: 获取当前工作目录
-  description: 用 Command::new("pwd") 执行命令并打印输出。
-  code_template: |-
-    fn main() {
-        let output = Command::new("pwd").output().unwrap();
-        println!("{}", String::from_utf8_lossy(&output.stdout));
-    }

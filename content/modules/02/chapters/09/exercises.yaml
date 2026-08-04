@@ -1,8 +1,0 @@
-- title: no_std 风格计数循环
-  description: 写一个普通的 for 循环，模拟嵌入式主循环执行 3 次。
-  code_template: |-
-    fn main() {
-        for i in 0..3 {
-            println!("tick {}", i);
-        }
-    }

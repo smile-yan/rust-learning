@@ -1,8 +1,0 @@
-- title: 修改不可变变量
-  description: 取消注释 x = 6 查看编译错误，然后改成 let mut 使其通过。
-  code_template: |-
-    fn main() {
-        let mut x = 5;
-        x = 6;
-        println!("{}", x);
-    }
