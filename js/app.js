@@ -121,6 +121,10 @@ createApp({
 
     const currentChapter = computed(() => allChapters.value[currentGlobalIdx.value]);
 
+    const hasPreviousChapter = computed(() => currentGlobalIdx.value > 0);
+
+    const hasNextChapter = computed(() => currentGlobalIdx.value < allChapters.value.length - 1);
+
     const renderedTheory = computed(() => {
       const ch = currentChapter.value;
       return ch ? marked.parse(ch.theory) : "";
@@ -281,6 +285,18 @@ createApp({
       }
       if (window.innerWidth < 768) {
         closeMenu();
+      }
+    }
+
+    function loadPreviousChapter() {
+      if (hasPreviousChapter.value) {
+        loadChapter(currentGlobalIdx.value - 1);
+      }
+    }
+
+    function loadNextChapter() {
+      if (hasNextChapter.value) {
+        loadChapter(currentGlobalIdx.value + 1);
       }
     }
 
@@ -497,6 +513,10 @@ createApp({
       renderedTheory,
       getGlobalIdx,
       loadChapter,
+      loadPreviousChapter,
+      loadNextChapter,
+      hasPreviousChapter,
+      hasNextChapter,
       runCode,
       clearOutput,
       loadExercise,

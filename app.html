@@ -166,6 +166,31 @@
                   </div>
                 </div>
               </div>
+
+              <div class="mt-8 flex flex-col sm:flex-row justify-between gap-4">
+                <button
+                  @click="loadPreviousChapter"
+                  :disabled="!hasPreviousChapter"
+                  class="chapter-nav-btn"
+                  title="上一节"
+                >
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                  </svg>
+                  <span>上一节</span>
+                </button>
+                <button
+                  @click="loadNextChapter"
+                  :disabled="!hasNextChapter"
+                  class="chapter-nav-btn"
+                  title="下一节"
+                >
+                  <span>下一节</span>
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+                  </svg>
+                </button>
+              </div>
             </template>
           </div>
         </section>

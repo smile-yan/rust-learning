@@ -434,6 +434,33 @@ section:has(> #editor) > div:last-child {
   background: var(--accent-active);
 }
 
+/* 章节上下节导航按钮 */
+.chapter-nav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  border: 1px solid var(--border-color);
+  background: var(--bg-theory);
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: background-color 0.2s, border-color 0.2s;
+}
+
+.chapter-nav-btn:hover:not(:disabled) {
+  background: var(--chapter-btn-hover-bg);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.chapter-nav-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
 /* 输出面板 */
 #output {
   white-space: pre-wrap;
