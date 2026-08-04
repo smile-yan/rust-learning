@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="384" viewBox="0 0 640 384">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="406" viewBox="0 0 640 406">
   <defs>
     <style>
       .bg { fill: #fff8f0; }
@@ -21,29 +21,29 @@
       <path d="M0,0 L0,6 L9,3 z" fill="#5c4b37"/>
     </marker>
   </defs>
-  <rect width="640" height="384" class="bg"/>
-  <rect x="16" y="16" width="608" height="352" rx="12" class="card"/>
-  <text x="320" y="40" text-anchor="middle" class="title">错误处理进阶 anyhow / thiserror</text>
-  <rect x="40" y="55" width="560" height="290" fill="#fff3e0" stroke="#d4a76a" stroke-width="2" rx="8"/>
-  <text x="320" y="85" font-size="14" font-weight="bold" fill="#3d3229" text-anchor="middle">错误处理分层</text>
-  <rect x="60" y="110" width="180" height="88" fill="#e8f5e9" stroke="#66bb6a" stroke-width="2" rx="8"/>
-  <text x="150" y="131" font-size="13" font-weight="bold" fill="#3d3229" text-anchor="middle">库代码 thiserror</text>
-  <text x="150" y="151" font-size="12" fill="#666" text-anchor="middle">结构化错误类型</text>
-  <text x="150" y="169" font-size="12" fill="#666" text-anchor="middle">#[derive(Error)]</text>
-  <text x="150" y="187" font-size="12" fill="#666" text-anchor="middle">精确匹配错误变体</text>
-  <line x1="240" y1="154" x2="290" y2="154" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/>
-  <rect x="260" y="129" width="140" height="50" fill="#fff3e0" stroke="#fb8c00" stroke-width="2" rx="8"/>
-  <text x="330" y="151" font-size="12" fill="#5c4b37" text-anchor="middle">? 传播</text>
-  <text x="330" y="169" font-size="12" fill="#5c4b37" text-anchor="middle">自动转换</text>
-  <line x1="400" y1="154" x2="450" y2="154" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/>
-  <rect x="450" y="110" width="130" height="88" fill="#e3f2fd" stroke="#42a5f5" stroke-width="2" rx="8"/>
-  <text x="515" y="131" font-size="13" font-weight="bold" fill="#3d3229" text-anchor="middle">应用代码 anyhow</text>
-  <text x="515" y="151" font-size="12" fill="#666" text-anchor="middle">统一错误类型</text>
-  <text x="515" y="169" font-size="12" fill="#666" text-anchor="middle">Context + 背景链</text>
-  <text x="515" y="187" font-size="12" fill="#666" text-anchor="middle">.context("msg")?</text>
-  <line x1="330" y1="198" x2="330" y2="232" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/>
-  <rect x="200" y="236" width="260" height="50" fill="#fce4ec" stroke="#ec407a" stroke-width="2" rx="8"/>
-  <text x="330" y="259" font-size="13" font-weight="bold" fill="#3d3229" text-anchor="middle">用户看到的信息</text>
-  <text x="330" y="279" font-size="12" fill="#666" text-anchor="middle">可读的错误链 + 上下文 + 原始错误</text>
-  <text x="320" y="326" font-size="13" fill="#5c4b37" text-anchor="middle">thiserror 定义类型，anyhow 在应用中统一处理</text>
+  <rect width="640" height="406" class="bg"/>
+  <rect x="16" y="16" width="608" height="374" rx="12" class="card"/>
+  <text x="320" y="62" text-anchor="middle" class="title">错误处理进阶 anyhow / thiserror</text>
+  <rect x="40" y="77" width="560" height="290" fill="#fff3e0" stroke="#d4a76a" stroke-width="2" rx="8"/>
+  <text x="320" y="107" font-size="14" font-weight="bold" fill="#3d3229" text-anchor="middle">错误处理分层</text>
+  <rect x="60" y="132" width="180" height="88" fill="#e8f5e9" stroke="#66bb6a" stroke-width="2" rx="8"/>
+  <text x="150" y="153" font-size="13" font-weight="bold" fill="#3d3229" text-anchor="middle">库代码 thiserror</text>
+  <text x="150" y="173" font-size="12" fill="#666" text-anchor="middle">结构化错误类型</text>
+  <text x="150" y="191" font-size="12" fill="#666" text-anchor="middle">#[derive(Error)]</text>
+  <text x="150" y="209" font-size="12" fill="#666" text-anchor="middle">精确匹配错误变体</text>
+  <line x1="240" y1="176" x2="290" y2="176" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="260" y="151" width="140" height="50" fill="#fff3e0" stroke="#fb8c00" stroke-width="2" rx="8"/>
+  <text x="330" y="173" font-size="12" fill="#5c4b37" text-anchor="middle">? 传播</text>
+  <text x="330" y="191" font-size="12" fill="#5c4b37" text-anchor="middle">自动转换</text>
+  <line x1="400" y1="176" x2="450" y2="176" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="450" y="132" width="130" height="88" fill="#e3f2fd" stroke="#42a5f5" stroke-width="2" rx="8"/>
+  <text x="515" y="153" font-size="13" font-weight="bold" fill="#3d3229" text-anchor="middle">应用代码 anyhow</text>
+  <text x="515" y="173" font-size="12" fill="#666" text-anchor="middle">统一错误类型</text>
+  <text x="515" y="191" font-size="12" fill="#666" text-anchor="middle">Context + 背景链</text>
+  <text x="515" y="209" font-size="12" fill="#666" text-anchor="middle">.context("msg")?</text>
+  <line x1="330" y1="220" x2="330" y2="254" stroke="#5c4b37" stroke-width="2" marker-end="url(#arrow)"/>
+  <rect x="200" y="258" width="260" height="50" fill="#fce4ec" stroke="#ec407a" stroke-width="2" rx="8"/>
+  <text x="330" y="281" font-size="13" font-weight="bold" fill="#3d3229" text-anchor="middle">用户看到的信息</text>
+  <text x="330" y="301" font-size="12" fill="#666" text-anchor="middle">可读的错误链 + 上下文 + 原始错误</text>
+  <text x="320" y="348" font-size="13" fill="#5c4b37" text-anchor="middle">thiserror 定义类型，anyhow 在应用中统一处理</text>
 </svg>
