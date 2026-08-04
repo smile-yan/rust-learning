@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="417" viewBox="0 0 640 417">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="455" viewBox="0 0 640 455">
   <defs>
     <style>
       .bg { fill: #fff8f0; }
@@ -21,8 +21,8 @@
       <path d="M0,0 L0,6 L9,3 z" fill="#5c4b37"/>
     </marker>
   </defs>
-  <rect width="640" height="417" class="bg"/>
-  <rect x="16" y="16" width="608" height="385" rx="12" class="card"/>
+  <rect width="640" height="455" class="bg"/>
+  <rect x="16" y="16" width="608" height="423" rx="12" class="card"/>
   <text x="320" y="62" text-anchor="middle" class="title">随机数与哈希 rand / 哈希函数</text>
   <rect x="40" y="78" width="560" height="315" fill="#fff3e0" stroke="#d4a76a" stroke-width="2" rx="8"/>
   <text x="320" y="108" font-size="14" font-weight="bold" fill="#3d3229" text-anchor="middle">随机数生成与哈希</text>

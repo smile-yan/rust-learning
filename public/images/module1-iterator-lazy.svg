@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="640" height="470" viewBox="0 0 640 470">
+<svg xmlns="http://www.w3.org/2000/svg" width="640" height="508" viewBox="0 0 640 508">
   <defs>
     <style>
       .bg { fill: #fff8f0; }
@@ -21,8 +21,8 @@
       <path d="M0,0 L0,6 L9,3 z" fill="#5c4b37"/>
     </marker>
   </defs>
-  <rect width="640" height="470" class="bg"/>
-  <rect x="16" y="16" width="608" height="438" rx="12" class="card"/>
+  <rect width="640" height="508" class="bg"/>
+  <rect x="16" y="16" width="608" height="476" rx="12" class="card"/>
   <text x="320" y="62" text-anchor="middle" class="title">迭代器：惰性求值链</text>
   <rect x="40" y="78" width="560" height="368" fill="#fff3e0" stroke="#d4a76a" stroke-width="2" rx="8"/>
   <text x="320" y="108" font-size="14" font-weight="bold" fill="#3d3229" text-anchor="middle">惰性链：适配器串联，消费时才执行</text>
