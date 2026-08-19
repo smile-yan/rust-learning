@@ -4,12 +4,6 @@ backend/Cargo.lock
 
 # Node.js
 node_modules/
-dist/
-
-# Tailwind build helpers
-tailwind-input.css
-tailwind.config.js
-codemirror-entry.js
 
 # OS
 .DS_Store
@@ -19,3 +13,6 @@ codemirror-entry.js
 
 # Logs
 *.log
+
+.vitepress/dist
+.vitepress/cache

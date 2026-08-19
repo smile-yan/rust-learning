@@ -18,18 +18,26 @@ echo "部署版本: $VERSION"
 npm ci
 npm run build
 
-# 把版本号注入到 HTML（页面右上角显示用）
-sed -i.bak \
-    -e "s|__VERSION__|$VERSION|g" \
-    dist/app.html \
-    dist/index.html
-rm -f dist/app.html.bak dist/index.html.bak
+# 把版本号与生产环境 evaluateUrl 注入到所有 HTML
+# 注意：VitePress 构建会压缩 head 内联脚本，产物中是 evaluateUrl:"...（无空格），模式需容忍空格差异
+find .vitepress/dist -name "*.html" | while read -r f; do
+    sed -i.bak \
+        -e "s|__VERSION__|$VERSION|g" \
+        -e "s|evaluateUrl: *\"http://localhost:9001/evaluate.json\"|evaluateUrl: \"$EVALUATE_URL\"|g" \
+        "$f"
+    rm -f "$f.bak"
+done
 
-# 替换生产环境 evaluateUrl
-sed -i.bak \
-    -e "s|evaluateUrl: \"http://localhost:9001/evaluate.json\"|evaluateUrl: \"$EVALUATE_URL\"|" \
-    dist/app.html
-rm -f dist/app.html.bak
+# 注入必须生效，否则线上「运行」按钮会指向 localhost，直接判失败
+if ! grep -rq "evaluateUrl: *\"$EVALUATE_URL\"" .vitepress/dist --include="*.html"; then
+    echo "ERROR: evaluateUrl 注入失败，产物中未找到 $EVALUATE_URL" >&2
+    exit 1
+fi
+# 上传前产物中不应再残留 localhost 地址
+if grep -rlq "localhost:9001/evaluate.json" .vitepress/dist --include="*.html"; then
+    echo "ERROR: 产物中仍残留 localhost evaluateUrl" >&2
+    exit 1
+fi
 
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
@@ -46,10 +54,10 @@ Host frontend-deploy
 EOF
 chmod 600 ~/.ssh/config
 
-# 上传 dist/ 目录（使用 scp，不依赖服务器端 rsync），带超时和重试
+# 上传 .vitepress/dist/ 目录（使用 scp，不依赖服务器端 rsync），带超时和重试
 upload_files() {
     scp -o ConnectTimeout=30 -o ServerAliveInterval=30 -o ServerAliveCountMax=3 \
-        -r dist/* frontend-deploy:"$FRONTEND_WEB_ROOT/"
+        -r .vitepress/dist/* frontend-deploy:"$FRONTEND_WEB_ROOT/"
 }
 
 retry=0

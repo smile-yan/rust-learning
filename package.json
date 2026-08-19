@@ -1,16 +1,16 @@
 {
   "name": "rust-learning",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "Rust 学习之旅 · 交互式教程",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev": "vitepress dev",
+    "build": "vitepress build",
+    "preview": "vitepress preview",
+    "test": "node --test"
   },
   "dependencies": {
     "vue": "^3.5.40",
-    "marked": "^14.1.4",
     "codemirror": "^6.0.2",
     "@codemirror/view": "^6.43.6",
     "@codemirror/state": "^6.7.1",
@@ -21,7 +21,6 @@
     "@lezer/highlight": "^1.2.3"
   },
   "devDependencies": {
-    "vite": "^6.4.3",
-    "@vitejs/plugin-vue": "^5.2.4"
+    "vitepress": "^1.6.3"
   }
 }
