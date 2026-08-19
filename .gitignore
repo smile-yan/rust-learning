@@ -4,6 +4,12 @@ backend/Cargo.lock
 
 # Node.js
 node_modules/
+dist/
+
+# Tailwind build helpers
+tailwind-input.css
+tailwind.config.js
+codemirror-entry.js
 
 # OS
 .DS_Store
@@ -13,9 +19,3 @@ node_modules/
 
 # Logs
 *.log
-
-.vitepress/dist
-.vitepress/cache
-
-# 部署产物
-dist-frontend.tar.gz

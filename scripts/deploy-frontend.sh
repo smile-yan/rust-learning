@@ -1,6 +1,4 @@
 #!/usr/bin/env bash
-# 上传并部署 scripts/build-frontend.sh 产出的 tar.gz 静态文件包
-# 用法: scripts/deploy-frontend.sh [产物路径，默认 dist-frontend.tar.gz]
 set -euo pipefail
 
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -10,12 +8,28 @@ cd "$PROJECT_ROOT"
 : "${FRONTEND_HOST:?missing FRONTEND_HOST}"
 : "${FRONTEND_USER:?missing FRONTEND_USER}"
 : "${FRONTEND_WEB_ROOT:?missing FRONTEND_WEB_ROOT}"
+: "${EVALUATE_URL:?missing EVALUATE_URL}"
 
-ARCHIVE="${1:-dist-frontend.tar.gz}"
-if [ ! -f "$ARCHIVE" ]; then
-    echo "ERROR: 未找到构建产物 $ARCHIVE，请先运行 scripts/build-frontend.sh" >&2
-    exit 1
-fi
+VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "unknown")
+
+echo "部署版本: $VERSION"
+
+# 安装依赖并构建
+npm ci
+npm run build
+
+# 把版本号注入到 HTML（页面右上角显示用）
+sed -i.bak \
+    -e "s|__VERSION__|$VERSION|g" \
+    dist/app.html \
+    dist/index.html
+rm -f dist/app.html.bak dist/index.html.bak
+
+# 替换生产环境 evaluateUrl
+sed -i.bak \
+    -e "s|evaluateUrl: \"http://localhost:9001/evaluate.json\"|evaluateUrl: \"$EVALUATE_URL\"|" \
+    dist/app.html
+rm -f dist/app.html.bak
 
 mkdir -p ~/.ssh
 chmod 700 ~/.ssh
@@ -32,15 +46,10 @@ Host frontend-deploy
 EOF
 chmod 600 ~/.ssh/config
 
-# 上传部署：压缩包经 SSH 流式传输，远端清空 web 根目录后解包
-# 解包前清空是为了避免旧部署残留（如已删除的 app.html、旧哈希 chunk）一直留在线上
+# 上传 dist/ 目录（使用 scp，不依赖服务器端 rsync），带超时和重试
 upload_files() {
-    ssh -o ConnectTimeout=30 -o ServerAliveInterval=30 -o ServerAliveCountMax=3 \
-        frontend-deploy "
-            set -e
-            find \"$FRONTEND_WEB_ROOT\" -mindepth 1 -delete
-            tar -xzf - -C \"$FRONTEND_WEB_ROOT\"
-        " < "$ARCHIVE"
+    scp -o ConnectTimeout=30 -o ServerAliveInterval=30 -o ServerAliveCountMax=3 \
+        -r dist/* frontend-deploy:"$FRONTEND_WEB_ROOT/"
 }
 
 retry=0
