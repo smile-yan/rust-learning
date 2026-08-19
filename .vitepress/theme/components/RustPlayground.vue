@@ -1,12 +1,24 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, watch } from "vue";
 import { useData } from "vitepress";
-import { EditorView, keymap } from "@codemirror/view";
-import { basicSetup } from "codemirror";
-import { rust } from "@codemirror/lang-rust";
-import { oneDark } from "@codemirror/theme-one-dark";
-import { syntaxHighlighting, HighlightStyle, indentUnit } from "@codemirror/language";
-import { tags } from "@lezer/highlight";
+
+// CodeMirror 体积较大（>500 kB），改为动态 import：
+// 只有真正渲染编辑器的页面才会加载这部分代码，避免拖慢无编辑器页面的首屏
+let CM = null;
+
+async function loadCodeMirror() {
+  if (CM) return CM;
+  const [view, cm, langRust, themeOneDark, language, lezerHighlight] = await Promise.all([
+    import("@codemirror/view"),
+    import("codemirror"),
+    import("@codemirror/lang-rust"),
+    import("@codemirror/theme-one-dark"),
+    import("@codemirror/language"),
+    import("@lezer/highlight")
+  ]);
+  CM = { view, cm, langRust, themeOneDark, language, lezerHighlight };
+  return CM;
+}
 
 const { frontmatter, isDark } = useData();
 
@@ -80,6 +92,13 @@ function unindent(view) {
 }
 
 function buildExtensions(dark) {
+  const { EditorView, keymap } = CM.view;
+  const { basicSetup } = CM.cm;
+  const { rust } = CM.langRust;
+  const { oneDark } = CM.themeOneDark;
+  const { syntaxHighlighting, HighlightStyle, indentUnit } = CM.language;
+  const { tags } = CM.lezerHighlight;
+
   const themeExtension = EditorView.theme({
     "&": { height: "100%" },
     ".cm-scroller": { overflow: "auto" },
@@ -134,7 +153,7 @@ function buildExtensions(dark) {
 }
 
 function initEditor(doc) {
-  editor = new EditorView({
+  editor = new CM.view.EditorView({
     doc,
     extensions: buildExtensions(isDark.value),
     parent: editorEl.value
@@ -236,7 +255,10 @@ watch(isDark, () => {
   }
 });
 
-onMounted(() => initEditor(initialCode.value));
+onMounted(async () => {
+  await loadCodeMirror();
+  initEditor(initialCode.value);
+});
 onBeforeUnmount(() => editor?.destroy());
 </script>
 
