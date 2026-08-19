@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# 上传并部署 scripts/build-frontend.sh 产出的 tar.gz 静态文件包
+# 用法: scripts/deploy-frontend.sh [产物路径，默认 dist-frontend.tar.gz]
 set -euo pipefail
 
 PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
@@ -8,34 +10,10 @@ cd "$PROJECT_ROOT"
 : "${FRONTEND_HOST:?missing FRONTEND_HOST}"
 : "${FRONTEND_USER:?missing FRONTEND_USER}"
 : "${FRONTEND_WEB_ROOT:?missing FRONTEND_WEB_ROOT}"
-: "${EVALUATE_URL:?missing EVALUATE_URL}"
 
-VERSION=$(git describe --tags --abbrev=0 2>/dev/null || echo "unknown")
-
-echo "部署版本: $VERSION"
-
-# 安装依赖并构建
-npm ci
-npm run build
-
-# 把版本号与生产环境 evaluateUrl 注入到所有 HTML
-# 注意：VitePress 构建会压缩 head 内联脚本，产物中是 evaluateUrl:"...（无空格），模式需容忍空格差异
-find .vitepress/dist -name "*.html" | while read -r f; do
-    sed -i.bak \
-        -e "s|__VERSION__|$VERSION|g" \
-        -e "s|evaluateUrl: *\"http://localhost:9001/evaluate.json\"|evaluateUrl: \"$EVALUATE_URL\"|g" \
-        "$f"
-    rm -f "$f.bak"
-done
-
-# 注入必须生效，否则线上「运行」按钮会指向 localhost，直接判失败
-if ! grep -rq "evaluateUrl: *\"$EVALUATE_URL\"" .vitepress/dist --include="*.html"; then
-    echo "ERROR: evaluateUrl 注入失败，产物中未找到 $EVALUATE_URL" >&2
-    exit 1
-fi
-# 上传前产物中不应再残留 localhost 地址
-if grep -rlq "localhost:9001/evaluate.json" .vitepress/dist --include="*.html"; then
-    echo "ERROR: 产物中仍残留 localhost evaluateUrl" >&2
+ARCHIVE="${1:-dist-frontend.tar.gz}"
+if [ ! -f "$ARCHIVE" ]; then
+    echo "ERROR: 未找到构建产物 $ARCHIVE，请先运行 scripts/build-frontend.sh" >&2
     exit 1
 fi
 
@@ -54,10 +32,15 @@ Host frontend-deploy
 EOF
 chmod 600 ~/.ssh/config
 
-# 上传 .vitepress/dist/ 目录（使用 scp，不依赖服务器端 rsync），带超时和重试
+# 上传部署：压缩包经 SSH 流式传输，远端清空 web 根目录后解包
+# 解包前清空是为了避免旧部署残留（如已删除的 app.html、旧哈希 chunk）一直留在线上
 upload_files() {
-    scp -o ConnectTimeout=30 -o ServerAliveInterval=30 -o ServerAliveCountMax=3 \
-        -r .vitepress/dist/* frontend-deploy:"$FRONTEND_WEB_ROOT/"
+    ssh -o ConnectTimeout=30 -o ServerAliveInterval=30 -o ServerAliveCountMax=3 \
+        frontend-deploy "
+            set -e
+            find \"$FRONTEND_WEB_ROOT\" -mindepth 1 -delete
+            tar -xzf - -C \"$FRONTEND_WEB_ROOT\"
+        " < "$ARCHIVE"
 }
 
 retry=0

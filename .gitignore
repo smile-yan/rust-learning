@@ -16,3 +16,6 @@ node_modules/
 
 .vitepress/dist
 .vitepress/cache
+
+# 部署产物
+dist-frontend.tar.gz
